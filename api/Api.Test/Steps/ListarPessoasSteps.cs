@@ -1,27 +1,22 @@
-using System.Globalization;
-using System.Runtime.InteropServices;
 using Api.Domain.Pessoas;
-using Api.Service.Contracts;
+using Api.Infrastructure.Values;
 using Api.Service.Controllers;
-using Shouldly;
 using TechTalk.SpecFlow;
-using TechTalk.SpecFlow.CommonModels;
+using Shouldly;
+using Api.Service.Queries;
 
-namespace Api.Test.Pessoas;
+namespace Api.Test.Steps;
 
 [Binding]
-public class StepDefinitions : AbstractSteps
+public class ListarPessoasSteps : AbstractSteps
 {
-   private readonly CultureInfo _culture = CultureInfo.InvariantCulture;
-
    private readonly ScenarioContext _context;
 
    private readonly PessoaController _controller;
 
-   private readonly PageQuery _pageQuery = new(new(10, 1), new("nascimento"));
+   private readonly Sort _sort = new("nascimento", Order.ASC);
 
-
-   public StepDefinitions(ScenarioContext sc)
+   public ListarPessoasSteps(ScenarioContext sc)
    {
       _context = sc;
       _context["paginado"] = false;
@@ -29,71 +24,65 @@ public class StepDefinitions : AbstractSteps
    }
 
    [Given(@"que os seguintes cadastros")]
-   public void DadoQueOsSeguintesCadastros(Table table)
+   public async Task DadoQueOsSeguintesCadastros(Table table)
    {
-      var awaits = new List<Task>();
-
       foreach (var row in table.Rows)
       {
          var nome = row["nome"];
-         var nascimento = row["nascimento"];
-         var dataNascimento = DateOnly.ParseExact(nascimento, "dd/MM/yyyy", _culture);
+         var nascimento = row["nascimento"] ?? "";
+         var dataNascimento = nascimento.ToDateOnly("dd/MM/yyyy");
          var pessoa = new Pessoa(nome, dataNascimento);
 
-         awaits.Add(unitOfWork!.Pessoas.SaveAsync(pessoa));
+         await unitOfWork!.Pessoas.SaveAsync(pessoa);
       }
-
-      Task.WaitAll(awaits.ToArray());
    }
 
    [When(@"listar os cadastros")]
    public async Task QuandoListarOsCadastros()
    {
-      var query = new PessoaQuery(_pageQuery);
+      var query = new ConsultarPessoasQuery(_sort);
 
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
-      _context["pessoas"] = result.ValueOf<PagedList<Pessoa>>();
+      _context["pessoas"] = result.ValueOf<PageList<Pessoa>>();
    }
 
    [When(@"filtra cadastros com ""(.*)""")]
    public async Task QuandoFiltraCadastrosCom(string nome)
    {
-      var query = new PessoaQuery(_pageQuery, nome);
+      var query = new ConsultarPessoasQuery(_sort, nome);
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
-      _context["pessoas"] = result.ValueOf<PagedList<Pessoa>>();
+      _context["pessoas"] = result.ValueOf<PageList<Pessoa>>();
    }
 
    [When(@"listar com (.*) linhas por página")]
    public async Task QuandoListarComLinhasPorPagina(int linhasPorPagina)
    {
       _context["paginado"] = true;
-      var pageQuery = new PageQuery(new(linhasPorPagina, 1), _pageQuery.Sort);
-      var query = new PessoaQuery(pageQuery);
+      var query = new ConsultarPessoasQuery(new(linhasPorPagina, 1), _sort);
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
-      _context["pessoas"] = result.ValueOf<PagedList<Pessoa>>();
+      _context["pessoas"] = result.ValueOf<PageList<Pessoa>>();
    }
 
    [When(@"listar ordenado de modo crescente")]
    public async Task QuandoListarOrdenadoDeModoCrescente()
    {
-      var pageQuery = new PageQuery(new(10, 1), new("nome", Order.ASC));
-      var query = new PessoaQuery(pageQuery);
+      var query = new ConsultarPessoasQuery(new Sort("nome", Order.ASC));
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
-      _context["pessoas"] = result.ValueOf<PagedList<Pessoa>>();
+      _context["pessoas"] = result.ValueOf<PageList<Pessoa>>();
    }
 
    [Then(@"listará (.*) cadastros")]
    public void EntaoListaraCadastros(int quantidade)
    {
-      var pessoas = _context["pessoas"] as PagedList<Pessoa>;
+      var pessoas = _context["pessoas"] as PageList<Pessoa>;
 
       pessoas.ShouldNotBeNull();
       pessoas.Items.Count.ShouldBe(quantidade);
@@ -111,17 +100,15 @@ public class StepDefinitions : AbstractSteps
    [Then(@"conterá os dados")]
    public void EntaoConteraOsDados(Table table)
    {
-      var pessoas = _context["pessoas"] as PagedList<Pessoa>;
+      var pessoas = _context["pessoas"] as PageList<Pessoa>;
 
       pessoas.ShouldNotBeNull();
-
-      var paginado = (bool)_context["paginado"];
 
       for (int i = 0; i < table.Rows.Count; i++)
       {
          var nomeCompleto = table.Rows[i]["nome"];
-         var nascimento = table.Rows[i]["nascimento"];
-         var dataNascimento = DateOnly.ParseExact(nascimento, "dd/MM/yyyy", _culture);
+         var nascimento = table.Rows[i]["nascimento"] ?? "";
+         var dataNascimento = nascimento.ToDateOnly("dd/MM/yyyy");
 
          Console.WriteLine($"db: {pessoas.Items[i].Nome} | tst: {nomeCompleto} ");
 
@@ -130,11 +117,10 @@ public class StepDefinitions : AbstractSteps
       }
    }
 
-   [AfterScenario]
-   public async Task ClearScenario()
+   protected override async Task ClearScenario()
    {
-      await unitOfWork!.Pessoas.DropAsync(x => x.Nome == "Fulano");
-      await unitOfWork!.Pessoas.DropAsync(x => x.Nome == "Beltrano");
-      await unitOfWork!.Pessoas.DropAsync(x => x.Nome == "Sicrano");
+      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Fulano");
+      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Beltrano");
+      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Sicrano");
    }
 }

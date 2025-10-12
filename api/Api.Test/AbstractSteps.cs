@@ -12,11 +12,11 @@ using TechTalk.SpecFlow;
 
 public abstract class AbstractSteps : IDisposable
 {
-   protected IServiceScope? scope;
+   protected IServiceScope scope;
 
-   protected IUnitOfWork? unitOfWork;
+   protected IUnitOfWork unitOfWork;
 
-   protected IServiceProvider? provider;
+   protected IServiceProvider provider;
 
    protected DefaultHttpContext? httpContext;
 
@@ -40,7 +40,7 @@ public abstract class AbstractSteps : IDisposable
          .AddSingleton(typeof(ILogger<>), typeof(LoggerInMemory<>))
          .AddSingleton(AddHttpContext)
          .AddSingleton(configuration)
-         .AddSqlServerContext(configuration, true)
+         .AddSqlContext(configuration, true)
          .AddLogging()
          .AddMediatorCQRS()
          .BuildServiceProvider();
@@ -70,4 +70,8 @@ public abstract class AbstractSteps : IDisposable
 
       return valor;
    }
+
+   [AfterScenario]
+   [BeforeScenario]
+   protected abstract Task ClearScenario();
 }

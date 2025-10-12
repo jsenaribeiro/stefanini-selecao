@@ -4,23 +4,33 @@ public class Pessoa : Entity
 {
    public Pessoa() // EF
    {
-      this.Nome = string.Empty;
-      this.Nascimento = DateOnly.MinValue;
-   }  
+      Nome = string.Empty;
+      Nascimento = DateOnly.MinValue;
+   }
 
    public Pessoa(string nome, DateOnly nascimento)
    {
-      this.Nome = nome;
-      this.Nascimento = nascimento;
+      Nome = nome;
+      Nascimento = nascimento;
+   }
+   
+   public Pessoa(string nome, string nascimento)
+   {
+      Nome = nome;
+
+      try { Nascimento = nascimento.ToDateOnly("dd/MM/yyyy"); }
+      catch { throw Failure.Invalid("Nascimento", nascimento); }
    }
 
    public string Nome { get; set; }
 
-   public Sexo? Sexo { get; set; } 
+   public Sexo? Sexo { get; set; }
 
-   public CPF? CPF { get; set; } 
+   [CpfValidation(false)]
+   public string? CPF { get; set; }
 
-   public Email? Email { get; set; }
+   [EmailValidation(false)]
+   public string? Email { get; set; }
 
    public DateOnly Nascimento { get; set; }
 

@@ -17,6 +17,8 @@ public class SqlContext : DbContext
 
       if (Database.IsInMemory()) Database.EnsureCreated();
 
+#if RELEASE
+
       else
       {
          logger.LogInformation("Criando configuration condicional...");
@@ -45,6 +47,9 @@ public class SqlContext : DbContext
             );
          });
       }
+   
+   #endif
+   
    }
 
    protected override void OnModelCreating(ModelBuilder mb)

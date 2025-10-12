@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Api.Test.Pessoas
+namespace Api.Test.Features
 {
     using TechTalk.SpecFlow;
     using System;
@@ -48,7 +48,7 @@ namespace Api.Test.Pessoas
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-br"), "Pessoas", "Listar pessoas", "   Como um usuário qualquer\r\n   Eu quero consultar pessoas\r\n   Para listar seus d" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-br"), "Features", "Listar pessoas", "   Como um usuário qualquer\r\n   Eu quero consultar pessoas\r\n   Para listar seus d" +
                     "ados", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -66,7 +66,7 @@ namespace Api.Test.Pessoas
             if (((testRunner.FeatureContext != null) 
                         && (testRunner.FeatureContext.FeatureInfo.Title != "Listar pessoas")))
             {
-                global::Api.Test.Pessoas.ListarPessoasFeature.FeatureSetup(null);
+                global::Api.Test.Features.ListarPessoasFeature.FeatureSetup(null);
             }
         }
         
@@ -141,20 +141,20 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento"});
-                table1.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001"});
-                table1.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "Beltrano",
                             "02/02/2002"});
-                table1.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "Sicrano",
                             "03/03/2003"});
 #line 14
-   testRunner.Given("que os seguintes cadastros", ((string)(null)), table1, "Dado ");
+   testRunner.Given("que os seguintes cadastros", ((string)(null)), table6, "Dado ");
 #line hidden
 #line 19
    testRunner.When("listar os cadastros", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
@@ -165,20 +165,20 @@ this.ScenarioInitialize(scenarioInfo);
 #line 21
    testRunner.And("retornará status 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line hidden
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento"});
-                table2.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001"});
-                table2.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             "Beltrano",
                             "02/02/2002"});
-                table2.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             "Sicrano",
                             "03/03/2003"});
 #line 22
-   testRunner.And("conterá os dados", ((string)(null)), table2, "E ");
+   testRunner.And("conterá os dados", ((string)(null)), table7, "E ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -202,20 +202,20 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento"});
-                table3.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001"});
-                table3.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "Beltrano",
                             "02/02/2002"});
-                table3.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "Sicrano",
                             "03/03/2003"});
 #line 29
-   testRunner.Given("que os seguintes cadastros", ((string)(null)), table3, "Dado ");
+   testRunner.Given("que os seguintes cadastros", ((string)(null)), table8, "Dado ");
 #line hidden
 #line 34
    testRunner.When("filtra cadastros com \"ano\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
@@ -226,20 +226,20 @@ this.ScenarioInitialize(scenarioInfo);
 #line 36
    testRunner.And("retornará status 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line hidden
-                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento"});
-                table4.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001"});
-                table4.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Beltrano",
                             "02/02/2002"});
-                table4.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Sicrano",
                             "03/03/2003"});
 #line 37
-   testRunner.And("conterá os dados", ((string)(null)), table4, "E ");
+   testRunner.And("conterá os dados", ((string)(null)), table9, "E ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -263,20 +263,20 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento"});
-                table5.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001"});
-                table5.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "Beltrano",
                             "02/02/2002"});
-                table5.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "Sicrano",
                             "03/03/2003"});
 #line 44
-   testRunner.Given("que os seguintes cadastros", ((string)(null)), table5, "Dado ");
+   testRunner.Given("que os seguintes cadastros", ((string)(null)), table10, "Dado ");
 #line hidden
 #line 49
    testRunner.When("filtra cadastros com \"fulano\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
@@ -287,14 +287,14 @@ this.ScenarioInitialize(scenarioInfo);
 #line 51
    testRunner.And("retornará status 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line hidden
-                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento"});
-                table6.AddRow(new string[] {
+                table11.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001"});
 #line 52
-   testRunner.And("conterá os dados", ((string)(null)), table6, "E ");
+   testRunner.And("conterá os dados", ((string)(null)), table11, "E ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -318,20 +318,20 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento"});
-                table7.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001"});
-                table7.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "Beltrano",
                             "02/02/2002"});
-                table7.AddRow(new string[] {
+                table12.AddRow(new string[] {
                             "Sicrano",
                             "03/03/2003"});
 #line 57
-   testRunner.Given("que os seguintes cadastros", ((string)(null)), table7, "Dado ");
+   testRunner.Given("que os seguintes cadastros", ((string)(null)), table12, "Dado ");
 #line hidden
 #line 62
    testRunner.When("listar com 2 linhas por página", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
@@ -342,17 +342,17 @@ this.ScenarioInitialize(scenarioInfo);
 #line 64
    testRunner.And("retornará status 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line hidden
-                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento"});
-                table8.AddRow(new string[] {
+                table13.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001"});
-                table8.AddRow(new string[] {
+                table13.AddRow(new string[] {
                             "Beltrano",
                             "02/02/2002"});
 #line 65
-   testRunner.And("conterá os dados", ((string)(null)), table8, "E ");
+   testRunner.And("conterá os dados", ((string)(null)), table13, "E ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -376,20 +376,20 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento"});
-                table9.AddRow(new string[] {
+                table14.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001"});
-                table9.AddRow(new string[] {
+                table14.AddRow(new string[] {
                             "Beltrano",
                             "02/02/2002"});
-                table9.AddRow(new string[] {
+                table14.AddRow(new string[] {
                             "Sicrano",
                             "03/03/2003"});
 #line 71
-   testRunner.Given("que os seguintes cadastros", ((string)(null)), table9, "Dado ");
+   testRunner.Given("que os seguintes cadastros", ((string)(null)), table14, "Dado ");
 #line hidden
 #line 76
    testRunner.When("listar ordenado de modo crescente", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
@@ -400,20 +400,20 @@ this.ScenarioInitialize(scenarioInfo);
 #line 78
    testRunner.And("retornará status 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line hidden
-                TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento"});
-                table10.AddRow(new string[] {
+                table15.AddRow(new string[] {
                             "Beltrano",
                             "02/02/2002"});
-                table10.AddRow(new string[] {
+                table15.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001"});
-                table10.AddRow(new string[] {
+                table15.AddRow(new string[] {
                             "Sicrano",
                             "03/03/2003"});
 #line 79
-   testRunner.And("conterá os dados", ((string)(null)), table10, "E ");
+   testRunner.And("conterá os dados", ((string)(null)), table15, "E ");
 #line hidden
             }
             this.ScenarioCleanup();

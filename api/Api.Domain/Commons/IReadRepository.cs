@@ -7,7 +7,7 @@ public interface IReadRepository<E> where E : Entity
 {
    IQueryable<E> Query { get; } // montando no handler
 
-   Task<bool> Exists { get; }
+   Task<bool> ExistsAsync { get; }
 
-   Task<long> Count { get; }
+   Task<long> CountAsync { get; }
 }

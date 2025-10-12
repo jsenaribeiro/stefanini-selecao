@@ -5,9 +5,9 @@ namespace Api.Service.Handlers;
 
 public abstract class AbstractHandler
 {
-   protected readonly IServiceProvider provider;
-
    protected readonly IUnitOfWork unitOfWork;
+
+   protected readonly IServiceProvider provider;
 
    protected AbstractHandler(IServiceProvider provider)
    {

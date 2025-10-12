@@ -407,3 +407,105 @@
 2025-10-12 10:51:30.6055 Info LogFactory shutting down ...
 2025-10-12 10:51:30.6055 Info Closing old configuration.
 2025-10-12 10:51:30.6156 Info LogFactory shutdown completed.
+2025-10-12 16:00:56.7164 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 16:00:56.7164 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 16:00:56.7332 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 16:00:56.7538 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config
+2025-10-12 16:00:57.3856 Info LogFactory shutting down ...
+2025-10-12 16:00:57.3856 Info Closing old configuration.
+2025-10-12 16:00:57.3856 Info LogFactory shutdown completed.
+2025-10-12 16:01:44.9355 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 16:01:44.9355 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 16:01:44.9529 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 16:01:44.9733 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config
+2025-10-12 16:01:45.0418 Info LogFactory shutting down ...
+2025-10-12 16:01:45.0418 Info Closing old configuration.
+2025-10-12 16:01:45.0418 Info LogFactory shutdown completed.
+2025-10-12 16:03:07.0930 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 16:03:07.1062 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 16:03:07.1106 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 16:03:07.1313 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config
+2025-10-12 16:03:07.2099 Info LogFactory shutting down ...
+2025-10-12 16:03:07.2099 Info Closing old configuration.
+2025-10-12 16:03:07.2308 Info LogFactory shutdown completed.
+2025-10-12 18:39:37.5845 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 18:39:37.6044 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 18:39:37.6100 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 18:39:37.6400 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config
+2025-10-12 18:42:32.9481 Info LogFactory shutting down ...
+2025-10-12 18:42:32.9481 Info Closing old configuration.
+2025-10-12 18:42:32.9481 Info LogFactory shutdown completed.
+2025-10-12 18:42:42.0429 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 18:42:42.0827 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 18:42:42.0954 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 18:42:42.1192 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config
+2025-10-12 18:47:55.0924 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 18:47:55.1315 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 18:47:55.1435 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 18:47:55.1663 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config
+2025-10-12 18:49:34.1323 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 18:49:34.1733 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 18:49:34.2049 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 18:49:34.2271 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config
+2025-10-12 18:50:05.2140 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 18:50:05.2545 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 18:50:05.3197 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 18:50:05.3433 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config
+2025-10-12 18:50:49.4672 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 18:50:49.4841 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 18:50:49.4841 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 18:50:49.5106 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config
+2025-10-12 18:51:02.5763 Info LogFactory shutting down ...
+2025-10-12 18:51:02.5763 Info Closing old configuration.
+2025-10-12 18:51:02.5763 Info LogFactory shutdown completed.
+2025-10-12 18:51:06.7927 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 18:51:06.8102 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 18:51:06.8102 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 18:51:06.8369 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config
+2025-10-12 18:51:25.6842 Info LogFactory shutting down ...
+2025-10-12 18:51:25.6842 Info Closing old configuration.
+2025-10-12 18:51:25.6842 Info LogFactory shutdown completed.
+2025-10-12 18:51:28.6913 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 18:51:28.7077 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 18:51:28.7077 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 18:51:28.7329 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config
+2025-10-12 18:51:35.5203 Info LogFactory shutting down ...
+2025-10-12 18:51:35.5203 Info Closing old configuration.
+2025-10-12 18:51:35.5321 Info LogFactory shutdown completed.
+2025-10-12 18:51:41.7310 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 18:51:41.7484 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 18:51:41.7484 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 18:51:41.7743 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config
+2025-10-12 18:52:05.3041 Info LogFactory shutting down ...
+2025-10-12 18:52:05.3041 Info Closing old configuration.
+2025-10-12 18:52:05.3270 Info LogFactory shutdown completed.
+2025-10-12 18:52:09.3126 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 18:52:09.3301 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 18:52:09.3349 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 18:52:09.3564 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config
+2025-10-12 18:52:17.7278 Info LogFactory shutting down ...
+2025-10-12 18:52:17.7278 Info Closing old configuration.
+2025-10-12 18:52:17.7278 Info LogFactory shutdown completed.
+2025-10-12 19:00:36.2828 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 19:00:36.3454 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 19:00:36.3567 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 19:00:36.3791 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config
+2025-10-12 19:18:41.1434 Warn Error has been raised. Exception: NLog.NLogConfigurationException: 'JsonAttribute' cannot assign unknown property 'includeAllProperties'='true'
+   at NLog.Config.LoggingConfigurationParser.SetPropertyValueFromString[T](T targetObject, String propertyName, String propertyValue, ValidatedConfigurationElement element)
+2025-10-12 19:18:41.1797 Info Registered target NLog.Targets.FileTarget(Name=jsonFile)
+2025-10-12 19:18:41.2232 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.0.5.4631. Product version: 6.0.5+a023270f66a9445456a70c06668acabe7179c723. GlobalAssemblyCache: False
+2025-10-12 19:18:41.2532 Info Configuration initialized: TargetNames=jsonFile, ConfigItems=25, AutoReload=true, FilePath=B:\Repositorios\stefanini-selecao\api\Api.Service\bin\Debug\net9.0\NLog.config

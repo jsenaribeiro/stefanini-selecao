@@ -17,7 +17,7 @@ try
     services.AddEndpointsApiExplorer();
     services.AddScoped<IUnitOfWork, UnitOfWork>();
     // services.AddJwtBearer(configuration);
-    services.AddSqlServerContext(configuration, true);
+    services.AddSqlContext(configuration, true);
     services.AddHealthCheck(configuration);
     services.AddCors(configuration);
     services.AddSwagger("v1");

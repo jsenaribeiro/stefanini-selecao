@@ -13,14 +13,8 @@ public class PessoaConfiguration : AbstractConfiguration<Pessoa>
       etb.Property(x => x.Nome);
       etb.Property(x => x.Nascimento);
       etb.Property(x => x.Nacionalidade);
-
-      etb.OwnsOne(x => x.Email, email => email.Property(e => e.email));
-
-      etb.OwnsOne(x => x.CPF, cpf =>
-      {
-         cpf.Property(c => c.Numero).HasColumnName("cpf");
-         cpf.Ignore(c => c.IsValid);
-      });
+      etb.Property(x => x.Email);
+      etb.Property(x => x.CPF);
 
       etb.Property(u => u.Sexo)
          .HasConversion<string>() 

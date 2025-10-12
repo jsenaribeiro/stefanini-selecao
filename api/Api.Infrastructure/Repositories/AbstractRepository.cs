@@ -22,9 +22,9 @@ public abstract class AbstractRepository<E> : IRepository<E> where E : Entity
 
    public IQueryable<E> Query => this.dbSet.Where(x => true).AsQueryable().AsNoTracking();
 
-   public Task<long> Count => this.dbSet.LongCountAsync();
+   public Task<long> CountAsync => this.dbSet.LongCountAsync();
 
-   public Task<bool> Exists => this.dbSet.AnyAsync();
+   public Task<bool> ExistsAsync => this.dbSet.AnyAsync();
    
    public async Task<E> SaveAsync(E entity)
    {
@@ -33,10 +33,14 @@ public abstract class AbstractRepository<E> : IRepository<E> where E : Entity
          if (entity.Id == Guid.Empty)
          {
             entity.Id = Guid.NewGuid();
+            entity.DataCriacao = DateTime.Now;
+            
             await dbSet.AddAsync(entity);
             await context.SaveChangesAsync();
             return entity;
          }
+
+         entity.DataAtualizacao = DateTime.Now;
 
          var current = await dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == entity.Id);
          if (current is null) throw new Exception("Entidade não encontrada");

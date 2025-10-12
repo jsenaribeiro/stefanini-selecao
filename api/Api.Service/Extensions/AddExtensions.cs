@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Api.Service.Handlers;
+using System.Diagnostics;
 
 public static class AddExtensions
 {
@@ -44,8 +45,16 @@ public static class AddExtensions
       return services;
    }
 
-   public static IServiceCollection AddSqlServerContext(this IServiceCollection services, IConfiguration configuration, bool test = false)
+   public static IServiceCollection AddSqlContext(this IServiceCollection services, IConfiguration configuration, bool test = false)
    {
+      bool isRunningMigration()
+      {
+         var processName = Process.GetCurrentProcess().ProcessName;
+         return processName.Contains("ef", StringComparison.OrdinalIgnoreCase);
+      }
+
+      if (isRunningMigration() && test) test = false;
+
       var connection = configuration.GetConnectionString("DefaultConnection");
 
       #if RELEASE

@@ -22,22 +22,4 @@ public class UnitOfWork : IUnitOfWork
    public Task CommitAsync() => throw new NotImplementedException();
 
    public Task RollbackAsync() => throw new NotImplementedException();
-
-   public void Clear()
-   {
-      try
-      {
-         var sqlServerContext = _provider
-            .GetRequiredService<SqlContext>();
-
-         if (sqlServerContext.Database is null) return;
-
-         sqlServerContext.Database.EnsureDeleted();
-         sqlServerContext.Database.EnsureCreated();
-      }
-      catch (Exception ex)
-      {
-         Console.WriteLine(ex.Message);
-      }
-   }
 }

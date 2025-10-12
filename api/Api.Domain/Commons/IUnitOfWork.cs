@@ -6,8 +6,6 @@ public interface IUnitOfWork
 {
    IPessoaRepository Pessoas { get; }
 
-   void Clear();
-
    Task BeginAsync();
 
    Task CommitAsync();

@@ -1,10 +1,12 @@
 namespace Api.Service.Controllers;
 
-using Api.Domain;
-using Api.Service.Contracts;
 using MediatR;
+using Api.Domain;
+using Api.Infrastructure.Values;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Authentication;
+using Microsoft.SqlServer.Server;
+
 
 public abstract class ApiController<E> : ControllerBase where E : class
 {
@@ -24,7 +26,7 @@ public abstract class ApiController<E> : ControllerBase where E : class
       {
          var result = await task();
 
-         if (result is PagedList pl && pl.Total == 0)
+         if (result is PageList pl && pl.Total == 0)
             return NotFound(result);
 
          if (result is System.Collections.IList list && list.Count == 0)
@@ -35,7 +37,7 @@ public abstract class ApiController<E> : ControllerBase where E : class
       catch (DomainException ex)
       {
          logger.LogError(ex, ex.Message);
-         return StatusCode(ex.Status, ex.Message);
+         return StatusCode(ex.Status, new DomainError(ex));
       }
       catch (AuthenticationException ex)
       {
