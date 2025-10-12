@@ -110,26 +110,29 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento"});
-                table1.AddRow(new string[] {
+                table3.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001"});
 #line 9
-   testRunner.Given("uma pessoa com dados mínimos de", ((string)(null)), table1, "Dado ");
+   testRunner.Given("uma pessoa com dados mínimos de", ((string)(null)), table3, "Dado ");
 #line hidden
 #line 12
    testRunner.When("cadastrar a pessoa", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento"});
-                table2.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001"});
 #line 13
-   testRunner.Then("terá cadastrado", ((string)(null)), table2, "Entao ");
+   testRunner.Then("terá cadastrado", ((string)(null)), table4, "Entao ");
+#line hidden
+#line 16
+   testRunner.And("terá status 201", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -143,7 +146,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("cadastrar com sucesso completo", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 17
+#line 18
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -153,42 +156,45 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento",
                             "sexo",
                             "email",
                             "cpf",
                             "nacionalidade"});
-                table3.AddRow(new string[] {
+                table5.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001",
                             "M",
                             "fulano@email.com",
                             "566.247.640-31",
                             "Brasil"});
-#line 18
-   testRunner.Given("uma pessoa com", ((string)(null)), table3, "Dado ");
+#line 19
+   testRunner.Given("uma pessoa com", ((string)(null)), table5, "Dado ");
 #line hidden
-#line 21
+#line 22
    testRunner.When("cadastrar a pessoa", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
-                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento",
                             "sexo",
                             "email",
                             "cpf",
                             "nacionalidade"});
-                table4.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001",
                             "M",
                             "fulano@email.com",
                             "566.247.640-31",
                             "Brasil"});
-#line 22
-   testRunner.Then("terá cadastrado", ((string)(null)), table4, "Entao ");
+#line 23
+   testRunner.Then("terá cadastrado", ((string)(null)), table6, "Entao ");
+#line hidden
+#line 26
+   testRunner.And("terá status 201", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -201,7 +207,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("campo", campo);
             argumentsOfScenario.Add("valor", valor);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Campos inválidos", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 26
+#line 28
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -211,23 +217,26 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento"});
-                table5.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             "Fulano",
                             "01/01/2001"});
-#line 27
-   testRunner.Given("uma pessoa com dados mínimos de", ((string)(null)), table5, "Dado ");
-#line hidden
-#line 30
-   testRunner.And(string.Format("cujo {0} é {1}", campo, valor), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
-#line hidden
-#line 31
-   testRunner.When("cadastrar a pessoa", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+#line 29
+   testRunner.Given("uma pessoa com dados mínimos de", ((string)(null)), table7, "Dado ");
 #line hidden
 #line 32
+   testRunner.And(string.Format("cujo {0} é {1}", campo, valor), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+#line hidden
+#line 33
+   testRunner.When("cadastrar a pessoa", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+#line hidden
+#line 34
    testRunner.Then(string.Format("retornará erro de {0} \"inválido\"", campo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Então ");
+#line hidden
+#line 35
+   testRunner.And("terá status 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -241,7 +250,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"000.000.000-00\"")]
         public void CamposInvalidos_CPF()
         {
-#line 26
+#line 28
 this.CamposInvalidos("\"CPF\"", "\"000.000.000-00\"", ((string[])(null)));
 #line hidden
         }
@@ -254,7 +263,7 @@ this.CamposInvalidos("\"CPF\"", "\"000.000.000-00\"", ((string[])(null)));
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"00/00/0000\"")]
         public void CamposInvalidos_Nascimento()
         {
-#line 26
+#line 28
 this.CamposInvalidos("\"Nascimento\"", "\"00/00/0000\"", ((string[])(null)));
 #line hidden
         }
@@ -267,7 +276,7 @@ this.CamposInvalidos("\"Nascimento\"", "\"00/00/0000\"", ((string[])(null)));
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"email-invalido.com\"")]
         public void CamposInvalidos_Email()
         {
-#line 26
+#line 28
 this.CamposInvalidos("\"Email\"", "\"email-invalido.com\"", ((string[])(null)));
 #line hidden
         }
@@ -280,7 +289,7 @@ this.CamposInvalidos("\"Email\"", "\"email-invalido.com\"", ((string[])(null)));
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("campos obrigatórios", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 41
+#line 44
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -290,23 +299,26 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                             "nome",
                             "nascimento"});
-                table6.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "",
                             ""});
-#line 42
-   testRunner.Given("uma pessoa com dados mínimos de", ((string)(null)), table6, "Dado ");
-#line hidden
 #line 45
+   testRunner.Given("uma pessoa com dados mínimos de", ((string)(null)), table8, "Dado ");
+#line hidden
+#line 48
    testRunner.When("cadastrar a pessoa", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
-#line 46
+#line 49
    testRunner.Then("retornará erro de \"Nome\" \"obrigatório\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Então ");
 #line hidden
-#line 47
+#line 50
    testRunner.And("retornará erro de \"Nascimento\" \"obrigatório\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+#line hidden
+#line 51
+   testRunner.And("terá status 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line hidden
             }
             this.ScenarioCleanup();

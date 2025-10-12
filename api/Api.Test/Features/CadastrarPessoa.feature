@@ -13,6 +13,7 @@ Cenario: cadastrar com sucesso parcial
    Entao terá cadastrado
    | nome   | nascimento |
    | Fulano | 01/01/2001 |
+   E terá status 201
 
 Cenario: cadastrar com sucesso completo
    Dado uma pessoa com
@@ -22,6 +23,7 @@ Cenario: cadastrar com sucesso completo
    Entao terá cadastrado
    | nome   | nascimento | sexo | email            | cpf            | nacionalidade |
    | Fulano | 01/01/2001 | M    | fulano@email.com | 566.247.640-31 | Brasil        |
+   E terá status 201
 
 Esquema do Cenario: Campos inválidos
    Dado uma pessoa com dados mínimos de
@@ -30,6 +32,7 @@ Esquema do Cenario: Campos inválidos
    E cujo <campo> é <valor>
    Quando cadastrar a pessoa
    Então retornará erro de <campo> "inválido"
+   E terá status 400
 
    Exemplos:
       | campo        | valor                |
@@ -45,3 +48,4 @@ Cenario: campos obrigatórios
    Quando cadastrar a pessoa
    Então retornará erro de "Nome" "obrigatório"
    E retornará erro de "Nascimento" "obrigatório"
+   E terá status 400

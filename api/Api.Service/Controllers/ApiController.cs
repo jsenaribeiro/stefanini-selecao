@@ -20,7 +20,7 @@ public abstract class ApiController<E> : ControllerBase where E : class
       mediator = provider.GetRequiredService<IMediator>();
    }
 
-   protected async Task<IActionResult> TryAsync<T>(Func<Task<T>> task)
+   protected async Task<IActionResult> TryAsync<T>(Func<Task<T>> task, bool isCreation = false)
    {
       try
       {
@@ -32,7 +32,7 @@ public abstract class ApiController<E> : ControllerBase where E : class
          if (result is System.Collections.IList list && list.Count == 0)
             return NotFound(result);
 
-         return Ok(result);
+         return isCreation ? StatusCode(201, result) : Ok(result);
       }
       catch (DomainException ex)
       {

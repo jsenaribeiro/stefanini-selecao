@@ -92,8 +92,6 @@ public class CadastrarPessoaSteps : AbstractSteps
          : string.Format(Messages.OBRIGATORIO, campo);
 
       invalids.ShouldContain(x => x.error == erro);
-      
-      _context["status"].ShouldBe(400);
    }
 
    [Then(@"terá cadastrado")]
@@ -126,6 +124,11 @@ public class CadastrarPessoaSteps : AbstractSteps
       }
    }
 
+   [Then(@"terá status (.*)")]
+   public void EntaoTeraStatus(int status)
+   {
+      _context["status"].ShouldBe(status);
+   }
 
    protected override async Task ClearScenario()
    {

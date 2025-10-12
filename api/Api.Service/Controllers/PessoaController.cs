@@ -29,5 +29,5 @@ public class PessoaController : ApiController<Pessoa>
    /// <returns>Pessoa cadastrar com Id preenchido</returns>
    [HttpPost]
    public AsyncResult Post([FromBody] CadastrarPessoaCommand command) =>
-      TryAsync(() => mediator.Send(command));
+      TryAsync(() => mediator.Send(command), true);
 }
