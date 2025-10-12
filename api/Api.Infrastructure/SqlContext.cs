@@ -1,0 +1,113 @@
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
+using Api.Domain.Pessoas;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+
+public class SqlContext : DbContext
+{
+   public DbSet<Pessoa> Pessoas { get; set; }
+
+   public SqlContext(DbContextOptions<SqlContext> dco, ILogger<SqlContext> logger) : base(dco)
+   {
+      logger.LogInformation("SqlContext");
+
+      if (Database.IsInMemory()) Database.EnsureCreated();
+
+      else
+      {
+         logger.LogInformation("Criando configuration condicional...");
+
+         var config = new ConfigurationBuilder()
+             .SetBasePath(AppContext.BaseDirectory)
+             .AddJsonFile("appsettings.Development.json", optional: true)
+             .AddJsonFile("appsettings.json", optional: false)
+             .Build();
+
+         var connectionString = config.GetConnectionString("DefaultConnection") ?? "";
+         var connectionStringLog = connectionString
+            .Split("Password")[0]
+            .Split("password")[0];
+
+         logger.LogInformation("ConnectionString: " + connectionStringLog);
+
+         var optionsBuilder = new DbContextOptionsBuilder<SqlContext>();
+
+         optionsBuilder.UseSqlServer(connectionString, options =>
+         {
+            options.EnableRetryOnFailure(
+               maxRetryCount: 10,
+               maxRetryDelay: TimeSpan.FromSeconds(30),
+               errorNumbersToAdd: null
+            );
+         });
+      }
+   }
+
+   protected override void OnModelCreating(ModelBuilder mb)
+   {
+      var currentAssembly = Assembly.GetExecutingAssembly();
+
+      mb.ApplyConfigurationsFromAssembly(currentAssembly);
+
+      if (Database.IsInMemory())
+      {
+         var addPessoa = (string nome, string data) => new Pessoa
+         {
+            Nascimento = DateOnly.Parse(data),
+            Id = Guid.NewGuid(),
+            Nome = nome
+         };
+
+         var fulano = addPessoa("Fulano", "2001-01-01");
+         var beltrano = addPessoa("Beltrano", "2002-02-02");
+         var sicrano = addPessoa("Sicrano", "2003-03-03");
+
+         mb.Entity<Pessoa>().HasData(fulano, beltrano, sicrano);
+      }
+
+      base.OnModelCreating(mb);
+   }
+
+   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+   {
+      if (optionsBuilder.IsConfigured) return;
+
+      else optionsBuilder
+         .EnableSensitiveDataLogging()
+         .UseSnakeCaseNamingConvention()
+         .LogTo(Console.WriteLine, LogLevel.Information);
+   }
+}
+
+// public class SqlServerMigrations : IDesignTimeDbContextFactory<SqlContext>
+// {
+//    public SqlContext CreateDbContext(string[] args)
+//    {
+//       var basePath = AppContext.BaseDirectory;
+
+//       var config = new ConfigurationBuilder()
+//           .SetBasePath(AppContext.BaseDirectory)
+//           .AddJsonFile("appsettings.Development.json", optional: true)
+//           .AddJsonFile("appsettings.json", optional: false)
+//           .Build();
+
+//       var connectionString = config.GetConnectionString("DefaultConnection");
+
+//       var optionsBuilder = new DbContextOptionsBuilder<SqlContext>();
+
+//       optionsBuilder.UseSqlServer(connectionString, options =>
+//       {
+//          options.EnableRetryOnFailure(
+//             maxRetryCount: 10,
+//             maxRetryDelay: TimeSpan.FromSeconds(30),
+//             errorNumbersToAdd: null
+//          );
+//       });
+
+//       return new SqlContext(optionsBuilder.Options, config);
+//    }
+// }

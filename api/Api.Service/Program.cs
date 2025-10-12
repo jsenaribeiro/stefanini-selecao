@@ -1,23 +1,49 @@
+using Api.Domain;
+using Api.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.GetConfiguration();
+var logger = builder.GetLogging();
+var services = builder.Services;
 
-// Add services to the container.
+logger.LogInformation("Iniciando serviço...");
 
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+try
 {
-    app.MapOpenApi();
+    services.AddControllers();
+    services.AddMediatorCQRS();
+    services.AddHttpContextAccessor();
+    services.AddEndpointsApiExplorer();
+    services.AddScoped<IUnitOfWork, UnitOfWork>();
+    // services.AddJwtBearer(configuration);
+    services.AddSqlServerContext(configuration, true);
+    services.AddHealthCheck(configuration);
+    services.AddCors(configuration);
+    services.AddSwagger("v1");
+
+    var app = builder.Build();
+
+    app.UseSwagger(true);
+    app.UseRouting();
+    app.UseCors();
+    app.UseResponseCaching();
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.MapControllers();
+    app.MapHealthChecks("/health");
+
+    app.RunMigrations();
+    app.Run();
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+catch (Exception ex)
+{
+    logger.LogError(ex, "Erro na inicialização");
+    throw;
+}
+finally
+{
+    logger.LogError("Serviço encerrado.");
+    NLog.LogManager.Shutdown();
+}

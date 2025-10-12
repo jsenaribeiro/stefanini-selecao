@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  webapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webapi
+    networks: [network]
+    ports: [8080:80]
+    profiles: ['all']
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=cadastro_db;User=sa;Password=PassW0rd@123;TrustServerCertificate=True;
+    depends_on:
+      sqlserver: { condition: service_healthy }
+
+  sqlserver:
+    image: mcr.microsoft.com/azure-sql-edge
+    volumes: [db:/var/opt/mssql]
+    container_name: sqlserver
+    networks: [network]
+    ports: [1433:1433]
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'PassW0rd@123' -Q 'SELECT 1'"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=PassW0rd@123
+
+networks:
+  network: { driver: bridge }
+
+volumes:
+  db: { driver: local }
+    

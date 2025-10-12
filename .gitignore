@@ -15,6 +15,7 @@
 *.nupkg
 *.snupkg
 .nuget/
+TestResults/
 *.log
 *.pdm
 *.rpt
