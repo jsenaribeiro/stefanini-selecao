@@ -29,7 +29,7 @@ Esquema do Cenario: Campos inválidos
    | Fulano | 01/01/2001 | 
    E cujo <campo> é <valor>
    Quando cadastrar a pessoa
-   Então retornará erro de <campo> invalido
+   Então retornará erro de <campo> "inválido"
 
    Exemplos:
       | campo        | valor                |
@@ -38,4 +38,10 @@ Esquema do Cenario: Campos inválidos
       | "Email"      | "email-invalido.com" |
 
 
-# campos obrigatórios
+Cenario: campos obrigatórios
+   Dado uma pessoa com dados mínimos de
+   | nome | nascimento |
+   |      |            |
+   Quando cadastrar a pessoa
+   Então retornará erro de "Nome" "obrigatório"
+   E retornará erro de "Nascimento" "obrigatório"

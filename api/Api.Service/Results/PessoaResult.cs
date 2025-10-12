@@ -5,13 +5,13 @@ namespace Api.Service.Results;
 
 public record PessoaResult
 (
-   Guid id,
-   char sexo,
-   string? cpf,
-   string nome,
-   string? email,
-   string nascimento,
-   string? nacionalidade
+   Guid Id,
+   char Sexo,
+   string? Cpf,
+   string Nome,
+   string? Email,
+   string Nascimento,
+   string? Nacionalidade
 )
 {
    public PessoaResult() : this(Guid.Empty, ' ', null, "", null, "", null) { }

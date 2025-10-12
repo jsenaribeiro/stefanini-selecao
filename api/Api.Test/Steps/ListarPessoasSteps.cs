@@ -4,8 +4,11 @@ using Api.Service.Controllers;
 using TechTalk.SpecFlow;
 using Shouldly;
 using Api.Service.Queries;
+using Api.Service.Results;
 
 namespace Api.Test.Steps;
+
+using PageListResult = PageList<PessoaResult>;
 
 [Binding]
 public class ListarPessoasSteps : AbstractSteps
@@ -45,7 +48,7 @@ public class ListarPessoasSteps : AbstractSteps
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
-      _context["pessoas"] = result.ValueOf<PageList<Pessoa>>();
+      _context["pessoas"] = result.ValueOf<PageListResult>();
    }
 
    [When(@"filtra cadastros com ""(.*)""")]
@@ -55,7 +58,7 @@ public class ListarPessoasSteps : AbstractSteps
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
-      _context["pessoas"] = result.ValueOf<PageList<Pessoa>>();
+      _context["pessoas"] = result.ValueOf<PageListResult>();
    }
 
    [When(@"listar com (.*) linhas por página")]
@@ -66,7 +69,7 @@ public class ListarPessoasSteps : AbstractSteps
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
-      _context["pessoas"] = result.ValueOf<PageList<Pessoa>>();
+      _context["pessoas"] = result.ValueOf<PageListResult>();
    }
 
    [When(@"listar ordenado de modo crescente")]
@@ -76,13 +79,13 @@ public class ListarPessoasSteps : AbstractSteps
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
-      _context["pessoas"] = result.ValueOf<PageList<Pessoa>>();
+      _context["pessoas"] = result.ValueOf<PageListResult>();
    }
 
    [Then(@"listará (.*) cadastros")]
    public void EntaoListaraCadastros(int quantidade)
    {
-      var pessoas = _context["pessoas"] as PageList<Pessoa>;
+      var pessoas = _context["pessoas"] as PageList<PessoaResult>;
 
       pessoas.ShouldNotBeNull();
       pessoas.Items.Count.ShouldBe(quantidade);
@@ -100,7 +103,7 @@ public class ListarPessoasSteps : AbstractSteps
    [Then(@"conterá os dados")]
    public void EntaoConteraOsDados(Table table)
    {
-      var pessoas = _context["pessoas"] as PageList<Pessoa>;
+      var pessoas = _context["pessoas"] as PageList<PessoaResult>;
 
       pessoas.ShouldNotBeNull();
 
@@ -108,12 +111,11 @@ public class ListarPessoasSteps : AbstractSteps
       {
          var nomeCompleto = table.Rows[i]["nome"];
          var nascimento = table.Rows[i]["nascimento"] ?? "";
-         var dataNascimento = nascimento.ToDateOnly("dd/MM/yyyy");
 
          Console.WriteLine($"db: {pessoas.Items[i].Nome} | tst: {nomeCompleto} ");
 
          pessoas.Items[i].Nome.ShouldBe(nomeCompleto);
-         pessoas.Items[i].Nascimento.ShouldBe(dataNascimento);
+         pessoas.Items[i].Nascimento.ShouldBe(nascimento);
       }
    }
 

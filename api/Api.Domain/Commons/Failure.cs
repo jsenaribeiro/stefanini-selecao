@@ -15,5 +15,5 @@ public static class Failure
 
    public static DomainException Unavailable(string servico) => new(500, Messages.INACESSIVEL, servico);
 
-   public static DomainException Of(string text, int status, params string[] args) => new(status, text, args);
+   public static DomainException From(string text, int status, params string[] args) => new(status, text, args);
 }

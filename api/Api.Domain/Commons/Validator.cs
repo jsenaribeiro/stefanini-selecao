@@ -21,7 +21,7 @@ public abstract class ValidationAttribute<T> : ValidationAttribute
 
       var isEmpty = value is null || EqualityComparer<T>.Default.Equals((T)value, default);
 
-      var required = string.Format(Messages.REQUERIDO, property);
+      var required = string.Format(Messages.OBRIGATORIO, property);
 
       var success = ValidationResult.Success!;
 

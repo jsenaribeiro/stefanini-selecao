@@ -6,8 +6,8 @@ namespace Api.Service.Commands;
 
 public record CadastrarPessoaCommand
 (
-   string Nome,
    char? Sexo,
+   string Nome,
    string? Email,
    string Nascimento,
    string? Nacionalidade,
@@ -16,8 +16,8 @@ public record CadastrarPessoaCommand
 : IRequest<PessoaResult>
 {
    public CadastrarPessoaCommand(string nome, string nascimento)
-      : this(nome, null, null, nascimento, null, null) { }
+      : this(null, nome, null, nascimento, null, null) { }
 
-   public CadastrarPessoaCommand() : this("", null, null, "", null, null) {}
+   public CadastrarPessoaCommand() : this(null, "",null, "", null, null) {}
 }
 

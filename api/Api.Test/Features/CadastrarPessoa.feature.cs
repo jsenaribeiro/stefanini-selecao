@@ -227,7 +227,7 @@ this.ScenarioInitialize(scenarioInfo);
    testRunner.When("cadastrar a pessoa", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
 #line 32
-   testRunner.Then(string.Format("retornará erro de {0} invalido", campo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Então ");
+   testRunner.Then(string.Format("retornará erro de {0} \"inválido\"", campo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Então ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -270,6 +270,46 @@ this.CamposInvalidos("\"Nascimento\"", "\"00/00/0000\"", ((string[])(null)));
 #line 26
 this.CamposInvalidos("\"Email\"", "\"email-invalido.com\"", ((string[])(null)));
 #line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("campos obrigatórios")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Cadastrar pessoa")]
+        public void CamposObrigatorios()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("campos obrigatórios", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 41
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                            "nome",
+                            "nascimento"});
+                table6.AddRow(new string[] {
+                            "",
+                            ""});
+#line 42
+   testRunner.Given("uma pessoa com dados mínimos de", ((string)(null)), table6, "Dado ");
+#line hidden
+#line 45
+   testRunner.When("cadastrar a pessoa", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+#line hidden
+#line 46
+   testRunner.Then("retornará erro de \"Nome\" \"obrigatório\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Então ");
+#line hidden
+#line 47
+   testRunner.And("retornará erro de \"Nascimento\" \"obrigatório\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+#line hidden
+            }
+            this.ScenarioCleanup();
         }
     }
 }

@@ -44,8 +44,8 @@ public class CadastrarPessoaSteps : AbstractSteps
       {
          _context["cadastrar"] = new CadastrarPessoaCommand
          (
-            row["nome"],
             (row["sexo"] ?? " ")[0],
+            row["nome"],
             row["email"],
             row["nascimento"],
             row["nacionalidade"],
@@ -79,17 +79,20 @@ public class CadastrarPessoaSteps : AbstractSteps
       Console.WriteLine($"Status atual: {_context["status"]}");
    }
 
-   [Then(@"retornará erro de ""(.*)"" invalido")]
-   public void EntaoRetornaraErroDeInvalido(string campo)
+   [Then(@"retornará erro de ""(.*)"" ""(.*)""")]
+   public void EntaoRetornaraErroDeInvalido(string campo, string invalidacao)
    {
       var falhas = _context["falhas"] as DomainError;
+
       if (falhas?.Invalids is not Invalid[] invalids)
          throw new Exception("Não contém invalidações com " + campo);
 
-      var erro = string.Format(Messages.INVALIDO, campo);
+      var erro = invalidacao == "inválido"
+         ? string.Format(Messages.INVALIDO, campo)
+         : string.Format(Messages.OBRIGATORIO, campo);
 
       invalids.ShouldContain(x => x.error == erro);
-
+      
       _context["status"].ShouldBe(400);
    }
 

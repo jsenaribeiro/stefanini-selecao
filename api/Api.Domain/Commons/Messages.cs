@@ -12,5 +12,5 @@ public static class Messages
 
    public const string DUPLICIDADE = "Já existe outro registro para {0} com valor {1}";
 
-   public const string REQUERIDO = "O campo '{0}' é obrigatório";
+   public const string OBRIGATORIO = "O campo '{0}' é obrigatório";
 }

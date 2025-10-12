@@ -16,7 +16,17 @@ public class Pessoa : Entity
    
    public Pessoa(string nome, string nascimento)
    {
+      var invalids = new List<Invalid>();
+
       Nome = nome;
+
+      if (string.IsNullOrWhiteSpace(nome))
+         invalids.Add(Invalid.RequiredOf(nameof(Nome), nome));
+
+      if (string.IsNullOrWhiteSpace(nascimento))
+         invalids.Add(Invalid.RequiredOf(nameof(Nascimento), nascimento));
+
+      if (invalids.Count > 0) throw Failure.Invalid(invalids.ToArray());
 
       try { Nascimento = nascimento.ToDateOnly("dd/MM/yyyy"); }
       catch { throw Failure.Invalid("Nascimento", nascimento); }
