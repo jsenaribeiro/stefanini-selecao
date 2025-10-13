@@ -9,8 +9,7 @@ namespace Api.Infrastructure.Repositories;
 /// Base Repository for basic CRUD operations
 /// </summary>
 public abstract class AbstractRepository<E> : IRepository<E> where E : Entity
-{
-   private readonly DbSet<E> dbSet;
+{   private readonly DbSet<E> dbSet;
 
    private readonly SqlContext context;
 
@@ -20,11 +19,26 @@ public abstract class AbstractRepository<E> : IRepository<E> where E : Entity
       this.dbSet = context.Set<E>();
    }
 
-   public IQueryable<E> Query => this.dbSet.Where(x => true).AsQueryable().AsNoTracking();
+   public Task<E?> LoadAsync(Guid id) =>
+      dbSet.FirstOrDefaultAsync(x => x.Id == id);
 
-   public Task<long> CountAsync => this.dbSet.LongCountAsync();
+   public Task<E[]> ListAsync() => dbSet.ToArrayAsync();
 
-   public Task<bool> ExistsAsync => this.dbSet.AnyAsync();
+   public Task<E[]> ListAsync(Expression<Func<E, bool>> predicate) =>
+      dbSet.Where(predicate).AsNoTracking().ToArrayAsync();
+
+   public IQueryable<E> Where(Expression<Func<E, bool>> predicate) =>
+      dbSet.Where(predicate).AsNoTracking();
+
+   public Task<long> CountAsync() => this.dbSet.LongCountAsync();
+
+   public Task<long> CountAsync(Expression<Func<E, bool>> predicate) =>
+      this.dbSet.LongCountAsync(predicate);
+
+   public Task<bool> ExistsAsync() => this.dbSet.AnyAsync();
+
+   public Task<bool> ExistsAsync(Expression<Func<E, bool>> predicate) =>
+      this.dbSet.AnyAsync(predicate);
    
    public async Task<E> SaveAsync(E entity)
    {
@@ -100,11 +114,10 @@ public abstract class AbstractRepository<E> : IRepository<E> where E : Entity
 
    public async Task<bool> DropAsync(Expression<Func<E, bool>> predicate)
    {
-      var entities = await this.Query.Where(predicate).ToListAsync();
+      var entities = await this.Where(predicate).ToArrayAsync();
 
-      foreach (var entity in entities)
-         await DropAsync(entity.Id);
-
+      foreach (var entity in entities) await DropAsync(entity.Id);
+      
       return true;
    }
 }

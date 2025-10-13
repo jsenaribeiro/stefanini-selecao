@@ -5,6 +5,8 @@ using TechTalk.SpecFlow;
 using Shouldly;
 using Api.Service.Commands;
 using Api.Domain;
+using Api.Domain.Pessoas;
+using Api.Service.Results;
 
 namespace Api.Test.Steps;
 
@@ -20,6 +22,17 @@ public class CadastrarPessoaSteps : AbstractSteps
       _controller = new PessoaController(provider);
    }
 
+   private (DateOnly data, string nome) GetRowNomeAndData(TableRow row)
+   {
+      var nascimento = row["nascimento"];
+
+      var data = string.IsNullOrEmpty(nascimento) == false
+               ? nascimento.ToDateOnly("dd/MM/yyyy")
+               : default;
+
+      return (data, row["nome"]);
+   }
+
    [Given(@"uma pessoa com dados mínimos de")]
    public void DadoUmaPessoaComDadosMinimosDe(Table table)
    {
@@ -27,11 +40,11 @@ public class CadastrarPessoaSteps : AbstractSteps
 
       foreach (var row in table.Rows)
       {
-         _context["cadastrar"] = new CadastrarPessoaCommand
-         (
-            row["nome"],
-            row["nascimento"]
-         );
+         var (data, nome) = GetRowNomeAndData(row);
+
+         var cadastrar = new CadastrarPessoaCommand(nome, data);
+
+         _context["cadastrar"] = cadastrar;
       }
    }
 
@@ -42,24 +55,34 @@ public class CadastrarPessoaSteps : AbstractSteps
 
       foreach (var row in table.Rows)
       {
-         _context["cadastrar"] = new CadastrarPessoaCommand
-         (
-            (row["sexo"] ?? " ")[0],
-            row["nome"],
-            row["email"],
-            row["nascimento"],
-            row["nacionalidade"],
-            row["cpf"]
-         );
+         var nome = row["nome"];
+         var nascimento = row["nascimento"].ToDateOnly("dd/MM/yyyy");
+         var sexo = row["sexo"].ToUpper() == "M" ? Sexo.M : Sexo.F;
+
+         _context["cadastrar"] = new CadastrarPessoaCommand(nome, nascimento)
+         {
+            Sexo = sexo,
+            CPF = row["cpf"],
+            Email = row["email"],
+            Nacionalidade = row["nacionalidade"]
+         };
       }
    }
 
    [Given(@"cujo ""(.*)"" é ""(.*)""")]
-   public void DadoCujoE(string campo, string valor)
+   public void DadoCujoE(string campo, object valor)
    {
       var pessoa = _context["cadastrar"] as CadastrarPessoaCommand;
 
       var pessoaProps = pessoa?.GetType()?.GetProperty(campo);
+
+      if (campo == "Nascimento")
+      {
+         if (valor is null) valor = default(DateOnly);
+         else if (valor is string s && s == "") valor = default(DateOnly);
+         else if (valor?.ToString() == "00/00/0000") valor = default(DateOnly);
+         else valor = valor!.ToString()!.ToDateOnly("dd/MM/yyyy");         
+      }
 
       if (pessoaProps is PropertyInfo props)
          props.SetValue(pessoa, valor);
@@ -74,7 +97,7 @@ public class CadastrarPessoaSteps : AbstractSteps
       var result = await _controller.Post(command);
 
       _context["status"] = result.GetStatusCode();
-      _context["falhas"] = result.ValueOf<DomainError>();
+      _context["falhas"] = result.ValueOf<ErrorResult>();
 
       Console.WriteLine($"Status atual: {_context["status"]}");
    }
@@ -82,7 +105,10 @@ public class CadastrarPessoaSteps : AbstractSteps
    [Then(@"retornará erro de ""(.*)"" ""(.*)""")]
    public void EntaoRetornaraErroDeInvalido(string campo, string invalidacao)
    {
-      var falhas = _context["falhas"] as DomainError;
+      if ((int)_context["status"] < 300)
+         throw new Exception("Esperado um cenário com erro");
+
+      var falhas = _context["falhas"] as ErrorResult;
 
       if (falhas?.Invalids is not Invalid[] invalids)
          throw new Exception("Não contém invalidações com " + campo);
@@ -104,14 +130,12 @@ public class CadastrarPessoaSteps : AbstractSteps
          var nome = row["nome"];
          var nascimento = row["nascimento"].ToDateOnly("dd/MM/yyyy");
 
-         var pessoa = unitOfWork.Pessoas.Query
+         var pessoa = unitOfWork.Pessoas
             .Where(x => x.Nascimento == nascimento)
-            .Where(x => x.Nome == nome)
-            .FirstOrDefaultAsync()
+            .FirstOrDefaultAsync(x => x.Nome == nome)
             .Result;
 
          pessoa.ShouldNotBeNull();
-
          pessoa.Nome.ShouldBe(nome);
          pessoa.Nascimento.ShouldBe(nascimento);
 

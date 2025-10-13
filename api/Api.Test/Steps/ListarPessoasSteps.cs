@@ -19,11 +19,17 @@ public class ListarPessoasSteps : AbstractSteps
 
    private readonly Sort _sort = new("nascimento", Order.ASC);
 
+   private readonly ConsultarPessoasQuery _queryDefault;
+
    public ListarPessoasSteps(ScenarioContext sc)
    {
       _context = sc;
       _context["paginado"] = false;
       _controller = new PessoaController(provider!);
+      _queryDefault = new ConsultarPessoasQuery
+      {
+         Sort = new("nascimento", Order.ASC)
+      };
    }
 
    [Given(@"que os seguintes cadastros")]
@@ -43,7 +49,7 @@ public class ListarPessoasSteps : AbstractSteps
    [When(@"listar os cadastros")]
    public async Task QuandoListarOsCadastros()
    {
-      var query = new ConsultarPessoasQuery(_sort);
+      var query = _queryDefault;
 
       var result = await _controller.Get(query);
 
@@ -54,7 +60,7 @@ public class ListarPessoasSteps : AbstractSteps
    [When(@"filtra cadastros com ""(.*)""")]
    public async Task QuandoFiltraCadastrosCom(string nome)
    {
-      var query = new ConsultarPessoasQuery(_sort, nome);
+      var query = _queryDefault with { Nome = nome };
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
@@ -65,7 +71,8 @@ public class ListarPessoasSteps : AbstractSteps
    public async Task QuandoListarComLinhasPorPagina(int linhasPorPagina)
    {
       _context["paginado"] = true;
-      var query = new ConsultarPessoasQuery(new(linhasPorPagina, 1), _sort);
+
+      var query = _queryDefault with { Page = new(linhasPorPagina, 1) };
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
@@ -75,7 +82,7 @@ public class ListarPessoasSteps : AbstractSteps
    [When(@"listar ordenado de modo crescente")]
    public async Task QuandoListarOrdenadoDeModoCrescente()
    {
-      var query = new ConsultarPessoasQuery(new Sort("nome", Order.ASC));
+      var query = _queryDefault with { Sort = new Sort("nome", Order.ASC) };
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
@@ -88,7 +95,7 @@ public class ListarPessoasSteps : AbstractSteps
       var pessoas = _context["pessoas"] as PageList<PessoaResult>;
 
       pessoas.ShouldNotBeNull();
-      pessoas.Items.Count.ShouldBe(quantidade);
+      pessoas.Items.Length.ShouldBe(quantidade);
    }
 
    [Then(@"retornará status (.*)")]

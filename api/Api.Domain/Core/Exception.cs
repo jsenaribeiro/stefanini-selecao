@@ -23,9 +23,3 @@ public class DomainException : Exception
 
    private static string Format(string text, params string[] args) => string.Format(text, args);
 }
-
-public record DomainError(string Message, Invalid[] Invalids, bool IsMessage)
-{
-   public DomainError(DomainException de) 
-      :this(de.Message, de.Invalids, de.Invalids.Length == 0) { }
-}

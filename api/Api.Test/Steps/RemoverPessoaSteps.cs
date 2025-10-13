@@ -3,11 +3,11 @@ using TechTalk.SpecFlow;
 namespace Api.Test;
 
 [Binding]
-public class StepDefinitions
+public class RemoverPessoaSteps : AbstractSteps
 {
    private readonly ScenarioContext _context;
 
-   public StepDefinitions(ScenarioContext sc)
+   public RemoverPessoaSteps(ScenarioContext sc)
    {
       _context = sc;
    }
@@ -34,5 +34,12 @@ public class StepDefinitions
    public void EntaoORetornoTeraOStatusCode(int status)
    {
       _context.Pending();
+   }
+
+   protected override async Task ClearScenario()
+   {
+      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Fulano");
+      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Beltrano");
+      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Sicrano");
    }
 }

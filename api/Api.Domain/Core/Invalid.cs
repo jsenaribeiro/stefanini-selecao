@@ -20,8 +20,8 @@ public record Invalid(string field, object? value, string error)
    public static bool Validation<T>(T instance, IServiceProvider provider, out Invalid[] invalids) where T : notnull
    {
       var results = new List<ValidationResult>();
-      var context = new ValidationContext(instance!, provider, null);
-      var isValid = Validator.TryValidateObject(instance!, context, results, validateAllProperties: true);
+      var context = new ValidationContext(instance, provider, null);
+      var isValid = Validator.TryValidateObject(instance, context, results, validateAllProperties: true);
       var fields = results.SelectMany(x => x.MemberNames.Select(n => new { field = n, error = x.ErrorMessage }));
       var errors = fields.Select(item =>
       {
@@ -41,6 +41,6 @@ public record Invalid(string field, object? value, string error)
    public static void ThrowIfInvalid<T>(T instance, IServiceProvider provider) where T : notnull
    {
       var isValid = Validation(instance, provider, out var invalids);
-      if (!isValid) throw Failure.Invalid(invalids);
+      if (!isValid) throw Errors.Invalid(invalids);
    }
 }

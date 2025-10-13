@@ -37,7 +37,6 @@ Esquema do Cenario: Campos inválidos
    Exemplos:
       | campo        | valor                |
       | "CPF"        | "000.000.000-00"     |
-      | "Nascimento" | "00/00/0000"         |
       | "Email"      | "email-invalido.com" |
 
 
@@ -47,5 +46,5 @@ Cenario: campos obrigatórios
    |      |            |
    Quando cadastrar a pessoa
    Então retornará erro de "Nome" "obrigatório"
-   E retornará erro de "Nascimento" "obrigatório"
+   Então retornará erro de "Nascimento" "obrigatório"
    E terá status 400

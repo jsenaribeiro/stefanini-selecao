@@ -2,12 +2,6 @@ namespace Api.Domain.Pessoas;
 
 public class Pessoa : Entity
 {
-   public Pessoa() // EF
-   {
-      Nome = string.Empty;
-      Nascimento = DateOnly.MinValue;
-   }
-
    public Pessoa(string nome, DateOnly nascimento)
    {
       Nome = nome;
@@ -26,10 +20,10 @@ public class Pessoa : Entity
       if (string.IsNullOrWhiteSpace(nascimento))
          invalids.Add(Invalid.RequiredOf(nameof(Nascimento), nascimento));
 
-      if (invalids.Count > 0) throw Failure.Invalid(invalids.ToArray());
+      if (invalids.Count > 0) throw Errors.Invalid(invalids.ToArray());
 
       try { Nascimento = nascimento.ToDateOnly("dd/MM/yyyy"); }
-      catch { throw Failure.Invalid("Nascimento", nascimento); }
+      catch { throw Errors.Invalid("Nascimento", nascimento); }
    }
 
    public string Nome { get; set; }

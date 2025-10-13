@@ -60,16 +60,12 @@ public class SqlContext : DbContext
 
       if (Database.IsInMemory())
       {
-         var addPessoa = (string nome, string data) => new Pessoa
-         {
-            Nascimento = DateOnly.Parse(data),
-            Id = Guid.NewGuid(),
-            Nome = nome
-         };
+         var newPessoa = (string nome, string data) =>
+            new Pessoa(nome, data) { Id = Guid.NewGuid() };
 
-         var fulano = addPessoa("Fulano", "2001-01-01");
-         var beltrano = addPessoa("Beltrano", "2002-02-02");
-         var sicrano = addPessoa("Sicrano", "2003-03-03");
+         var fulano = newPessoa("Fulano", "2001-01-01");
+         var beltrano = newPessoa("Beltrano", "2002-02-02");
+         var sicrano = newPessoa("Sicrano", "2003-03-03");
 
          mb.Entity<Pessoa>().HasData(fulano, beltrano, sicrano);
       }

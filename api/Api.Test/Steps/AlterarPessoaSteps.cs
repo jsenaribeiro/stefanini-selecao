@@ -9,7 +9,7 @@ using Api.Domain;
 namespace Api.Test.Steps;
 
 [Binding]
-public class AlterarPessoaSteps
+public class AlterarPessoaSteps : AbstractSteps
 {
    private readonly ScenarioContext _context;
 
@@ -52,5 +52,12 @@ public class AlterarPessoaSteps
    public void EntaoRetornaraOStatusCode(int statusCode)
    {
       _context.Pending();
+   }
+
+   protected override async Task ClearScenario()
+   {
+      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Fulano");
+      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Beltrano");
+      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Sicrano");
    }
 }

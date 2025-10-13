@@ -6,7 +6,7 @@ using Api.Infrastructure.Values;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Authentication;
 using Microsoft.SqlServer.Server;
-
+using Api.Service.Results;
 
 public abstract class ApiController<E> : ControllerBase where E : class
 {
@@ -37,7 +37,7 @@ public abstract class ApiController<E> : ControllerBase where E : class
       catch (DomainException ex)
       {
          logger.LogError(ex, ex.Message);
-         return StatusCode(ex.Status, new DomainError(ex));
+         return StatusCode(ex.Status, ErrorResult.From(ex));
       }
       catch (AuthenticationException ex)
       {

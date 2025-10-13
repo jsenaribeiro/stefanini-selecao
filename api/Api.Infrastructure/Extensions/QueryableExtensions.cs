@@ -34,7 +34,7 @@ public static class QueryableExtensions
          : query.OrderBy($"{sort.Field} descending");
       var paged = ordered.Skip(pageSkip).Take(page.Size);
 
-      var items = await paged.ToListAsync();
+      var items = await paged.ToArrayAsync();
       var total = await query.CountAsync();
 
       return new(items, total);

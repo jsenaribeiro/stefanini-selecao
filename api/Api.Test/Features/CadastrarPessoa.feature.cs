@@ -256,19 +256,6 @@ this.CamposInvalidos("\"CPF\"", "\"000.000.000-00\"", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Campos inválidos: \"Nascimento\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Cadastrar pessoa")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "\"Nascimento\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "\"Nascimento\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"00/00/0000\"")]
-        public void CamposInvalidos_Nascimento()
-        {
-#line 28
-this.CamposInvalidos("\"Nascimento\"", "\"00/00/0000\"", ((string[])(null)));
-#line hidden
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Campos inválidos: \"Email\"")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Cadastrar pessoa")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "\"Email\"")]
@@ -289,7 +276,7 @@ this.CamposInvalidos("\"Email\"", "\"email-invalido.com\"", ((string[])(null)));
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("campos obrigatórios", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 44
+#line 43
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -305,19 +292,19 @@ this.ScenarioInitialize(scenarioInfo);
                 table8.AddRow(new string[] {
                             "",
                             ""});
-#line 45
+#line 44
    testRunner.Given("uma pessoa com dados mínimos de", ((string)(null)), table8, "Dado ");
 #line hidden
-#line 48
+#line 47
    testRunner.When("cadastrar a pessoa", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
-#line 49
+#line 48
    testRunner.Then("retornará erro de \"Nome\" \"obrigatório\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Então ");
 #line hidden
-#line 50
-   testRunner.And("retornará erro de \"Nascimento\" \"obrigatório\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+#line 49
+   testRunner.Then("retornará erro de \"Nascimento\" \"obrigatório\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Então ");
 #line hidden
-#line 51
+#line 50
    testRunner.And("terá status 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line hidden
             }

@@ -19,11 +19,9 @@ public class CpfValidationAttribute : ValidationAttribute<string>
    private bool isUniqueCpf(string cpf, IServiceProvider provider)
    {
       var unitOfWork = provider.GetService(typeof(IUnitOfWork)) as IUnitOfWork;
-      if (unitOfWork is null) throw Failure.Unavailable(nameof(IUnitOfWork));
+      if (unitOfWork is null) throw Errors.Unavailable(nameof(IUnitOfWork));
 
-      var unique = unitOfWork.Pessoas.Query.Any(x => x.CPF == cpf) == false;
-
-      return unique;
+      return false == unitOfWork.Pessoas.ExistsAsync(x => x.CPF == cpf).Result;
    }
 
    private bool isValidCpfNumber(string cpf)
