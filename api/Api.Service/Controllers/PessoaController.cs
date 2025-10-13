@@ -38,4 +38,11 @@ public class PessoaController : ApiController<Pessoa>
    [HttpPut("/{id}")]
    public AsyncResult Put(Guid id, [FromBody] AlterarPessoaCommand command) =>
       TryAsync(() => mediator.Send(command with { Id = id }));
+
+   /// <summary>
+   /// Excluir uma pessoa cadastrada pelo seu id
+   /// </summary>
+   [HttpDelete("/{id}")]
+   public AsyncResult Delete(Guid id, [FromBody] RemoverPessoaCommand command) =>
+      TryAsync(() => mediator.Send(command with { Id = id }));
 }

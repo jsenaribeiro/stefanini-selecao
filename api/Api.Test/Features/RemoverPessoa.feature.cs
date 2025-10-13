@@ -20,7 +20,7 @@ namespace Api.Test.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class RemoverRegistroDePessoaFeature
+    public partial class RemoverPessoaFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -48,7 +48,7 @@ namespace Api.Test.Features
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-br"), "Features", "Remover registro de pessoa", "   Como um usuário qualquer\r\n   Eu quero remover o cadastro de uma pessoa\r\n   Par" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-br"), "Features", "Remover pessoa", "   Como um usuário qualquer\r\n   Eu quero remover o cadastro de uma pessoa\r\n   Par" +
                     "a que não seja mais listado no cadastros", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -64,9 +64,9 @@ namespace Api.Test.Features
         public void TestInitialize()
         {
             if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Title != "Remover registro de pessoa")))
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "Remover pessoa")))
             {
-                global::Api.Test.Features.RemoverRegistroDePessoaFeature.FeatureSetup(null);
+                global::Api.Test.Features.RemoverPessoaFeature.FeatureSetup(null);
             }
         }
         
@@ -94,7 +94,7 @@ namespace Api.Test.Features
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com sucesso")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Remover registro de pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Remover pessoa")]
         public void AlteracaoComSucesso()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -142,7 +142,7 @@ this.ScenarioInitialize(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("registro não encontrado")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Remover registro de pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Remover pessoa")]
         public void RegistroNaoEncontrado()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -162,7 +162,7 @@ this.ScenarioInitialize(scenarioInfo);
    testRunner.When("remover de um id não existente", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
 #line 18
-   testRunner.Then("uma mensagem de pessoa não encnotrada", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
+   testRunner.Then("uma mensagem de pessoa não encontrada", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
 #line hidden
 #line 19
    testRunner.And("o retorno terá o status code 404", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");

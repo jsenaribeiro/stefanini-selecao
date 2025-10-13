@@ -50,11 +50,10 @@ public class ListarPessoasSteps : AbstractSteps
    public async Task QuandoListarOsCadastros()
    {
       var query = _queryDefault;
-
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
-      _context["pessoas"] = result.ValueOf<PageListResult>();
+      _context["result"] = result.ValueOf<PageListResult>();
    }
 
    [When(@"filtra cadastros com ""(.*)""")]
@@ -64,7 +63,7 @@ public class ListarPessoasSteps : AbstractSteps
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
-      _context["pessoas"] = result.ValueOf<PageListResult>();
+      _context["result"] = result.ValueOf<PageListResult>();
    }
 
    [When(@"listar com (.*) linhas por página")]
@@ -76,7 +75,7 @@ public class ListarPessoasSteps : AbstractSteps
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
-      _context["pessoas"] = result.ValueOf<PageListResult>();
+      _context["result"] = result.ValueOf<PageListResult>();
    }
 
    [When(@"listar ordenado de modo crescente")]
@@ -86,13 +85,13 @@ public class ListarPessoasSteps : AbstractSteps
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
-      _context["pessoas"] = result.ValueOf<PageListResult>();
+      _context["result"] = result.ValueOf<PageListResult>();
    }
 
    [Then(@"listará (.*) cadastros")]
    public void EntaoListaraCadastros(int quantidade)
    {
-      var pessoas = _context["pessoas"] as PageList<PessoaResult>;
+      var pessoas = _context.Get<PageListResult>("result");
 
       pessoas.ShouldNotBeNull();
       pessoas.Items.Length.ShouldBe(quantidade);
@@ -110,7 +109,7 @@ public class ListarPessoasSteps : AbstractSteps
    [Then(@"conterá os dados")]
    public void EntaoConteraOsDados(Table table)
    {
-      var pessoas = _context["pessoas"] as PageList<PessoaResult>;
+      var pessoas = _context.Get<PageListResult>("result");
 
       pessoas.ShouldNotBeNull();
 

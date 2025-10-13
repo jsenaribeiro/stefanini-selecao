@@ -108,9 +108,9 @@ public class CadastrarPessoaSteps : AbstractSteps
       if ((int)_context["status"] < 300)
          throw new Exception("Esperado um cenário com erro");
 
-      var falhas = _context["falhas"] as ErrorResult;
+      var falhas = _context.Get<ErrorResult>("falhas");
 
-      if (falhas?.Invalids is not Invalid[] invalids)
+      if (falhas.Invalids is not Invalid[] invalids)
          throw new Exception("Não contém invalidações com " + campo);
 
       var erro = invalidacao == "inválido"
@@ -149,10 +149,7 @@ public class CadastrarPessoaSteps : AbstractSteps
    }
 
    [Then(@"terá status (.*)")]
-   public void EntaoTeraStatus(int status)
-   {
-      _context["status"].ShouldBe(status);
-   }
+   public void EntaoTeraStatus(int status) => _context["status"].ShouldBe(status);
 
    protected override async Task ClearScenario()
    {

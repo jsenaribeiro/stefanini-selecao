@@ -15,6 +15,8 @@ public interface IReadRepository<E> where E : Entity
 
    Task<bool> ExistsAsync();
 
+   Task<bool> ExistsAsync(Guid id);
+
    Task<bool> ExistsAsync(Expression<Func<E, bool>> predicate);
 
    Task<long> CountAsync(Expression<Func<E, bool>> predicate);

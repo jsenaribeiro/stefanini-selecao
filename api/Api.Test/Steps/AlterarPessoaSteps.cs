@@ -13,15 +13,11 @@ public class AlterarPessoaSteps : AbstractSteps
 {
    private readonly ScenarioContext _context;
 
-   public AlterarPessoaSteps(ScenarioContext sc)
-   {
-      _context = sc;
-   }
+   public AlterarPessoaSteps(ScenarioContext sc) => _context = sc;
 
    [Given(@"uma pessoa cadastrada com")]
    public void DadoUmaPessoaCadastradaCom(Table table)
    {
-      _context.Pending();
    }
 
    [When(@"alterar o cadastro do ""(.*)"" com ""(.*)"" = ""(.*)""")]

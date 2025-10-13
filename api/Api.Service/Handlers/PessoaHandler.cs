@@ -18,6 +18,7 @@ public class PessoaHandler : AbstractHandler
    , IRequestHandler<ConsultarPessoasQuery, PageList<PessoaResult>>
    , IRequestHandler<CadastrarPessoaCommand, PessoaResult>
    , IRequestHandler<AlterarPessoaCommand, PessoaResult>
+   , IRequestHandler<RemoverPessoaCommand, bool>
 {
    public PessoaHandler(IServiceProvider provider) : base(provider) { }
 
@@ -39,8 +40,6 @@ public class PessoaHandler : AbstractHandler
    public async Task<PessoaResult> Handle(CadastrarPessoaCommand command, CancellationToken cancel)
    {
       ArgumentNullException.ThrowIfNull(command, nameof(ConsultarPessoasQuery));
-
-      // if (command.Nascimento == default) throw Errors.Required("Nascimento");
 
       var pessoa = new Pessoa(command.Nome, command.Nascimento)
       {
@@ -75,6 +74,24 @@ public class PessoaHandler : AbstractHandler
 
       await unitOfWork.Pessoas.SaveAsync(pessoa);
 
+      Invalid.ThrowIfInvalid(command, provider);
+      Invalid.ThrowIfInvalid(pessoa, provider);
+
       return new PessoaResult(pessoa);
+   }
+
+   public async Task<bool> Handle(RemoverPessoaCommand command, CancellationToken cancel)
+   {
+      ArgumentNullException.ThrowIfNull(command, nameof(RemoverPessoaCommand));
+
+      var encontrou = await unitOfWork.Pessoas.ExistsAsync(command.Id);
+
+      if (!encontrou) throw Errors.NotFound(nameof(Pessoa));
+
+      await unitOfWork.Pessoas.DropAsync(command.Id);
+
+      Invalid.ThrowIfInvalid(command, provider);
+
+      return true;
    }
 }

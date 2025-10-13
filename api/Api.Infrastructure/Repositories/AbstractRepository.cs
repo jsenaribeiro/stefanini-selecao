@@ -15,8 +15,8 @@ public abstract class AbstractRepository<E> : IRepository<E> where E : Entity
 
    public AbstractRepository(IServiceProvider provider)
    {
-      this.context = provider.GetRequiredService<SqlContext>();
-      this.dbSet = context.Set<E>();
+      context = provider.GetRequiredService<SqlContext>();
+      dbSet = context.Set<E>();
    }
 
    public Task<E?> LoadAsync(Guid id) =>
@@ -30,15 +30,17 @@ public abstract class AbstractRepository<E> : IRepository<E> where E : Entity
    public IQueryable<E> Where(Expression<Func<E, bool>> predicate) =>
       dbSet.Where(predicate).AsNoTracking();
 
-   public Task<long> CountAsync() => this.dbSet.LongCountAsync();
+   public Task<long> CountAsync() => dbSet.LongCountAsync();
 
    public Task<long> CountAsync(Expression<Func<E, bool>> predicate) =>
-      this.dbSet.LongCountAsync(predicate);
+      dbSet.LongCountAsync(predicate);
 
-   public Task<bool> ExistsAsync() => this.dbSet.AnyAsync();
+   public Task<bool> ExistsAsync() => dbSet.AnyAsync();
+
+   public Task<bool> ExistsAsync(Guid id) => dbSet.AnyAsync(x => x.Id == id);
 
    public Task<bool> ExistsAsync(Expression<Func<E, bool>> predicate) =>
-      this.dbSet.AnyAsync(predicate);
+      dbSet.AnyAsync(predicate);
    
    public async Task<E> SaveAsync(E entity)
    {

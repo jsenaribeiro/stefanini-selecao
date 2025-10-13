@@ -1,6 +1,6 @@
 #language: pt-br
 
-Funcionalidade: Remover registro de pessoa
+Funcionalidade: Remover pessoa
    Como um usuário qualquer
    Eu quero remover o cadastro de uma pessoa
    Para que não seja mais listado no cadastros
@@ -15,5 +15,5 @@ Cenario: alteração com sucesso
 
 Cenario: registro não encontrado
    Quando remover de um id não existente 
-   Entao uma mensagem de pessoa não encnotrada
+   Entao uma mensagem de pessoa não encontrada
    E o retorno terá o status code 404
