@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Api.Test.Features
+namespace Api.Test.Pessoas
 {
     using TechTalk.SpecFlow;
     using System;
@@ -48,7 +48,7 @@ namespace Api.Test.Features
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-br"), "Features", "Cadastrar pessoa", "   Como um usuário qualquer\r\n   Eu quero cadastrar pessoa\r\n   Para que seja lista" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-br"), "Pessoas", "Cadastrar pessoa", "   Como um usuário qualquer\r\n   Eu quero cadastrar pessoa\r\n   Para que seja lista" +
                     "do no cadastros", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -66,7 +66,7 @@ namespace Api.Test.Features
             if (((testRunner.FeatureContext != null) 
                         && (testRunner.FeatureContext.FeatureInfo.Title != "Cadastrar pessoa")))
             {
-                global::Api.Test.Features.CadastrarPessoaFeature.FeatureSetup(null);
+                global::Api.Test.Pessoas.CadastrarPessoaFeature.FeatureSetup(null);
             }
         }
         

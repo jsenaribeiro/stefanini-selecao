@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Api.Test.Features
+namespace Api.Test.Pessoas
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,7 +20,7 @@ namespace Api.Test.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class AlterarRegistroDePessoaFeature
+    public partial class AtualizarPessoaFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -29,7 +29,7 @@ namespace Api.Test.Features
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "AlterarPessoa.feature"
+#line 1 "AtualizarPessoa.feature"
 #line hidden
         
         public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
@@ -48,7 +48,7 @@ namespace Api.Test.Features
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-br"), "Features", "Alterar registro de pessoa", "   Como um usuário qualquer\r\n   Eu quero alterar o cadastro de uma pessoa\r\n   Par" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-br"), "Pessoas", "Atualizar pessoa", "   Como um usuário qualquer\r\n   Eu quero alterar o cadastro de uma pessoa\r\n   Par" +
                     "a que a mudança seja listado no cadastros", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -64,9 +64,9 @@ namespace Api.Test.Features
         public void TestInitialize()
         {
             if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Title != "Alterar registro de pessoa")))
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "Atualizar pessoa")))
             {
-                global::Api.Test.Features.AlterarRegistroDePessoaFeature.FeatureSetup(null);
+                global::Api.Test.Pessoas.AtualizarPessoaFeature.FeatureSetup(null);
             }
         }
         
@@ -127,7 +127,7 @@ this.ScenarioInitialize(scenarioInfo);
    testRunner.Given("uma pessoa cadastrada com", ((string)(null)), table1, "Dado ");
 #line hidden
 #line 12
-   testRunner.When(string.Format("alterar o cadastro do \"Fulano\" com {0} = {1}", campo, valor), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+   testRunner.When(string.Format("alterar o cadastro do Fulano com {0} = {1}", campo, valor), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
 #line 13
    testRunner.Then(string.Format("o cadastro do cenário terá o {0} = {1}", campo, valor), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
@@ -140,80 +140,80 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com sucesso: \"Sexo\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Alterar registro de pessoa")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "\"Sexo\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "\"Sexo\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"F\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com sucesso: Sexo")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Atualizar pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Sexo")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "Sexo")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "F")]
         public void AlteracaoComSucesso_Sexo()
         {
 #line 8
-this.AlteracaoComSucesso("\"Sexo\"", "\"F\"", ((string[])(null)));
+this.AlteracaoComSucesso("Sexo", "F", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com sucesso: \"Nome\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Alterar registro de pessoa")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "\"Nome\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "\"Nome\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"Beltrana\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com sucesso: Nome")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Atualizar pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Nome")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "Nome")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "Beltrana")]
         public void AlteracaoComSucesso_Nome()
         {
 #line 8
-this.AlteracaoComSucesso("\"Nome\"", "\"Beltrana\"", ((string[])(null)));
+this.AlteracaoComSucesso("Nome", "Beltrana", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com sucesso: \"Nascimento\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Alterar registro de pessoa")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "\"Nascimento\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "\"Nascimento\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"02/02/2002\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com sucesso: Nascimento")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Atualizar pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Nascimento")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "Nascimento")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "02/02/2002")]
         public void AlteracaoComSucesso_Nascimento()
         {
 #line 8
-this.AlteracaoComSucesso("\"Nascimento\"", "\"02/02/2002\"", ((string[])(null)));
+this.AlteracaoComSucesso("Nascimento", "02/02/2002", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com sucesso: \"Email\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Alterar registro de pessoa")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "\"Email\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "\"Email\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"beltrano@email.com\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com sucesso: Email")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Atualizar pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Email")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "Email")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "beltrano@email.com")]
         public void AlteracaoComSucesso_Email()
         {
 #line 8
-this.AlteracaoComSucesso("\"Email\"", "\"beltrano@email.com\"", ((string[])(null)));
+this.AlteracaoComSucesso("Email", "beltrano@email.com", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com sucesso: \"CPF\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Alterar registro de pessoa")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "\"CPF\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "\"CPF\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"455.767.800-94\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com sucesso: CPF")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Atualizar pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "CPF")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "CPF")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "455.767.800-94")]
         public void AlteracaoComSucesso_CPF()
         {
 #line 8
-this.AlteracaoComSucesso("\"CPF\"", "\"455.767.800-94\"", ((string[])(null)));
+this.AlteracaoComSucesso("CPF", "455.767.800-94", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com sucesso: \"Nacionalidade\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Alterar registro de pessoa")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "\"Nacionalidade\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "\"Nacionalidade\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"Aegentina\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com sucesso: Nacionalidade")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Atualizar pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Nacionalidade")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "Nacionalidade")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "Argentina")]
         public void AlteracaoComSucesso_Nacionalidade()
         {
 #line 8
-this.AlteracaoComSucesso("\"Nacionalidade\"", "\"Aegentina\"", ((string[])(null)));
+this.AlteracaoComSucesso("Nacionalidade", "Argentina", ((string[])(null)));
 #line hidden
         }
         
@@ -225,7 +225,7 @@ this.AlteracaoComSucesso("\"Nacionalidade\"", "\"Aegentina\"", ((string[])(null)
             argumentsOfScenario.Add("valor", valor);
             argumentsOfScenario.Add("excecao", excecao);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("alteração com fracasso", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 25
+#line 27
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -256,16 +256,16 @@ this.ScenarioInitialize(scenarioInfo);
                             "beltrano@email.com",
                             "455.767.800-94",
                             "Brasil"});
-#line 26
+#line 28
    testRunner.Given("uma pessoa cadastrada com", ((string)(null)), table2, "Dado ");
 #line hidden
-#line 30
-   testRunner.When(string.Format("alterar o cadastro do \"Fulano\" com {0} = {1}", campo, valor), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
-#line hidden
-#line 31
-   testRunner.Then(string.Format("retornará a mensagem de erro de {0}", excecao), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
-#line hidden
 #line 32
+   testRunner.When(string.Format("alterar o cadastro do Fulano com {0} = {1}", campo, valor), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+#line hidden
+#line 33
+   testRunner.Then(string.Format("retornará erro de {0} com {1} e {2}", excecao, campo, valor), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
+#line hidden
+#line 34
    testRunner.And("retornará o status code 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line hidden
             }
@@ -274,111 +274,97 @@ this.ScenarioInitialize(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com fracasso: Variant 0")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Alterar registro de pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Atualizar pessoa")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Variant 0")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "\"Nome\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:excecao", "\"obrigatorio\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "Nome")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:excecao", "obrigatorio")]
         public void AlteracaoComFracasso_Variant0()
         {
-#line 25
-this.AlteracaoComFracasso("\"Nome\"", "\"\"", "\"obrigatorio\"", ((string[])(null)));
+#line 27
+this.AlteracaoComFracasso("Nome", "", "obrigatorio", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com fracasso: Variant 1")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Alterar registro de pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Atualizar pessoa")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Variant 1")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "\"Nascimento\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:excecao", "\"obrigatorio\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "Nascimento")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:excecao", "obrigatorio")]
         public void AlteracaoComFracasso_Variant1()
         {
-#line 25
-this.AlteracaoComFracasso("\"Nascimento\"", "\"\"", "\"obrigatorio\"", ((string[])(null)));
+#line 27
+this.AlteracaoComFracasso("Nascimento", "", "obrigatorio", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com fracasso: Variant 2")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Alterar registro de pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Atualizar pessoa")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Variant 2")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "\"Nascimento\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"00/00/0000\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:excecao", "\"invalido\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "Nascimento")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "00/00/0000")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:excecao", "obrigatorio")]
         public void AlteracaoComFracasso_Variant2()
         {
-#line 25
-this.AlteracaoComFracasso("\"Nascimento\"", "\"00/00/0000\"", "\"invalido\"", ((string[])(null)));
+#line 27
+this.AlteracaoComFracasso("Nascimento", "00/00/0000", "obrigatorio", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com fracasso: Variant 3")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Alterar registro de pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Atualizar pessoa")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Variant 3")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "\"Sexo\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"A\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:excecao", "\"invalido\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "Email")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "beltrano_email.com")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:excecao", "invalidacao")]
         public void AlteracaoComFracasso_Variant3()
         {
-#line 25
-this.AlteracaoComFracasso("\"Sexo\"", "\"A\"", "\"invalido\"", ((string[])(null)));
+#line 27
+this.AlteracaoComFracasso("Email", "beltrano_email.com", "invalidacao", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com fracasso: Variant 4")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Alterar registro de pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Atualizar pessoa")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Variant 4")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "\"Email\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"beltrano_email.com\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:excecao", "\"invalido\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "CPF")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "000.000.000-00")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:excecao", "invalidacao")]
         public void AlteracaoComFracasso_Variant4()
         {
-#line 25
-this.AlteracaoComFracasso("\"Email\"", "\"beltrano_email.com\"", "\"invalido\"", ((string[])(null)));
+#line 27
+this.AlteracaoComFracasso("CPF", "000.000.000-00", "invalidacao", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com fracasso: Variant 5")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Alterar registro de pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Atualizar pessoa")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Variant 5")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "\"CPF\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"000.000.000-00\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:excecao", "\"invalido\"")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "CPF")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "455.767.800-94")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:excecao", "duplicidade")]
         public void AlteracaoComFracasso_Variant5()
         {
-#line 25
-this.AlteracaoComFracasso("\"CPF\"", "\"000.000.000-00\"", "\"invalido\"", ((string[])(null)));
-#line hidden
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com fracasso: Variant 6")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Alterar registro de pessoa")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Variant 6")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:campo", "\"CPF")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:valor", "\"455.767.800-94\"")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:excecao", "\"duplicidade\"")]
-        public void AlteracaoComFracasso_Variant6()
-        {
-#line 25
-this.AlteracaoComFracasso("\"CPF", "\"455.767.800-94\"", "\"duplicidade\"", ((string[])(null)));
+#line 27
+this.AlteracaoComFracasso("CPF", "455.767.800-94", "duplicidade", ((string[])(null)));
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("pessoa não encontrada")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Alterar registro de pessoa")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Atualizar pessoa")]
         public void PessoaNaoEncontrada()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("pessoa não encontrada", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 44
+#line 45
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -388,13 +374,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 45
+#line 46
    testRunner.When("alterar o cadastro com um id não cadastrado", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
 #line hidden
-#line 46
+#line 47
    testRunner.Then("retornará uma mensagem de erro de pessoa não encontrada", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Então ");
 #line hidden
-#line 47
+#line 48
    testRunner.And("retornará o status code 404", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
 #line hidden
             }

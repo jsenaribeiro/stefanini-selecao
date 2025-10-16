@@ -8,10 +8,10 @@ using Api.Domain;
 using Api.Domain.Pessoas;
 using Api.Service.Results;
 
-namespace Api.Test.Steps;
+namespace Api.Test.Pessoas;
 
 [Binding]
-public class CadastrarPessoaSteps : AbstractSteps
+public class CadastrarPessoaSteps : AbstractPessoaSteps
 {
    private readonly ScenarioContext _context;
    private readonly PessoaController _controller;
@@ -53,18 +53,17 @@ public class CadastrarPessoaSteps : AbstractSteps
    {
       _context["restrito"] = false;
 
-      foreach (var row in table.Rows)
+      foreach (var pessoa in GetInstantiationOf(table))
       {
-         var nome = row["nome"];
-         var nascimento = row["nascimento"].ToDateOnly("dd/MM/yyyy");
-         var sexo = row["sexo"].ToUpper() == "M" ? Sexo.M : Sexo.F;
+         var nome = pessoa.Nome;
+         var nascimento = pessoa.Nascimento;
 
          _context["cadastrar"] = new CadastrarPessoaCommand(nome, nascimento)
          {
-            Sexo = sexo,
-            CPF = row["cpf"],
-            Email = row["email"],
-            Nacionalidade = row["nacionalidade"]
+            CPF = pessoa.CPF,
+            Sexo = pessoa.Sexo,
+            Email = pessoa.Email,
+            Nacionalidade = pessoa.Nacionalidade
          };
       }
    }
@@ -76,13 +75,7 @@ public class CadastrarPessoaSteps : AbstractSteps
 
       var pessoaProps = pessoa?.GetType()?.GetProperty(campo);
 
-      if (campo == "Nascimento")
-      {
-         if (valor is null) valor = default(DateOnly);
-         else if (valor is string s && s == "") valor = default(DateOnly);
-         else if (valor?.ToString() == "00/00/0000") valor = default(DateOnly);
-         else valor = valor!.ToString()!.ToDateOnly("dd/MM/yyyy");         
-      }
+      valor = GetValueOf<AlterarPessoaCommand>(campo, valor);
 
       if (pessoaProps is PropertyInfo props)
          props.SetValue(pessoa, valor);
@@ -131,9 +124,9 @@ public class CadastrarPessoaSteps : AbstractSteps
          var nascimento = row["nascimento"].ToDateOnly("dd/MM/yyyy");
 
          var pessoa = unitOfWork.Pessoas
-            .Where(x => x.Nascimento == nascimento)
-            .FirstOrDefaultAsync(x => x.Nome == nome)
-            .Result;
+            .FilterBy(x => x.Nascimento == nascimento)
+            .FilterBy(x => x.Nome == nome)
+            .LoadAsync().Result;
 
          pessoa.ShouldNotBeNull();
          pessoa.Nome.ShouldBe(nome);
@@ -153,8 +146,8 @@ public class CadastrarPessoaSteps : AbstractSteps
 
    protected override async Task ClearScenario()
    {
-      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Fulano");
-      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Beltrano");
-      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Sicrano");
+      await unitOfWork.Pessoas.DeleteAsync(x => x.Nome == "Fulano");
+      await unitOfWork.Pessoas.DeleteAsync(x => x.Nome == "Beltrano");
+      await unitOfWork.Pessoas.DeleteAsync(x => x.Nome == "Sicrano");
    }
 }

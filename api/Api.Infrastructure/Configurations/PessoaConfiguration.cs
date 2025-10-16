@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Api.Infrastructure.Configurations;
 
-public class PessoaConfiguration : AbstractConfiguration<Pessoa>
+public class PessoaConfiguration : AbstractConfiguration<Pessoa, Guid>
 {
    public override void Configure(EntityTypeBuilder<Pessoa> etb)
    {

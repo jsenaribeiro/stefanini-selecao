@@ -10,7 +10,7 @@ public static class Messages
 
    public const string INACESSIVEL = "{0} não está disponível";
 
-   public const string DUPLICIDADE = "Já existe outro registro para {0} com valor {1}";
+   public const string DUPLICIDADE = "Já existe registro de {0} como '{1}'";
 
    public const string OBRIGATORIO = "O campo '{0}' é obrigatório";
 }

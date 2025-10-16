@@ -3,12 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using Api.Domain;
 
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-public abstract class ValidationAttribute<T> : ValidationAttribute
+public abstract class ValidatorAttribute<T> : ValidationAttribute
 {
-   public readonly bool IsRequired;
-
-   public ValidationAttribute(bool isRequired) => IsRequired = isRequired;
-
    protected abstract string Validate(T value, string field, IServiceProvider provider);
 
    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
@@ -25,9 +21,7 @@ public abstract class ValidationAttribute<T> : ValidationAttribute
 
       var success = ValidationResult.Success!;
 
-      ErrorMessage = isEmpty || value is null 
-         ? (IsRequired ? required : string.Empty)
-         : Validate((T)value, property, provider);
+      ErrorMessage = isEmpty || value is null ? "" : Validate((T)value, property, provider);
 
       return ErrorMessage == string.Empty ? success
            : new ValidationResult(ErrorMessage, [ property ]);

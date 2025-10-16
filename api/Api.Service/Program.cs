@@ -1,5 +1,6 @@
 using Api.Domain;
 using Api.Infrastructure;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,7 @@ try
     services.AddHttpContextAccessor();
     services.AddEndpointsApiExplorer();
     services.AddScoped<IUnitOfWork, UnitOfWork>();
-    // services.AddJwtBearer(configuration);
+    services.AddJwtBearer(configuration);
     services.AddSqlContext(configuration, true);
     services.AddHealthCheck(configuration);
     services.AddCors(configuration);
@@ -25,15 +26,8 @@ try
     var app = builder.Build();
 
     app.UseSwagger(true);
-    app.UseRouting();
-    app.UseCors();
-    app.UseResponseCaching();
-    app.UseAuthentication();
-    app.UseAuthorization();
-
-    app.MapControllers();
-    app.MapHealthChecks("/health");
-
+    app.UseLocalization("pt-BR");
+    app.UseApiControllers();
     app.RunMigrations();
     app.Run();
 }

@@ -57,20 +57,6 @@ public abstract class AbstractSteps : IDisposable
    [AfterScenario]
    public void Dispose() => scope?.Dispose();
 
-   protected T? GetValueOf<T>(IActionResult result)
-   {
-      var SEM_CONTEUDO = "Nao tem conteudo no resultado";
-      var TIPO_ERRADO = $"Tipo esperado '{typeof(T).Name}' falhou";
-
-      if (result is not ObjectResult resultado)
-         throw new Exception(SEM_CONTEUDO);
-
-      if (resultado.Value is not T valor)
-         throw new Exception(TIPO_ERRADO);
-
-      return valor;
-   }
-
    [AfterScenario]
    [BeforeScenario]
    protected abstract Task ClearScenario();

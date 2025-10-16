@@ -1,27 +1,14 @@
 using System.Text.RegularExpressions;
 using Api.Domain;
 
-public class CpfValidationAttribute : ValidationAttribute<string>
+public class CpfValidatorAttribute : ValidatorAttribute<string>
 {
-   public CpfValidationAttribute(bool isRequired) : base(isRequired) { }
-
    protected override string Validate(string value, string field, IServiceProvider provider)
    {
       if (isValidCpfNumber(value) == false)
          return string.Format(Messages.INVALIDO, field);
 
-      else if (isUniqueCpf(value, provider) == false)
-         return string.Format(Messages.DUPLICIDADE, field, value);
-
       return string.Empty;
-   }
-
-   private bool isUniqueCpf(string cpf, IServiceProvider provider)
-   {
-      var unitOfWork = provider.GetService(typeof(IUnitOfWork)) as IUnitOfWork;
-      if (unitOfWork is null) throw Errors.Unavailable(nameof(IUnitOfWork));
-
-      return false == unitOfWork.Pessoas.ExistsAsync(x => x.CPF == cpf).Result;
    }
 
    private bool isValidCpfNumber(string cpf)

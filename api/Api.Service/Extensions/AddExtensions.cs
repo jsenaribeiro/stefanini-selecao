@@ -6,9 +6,21 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Api.Service.Handlers;
 using System.Diagnostics;
+using Api.Service.Middlers;
+using Microsoft.AspNetCore.Mvc;
 
 public static class AddExtensions
 {
+   public static IServiceCollection AddControllers(this IServiceCollection services)
+   {
+      void configureControllers(MvcOptions options) =>
+         options.Filters.Add<JsonExceptionFilter>();
+
+      services.AddControllers(configureControllers);
+
+      return services;
+   }
+
    public static IServiceCollection AddJwtBearer(this IServiceCollection services, IConfiguration configuration)
    {
       services.AddAuthentication(options =>
@@ -57,12 +69,12 @@ public static class AddExtensions
 
       var connection = configuration.GetConnectionString("DefaultConnection");
 
-      #if RELEASE
+#if RELEASE
          services.AddDbContext<SqlContext>(opt => opt.UseSqlServer(connection));
-      #else
-         if (test) services.AddDbContext<SqlContext>(opt => opt.UseInMemoryDatabase("db"));
-         else services.AddDbContext<SqlContext>(opt => opt.UseSqlServer(connection));
-      #endif
+#else
+      if (test) services.AddDbContext<SqlContext>(opt => opt.UseInMemoryDatabase("db"));
+      else services.AddDbContext<SqlContext>(opt => opt.UseSqlServer(connection));
+#endif
 
       return services;
    }
@@ -71,11 +83,11 @@ public static class AddExtensions
    {
       var scheme = new OpenApiSecurityScheme
       {
+         Scheme = "bearer",
+         BearerFormat = "JWT",
          Name = "Authorization",
          In = ParameterLocation.Header,
          Type = SecuritySchemeType.Http,
-         Scheme = "bearer",
-         BearerFormat = "JWT",
          Description = "Digite: Bearer {seu token}"
       };
 

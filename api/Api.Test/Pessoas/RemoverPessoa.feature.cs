@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Api.Test.Features
+namespace Api.Test.Pessoas
 {
     using TechTalk.SpecFlow;
     using System;
@@ -48,7 +48,7 @@ namespace Api.Test.Features
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-br"), "Features", "Remover pessoa", "   Como um usuário qualquer\r\n   Eu quero remover o cadastro de uma pessoa\r\n   Par" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-br"), "Pessoas", "Remover pessoa", "   Como um usuário qualquer\r\n   Eu quero remover o cadastro de uma pessoa\r\n   Par" +
                     "a que não seja mais listado no cadastros", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -66,7 +66,7 @@ namespace Api.Test.Features
             if (((testRunner.FeatureContext != null) 
                         && (testRunner.FeatureContext.FeatureInfo.Title != "Remover pessoa")))
             {
-                global::Api.Test.Features.RemoverPessoaFeature.FeatureSetup(null);
+                global::Api.Test.Pessoas.RemoverPessoaFeature.FeatureSetup(null);
             }
         }
         
@@ -93,13 +93,13 @@ namespace Api.Test.Features
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("alteração com sucesso")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("remoção com sucesso")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Remover pessoa")]
-        public void AlteracaoComSucesso()
+        public void RemocaoComSucesso()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("alteração com sucesso", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("remoção com sucesso", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden

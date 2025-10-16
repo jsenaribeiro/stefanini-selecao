@@ -5,8 +5,9 @@ using TechTalk.SpecFlow;
 using Shouldly;
 using Api.Service.Queries;
 using Api.Service.Results;
+using Api.Domain;
 
-namespace Api.Test.Steps;
+namespace Api.Test.Pessoas;
 
 using PageListResult = PageList<PessoaResult>;
 
@@ -17,7 +18,7 @@ public class ListarPessoasSteps : AbstractSteps
 
    private readonly PessoaController _controller;
 
-   private readonly Sort _sort = new("nascimento", Order.ASC);
+   private readonly Sort _sort = new("nascimento", Ordering.ASC);
 
    private readonly ConsultarPessoasQuery _queryDefault;
 
@@ -28,7 +29,7 @@ public class ListarPessoasSteps : AbstractSteps
       _controller = new PessoaController(provider!);
       _queryDefault = new ConsultarPessoasQuery
       {
-         Sort = new("nascimento", Order.ASC)
+         Sort = new("nascimento", Ordering.ASC)
       };
    }
 
@@ -42,7 +43,7 @@ public class ListarPessoasSteps : AbstractSteps
          var dataNascimento = nascimento.ToDateOnly("dd/MM/yyyy");
          var pessoa = new Pessoa(nome, dataNascimento);
 
-         await unitOfWork!.Pessoas.SaveAsync(pessoa);
+         await unitOfWork!.Pessoas.CreateAsync(pessoa);
       }
    }
 
@@ -81,7 +82,7 @@ public class ListarPessoasSteps : AbstractSteps
    [When(@"listar ordenado de modo crescente")]
    public async Task QuandoListarOrdenadoDeModoCrescente()
    {
-      var query = _queryDefault with { Sort = new Sort("nome", Order.ASC) };
+      var query = _queryDefault with { Sort = new Sort("nome", Ordering.ASC) };
       var result = await _controller.Get(query);
 
       _context["status"] = result.GetStatusCode();
@@ -127,8 +128,8 @@ public class ListarPessoasSteps : AbstractSteps
 
    protected override async Task ClearScenario()
    {
-      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Fulano");
-      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Beltrano");
-      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Sicrano");
+      await unitOfWork.Pessoas.DeleteAsync(x => x.Nome == "Fulano");
+      await unitOfWork.Pessoas.DeleteAsync(x => x.Nome == "Beltrano");
+      await unitOfWork.Pessoas.DeleteAsync(x => x.Nome == "Sicrano");
    }
 }

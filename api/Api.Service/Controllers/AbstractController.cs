@@ -7,24 +7,26 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Authentication;
 using Microsoft.SqlServer.Server;
 using Api.Service.Results;
+using System.Text.Json;
 
-public abstract class ApiController<E> : ControllerBase where E : class
+
+public abstract class AbstractController<E> : ControllerBase where E : class
 {
    protected readonly ILogger<E> logger;
 
    protected readonly IMediator mediator;
 
-   public ApiController(IServiceProvider provider)
+   public AbstractController(IServiceProvider provider)
    {
       logger = provider.GetRequiredService<ILogger<E>>();
       mediator = provider.GetRequiredService<IMediator>();
    }
 
-   protected async Task<IActionResult> TryAsync<T>(Func<Task<T>> task, bool isCreation = false)
+   protected async Task<IActionResult> SendAsync<T>(IRequest<T> request, bool isCreation = false)
    {
       try
       {
-         var result = await task();
+         var result = await mediator.Send(request);
 
          if (result is PageList pl && pl.Total == 0)
             return NotFound(result);
@@ -33,6 +35,20 @@ public abstract class ApiController<E> : ControllerBase where E : class
             return NotFound(result);
 
          return isCreation ? StatusCode(201, result) : Ok(result);
+      }
+      catch (JsonException ex)
+      {
+         logger.LogError(ex, ex.Message);
+
+         var field = ex.Path?.Replace("$.", "") ?? "";
+
+         var value = request.GetType().GetProperties()
+            .First(p => p.Name.ToLower() == field.ToLower())
+            .GetValue(request);
+
+         var error = string.Format(Messages.INVALIDO, field);
+
+         return StatusCode(400, ErrorResult.From(field, error, value));
       }
       catch (DomainException ex)
       {

@@ -1,6 +1,6 @@
 namespace Api.Domain.Pessoas;
 
-public interface IPessoaRepository : IRepository<Pessoa>
+public interface IPessoaRepository : IRepository<Pessoa, Guid>
 {
 
 }

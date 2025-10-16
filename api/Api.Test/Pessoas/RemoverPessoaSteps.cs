@@ -3,13 +3,14 @@ using Api.Domain.Pessoas;
 using Api.Service.Commands;
 using Api.Service.Controllers;
 using Api.Service.Results;
+using Api.Test.Pessoas;
 using Shouldly;
 using TechTalk.SpecFlow;
 
 namespace Api.Test;
 
 [Binding]
-public class RemoverPessoaSteps : AbstractSteps
+public class RemoverPessoaSteps : AbstractPessoaSteps
 {
    private readonly ScenarioContext _context;
 
@@ -22,24 +23,10 @@ public class RemoverPessoaSteps : AbstractSteps
    [Given(@"um cadastro com uma pessoa")]
    public async Task DadoUmCadastroComUmaPessoa(Table table)
    {
-      foreach (var row in table.Rows)
+      foreach (var pessoa in GetInstantiationOf(table))
       {
-         var nome = row["nome"];
-         var nascimento = row["nascimento"].ToDateOnly("dd/MM/yyyy");
-         var sexo = row["sexo"].ToUpper() == "M" ? Sexo.M : Sexo.F;
-
-         var pessoa = new Pessoa(nome, nascimento)
-         {
-            Sexo = sexo,
-            CPF = row["cpf"],
-            Email = row["email"],
-            Nacionalidade = row["nacionalidade"]
-         };
-
-         await unitOfWork.Pessoas.SaveAsync(pessoa);
-
-         if (_context["pessoas"] is List<Pessoa> pessoas)
-            pessoas.Add(pessoa);
+         await unitOfWork.Pessoas.CreateAsync(pessoa);
+         _context.Get<List<Pessoa>>("pessoas").Add(pessoa);
       }
    }
 
@@ -94,8 +81,8 @@ public class RemoverPessoaSteps : AbstractSteps
 
    protected override async Task ClearScenario()
    {
-      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Fulano");
-      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Beltrano");
-      await unitOfWork.Pessoas.DropAsync(x => x.Nome == "Sicrano");
+      await unitOfWork.Pessoas.DeleteAsync(x => x.Nome == "Fulano");
+      await unitOfWork.Pessoas.DeleteAsync(x => x.Nome == "Beltrano");
+      await unitOfWork.Pessoas.DeleteAsync(x => x.Nome == "Sicrano");
    }
 }

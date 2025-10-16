@@ -5,7 +5,7 @@ Funcionalidade: Remover pessoa
    Eu quero remover o cadastro de uma pessoa
    Para que não seja mais listado no cadastros
 
-Cenario: alteração com sucesso
+Cenario: remoção com sucesso
    Dado um cadastro com uma pessoa
    | nome   | nascimento | sexo | email            | cpf            | nacionalidade |
    | Fulano | 01/01/2001 | M    | fulano@email.com | 566.247.640-31 | Brasil        |

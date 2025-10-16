@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using Api.Domain;
 using Api.Domain.Pessoas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -48,8 +49,8 @@ public class SqlContext : DbContext
          });
       }
    
-   #endif
-   
+#endif
+
    }
 
    protected override void OnModelCreating(ModelBuilder mb)
@@ -60,8 +61,11 @@ public class SqlContext : DbContext
 
       if (Database.IsInMemory())
       {
-         var newPessoa = (string nome, string data) =>
-            new Pessoa(nome, data) { Id = Guid.NewGuid() };
+         var newPessoa = (string nome, string data) => new Pessoa(nome, data)
+         {
+            Id = Guid.NewGuid(),            
+            Log = null
+         };
 
          var fulano = newPessoa("Fulano", "2001-01-01");
          var beltrano = newPessoa("Beltrano", "2002-02-02");

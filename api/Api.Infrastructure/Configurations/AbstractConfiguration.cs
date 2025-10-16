@@ -4,19 +4,27 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Api.Infrastructure.Configurations;
 
-public abstract class AbstractConfiguration<E> : IEntityTypeConfiguration<E> where E : Entity
+public abstract class AbstractConfiguration<E,I> 
+   : IEntityTypeConfiguration<E> 
+     where E : Entity<I>
+     where I : struct
 {
    private readonly string tableName;
 
-   public AbstractConfiguration() => this.tableName = typeof(E).Name + "s";
+   public AbstractConfiguration() => tableName = typeof(E).Name + "s";
 
    public AbstractConfiguration(string tableName) => this.tableName = tableName;
 
    public virtual void Configure(EntityTypeBuilder<E> builder)
    {
-      builder.ToTable(this.tableName);
+      builder.ToTable(tableName);
+      
       builder.HasKey(u => u.Id);
-      builder.Property(x => x.DataCriacao);
-      builder.Property(x => x.DataAtualizacao);
+
+      builder.OwnsOne(x => x.Log, log =>
+      {
+         log.Property(x => x.DataCriacao);
+         log.Property(x => x.DataAtualizacao);
+      });
    }
 }

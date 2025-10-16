@@ -23,3 +23,6 @@ public class DomainException : Exception
 
    private static string Format(string text, params string[] args) => string.Format(text, args);
 }
+
+public class InvalidException(string field, string error, object? value = null) 
+   : DomainException(new [] { new Invalid(field, value, error) }) { }

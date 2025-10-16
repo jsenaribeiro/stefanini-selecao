@@ -14,3 +14,8 @@
 
 - guerkin extensions: Cucumber (Gherkin) Full Support
 - nesting file: *.feature = \${capture}.fature.cs, \${capture}.steps.cs
+
+## Pendentes
+
+- atualizar UnitOfWork (transaction)
+- atualizar Repository

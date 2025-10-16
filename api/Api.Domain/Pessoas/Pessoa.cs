@@ -1,6 +1,6 @@
 namespace Api.Domain.Pessoas;
 
-public class Pessoa : Entity
+public class Pessoa : Entity<Guid>
 {
    public Pessoa(string nome, DateOnly nascimento)
    {
@@ -26,16 +26,19 @@ public class Pessoa : Entity
       catch { throw Errors.Invalid("Nascimento", nascimento); }
    }
 
+   [Required]
    public string Nome { get; set; }
 
    public Sexo? Sexo { get; set; }
 
-   [CpfValidation(false)]
+   [Unique]
+   [CpfValidator]
    public string? CPF { get; set; }
 
-   [EmailValidation(false)]
+   [EmailValidator]
    public string? Email { get; set; }
 
+   [Required]
    public DateOnly Nascimento { get; set; }
 
    public string? Nacionalidade { get; set; }
