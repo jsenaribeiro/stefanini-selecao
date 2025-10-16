@@ -1,0 +1,25 @@
+{
+  "pessoas": [
+    {
+      "id": "1",
+      "nome": "Alice Silva",
+      "email": "alice.silva@exemplo.com",
+      "idade": 30,
+      "cidade": "São Paulo"
+    },
+    {
+      "id": "2",
+      "nome": "Bruno Costa",
+      "email": "bruno.costa@exemplo.com",
+      "idade": 25,
+      "cidade": "Rio de Janeiro"
+    },
+    {
+      "id": "3",
+      "nome": "Carla Oliveira",
+      "email": "carla.oliveira@exemplo.com",
+      "idade": 45,
+      "cidade": "Belo Horizonte"
+    }
+  ]
+}
