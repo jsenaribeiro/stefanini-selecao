@@ -1,23 +1,16 @@
-// import { StrictMode } from 'react'
-// import { createRoot } from 'react-dom/client'
-// import './index.css'
-// import App from './App.tsx'
-
-// createRoot(document.getElementById('root')!).render(
-//   <StrictMode>
-//     <App />
-//   </StrictMode>,
-// )
-
 import App from './App'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import './index.css'; // Tailwind
+import './assets/main.css'
+import './assets/dev.css'
+import './extensions'
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const rootHTML = document.getElementById('root')
+
+ReactDOM.createRoot(rootHTML!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <App />

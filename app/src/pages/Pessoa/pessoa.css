@@ -1,0 +1,36 @@
+#pessoa table {
+   font-size: 1rem;
+   font-family: agave;
+}
+
+#pessoa #panel {
+   display: grid;
+   grid-template-columns: auto 1fr auto;
+   align-items: center;
+   gap: 10px;
+}
+
+#pessoa dialog {
+   & h2 {
+      padding-bottom: 2rem;
+   }
+}
+
+#pessoa form {
+   gap: 5px 15px;
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+
+   & label {
+      display: block;
+      padding-bottom: 15px;
+   }
+
+   & [role="command"] {
+      text-align: right;      
+   }
+
+   & [role="default"] {
+      margin-right: 15px;
+   }
+}
