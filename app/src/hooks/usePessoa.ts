@@ -1,29 +1,46 @@
-import { useQuery, useMutation, useQueryClient, type UseMutationResult, type UseQueryResult, QueryClient } from '@tanstack/react-query'
-import type { Pessoa } from '../models/pessoa'
-import { pessoaApi } from '../apis/pessoaApi'
+import { ioc } from "../injections";
+import { RestApi } from "../commons/rest";
+import type { Pessoa } from "../models/pessoa";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export function usePessoas() {
-  const queryClient = useQueryClient()
+function useQueryFactory<T>(queryKey: string[], queryFn: () => Promise<T[]>) {
+	return useQuery({ queryKey, queryFn });
+}
 
-  const onSuccess = () => queryClient.invalidateQueries({ queryKey: ['pessoas'] })
+function mutateFactory<A, T = A>(
+	queryKey: string[],
+	mutationFn: (args: A) => Promise<T>,
+) {
+	const queryClient = useQueryClient();
+	const onSuccess = () => queryClient.invalidateQueries({ queryKey });
+	return useMutation({ mutationFn, onSuccess });
+}
 
-  const search = useQuery<Pessoa[], Error>({ queryKey: ['pessoas'], queryFn: pessoaApi.search });
+export function usePessoa(query?: object) {
+	const keys = ["pessoas"];
+	const params = query ? JSON.stringify(query) : "";
+	const restApi = ioc.get(RestApi<Pessoa, string>);
 
-  const create = useMutation<Pessoa, Error, Omit<Pessoa, 'id'>>({
-    mutationFn: pessoaApi.create, onSuccess
-  })
+	const search = useQueryFactory<Pessoa>(keys.concat(params), () =>
+		restApi.search("/pessoas", query).then((x) => x.value),
+	);
 
-  const update = useMutation<Pessoa, Error, { pessoa: Partial<Pessoa> & { id: string} }>({
-    mutationFn: ({ id, pessoa }) => pessoaApi.update(id, pessoa), onSuccess
-  })
+	const create = mutateFactory<Omit<Pessoa, "id">, Pessoa>(keys, (data) =>
+		restApi.create("/pessoas", data).then((x) => x.value),
+	);
 
-  const remove = useMutation<any, Error, string>({ mutationFn: pessoaApi.delete, onSuccess })
+	const update = mutateFactory<Partial<Pessoa>>(keys, (data) =>
+		restApi.update(`/pessoas`, data).then((x) => x.value),
+	);
 
+	const remove = mutateFactory<string | number, boolean>(keys, (id) =>
+		restApi.delete("/pessoas", id?.toString()).then((x) => x.value),
+	);
 
-  // // return CRUD<Pessoa>.from(queryClient, ['pessoas'])
-  // return new CRUD<Pessoa, string>({ search, create, update, remove });
-
-  // const crud: ICRUD<Pessoa, Error> = {
-    
-  }
+	return {
+		...search,
+		create: create.mutate,
+		update: update.mutate,
+		delete: remove.mutate,
+	};
 }

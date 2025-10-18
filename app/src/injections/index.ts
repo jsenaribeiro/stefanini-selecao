@@ -1,12 +1,16 @@
-import { Container } from "inversify"
-import { RestApi } from "../commons/rest"
-import { StateApi } from "../commons/state"
-import { AxiosApiClient } from "./AxiosApiClient"
-import { ReactQueryHandler } from "./ReactQueryHandler"
+import { Container } from "inversify";
+import { RestApi } from "../commons/rest";
+import { StateApi } from "../commons/state";
+import { AxiosApiClient } from "./AxiosApiClient";
+import { ReactQueryHandler } from "./ReactQueryHandler";
 
-const ioc = new Container()
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
-ioc.bind(RestApi).to(AxiosApiClient)
-ioc.bind(StateApi).to(ReactQueryHandler)
+const iocContainer = new Container();
 
-export { ioc }
+iocContainer
+	.bind(RestApi)
+	.toDynamicValue(() => new AxiosApiClient(BASE_URL))
+	.inSingletonScope();
+
+export const ioc = iocContainer;

@@ -1,8 +1,11 @@
 {
-  "files": [],
-  "compilerOptions": {    
-    "baseUrl": "src",
-    "paths": { "@/*": ["*"] }
+  "files": [],  
+  "compilerOptions": {
+    "target": "ESNext",
+    "noImplicitAny": false,
+    "useDefineForClassFields": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "references": [
     { "path": "./tsconfig.app.json" },

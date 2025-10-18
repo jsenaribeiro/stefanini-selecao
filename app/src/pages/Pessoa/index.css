@@ -1,0 +1,61 @@
+#pessoa {
+	margin-top: 30px;
+}
+
+#pessoa table {
+	font-size: 1rem;
+	font-family: agave, monospace;
+}
+
+#pessoa #panel {
+	display: flex;
+	align-items: center;
+	padding-bottom: 20px;
+	gap: 10px;
+}
+
+#pessoa #panel button {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+#pessoa dialog {
+	top: 70px;
+	& h2 {
+		margin-bottom: 2rem;
+		padding-bottom: 1rem;
+		border-bottom: solid 3px #333;
+	}
+}
+
+#pessoa input,
+#pessoa select {
+	width: 100%;
+	height: 35px;
+}
+
+#pessoa form fieldset {
+	display: block;
+	gap: 5px 15px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+
+	& label {
+		display: block;
+		padding-bottom: 5px;
+	}
+
+	& [role="default"] {
+		margin-right: 15px;
+	}
+}
+
+#pessoa .pessoa-botoes {
+	gap: 10px;
+	display: flex;
+	padding: 10px;
+	padding-top: 25px;
+	justify-self: end;
+	flex-direction: row;
+}

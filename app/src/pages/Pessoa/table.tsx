@@ -1,26 +1,53 @@
-import type { Pessoa } from "../../models/pessoa"
+import { Icon } from "../../components";
+import { usePessoa } from "../../hooks/usePessoa";
+import type { Pessoa } from "../../models/pessoa";
 
 interface Props {
-   src: Pessoa[]
+	onEdit: (e: Pessoa) => void;
 }
 
-const convertToHeader = (pessoas: Pessoa[]) => pessoas.length 
-	&& Object.keys(pessoas?.at(0) ?? {})
-		.map(n => n.capitalize())
-		.map(PessoaHead)
+export function PessoaTable(props: Props) {
+	const crud = usePessoa();
+	const { data, isLoading, error } = crud;
+	const pessoas = data || [];
 
-export const PessoaTable = (props: Props) => <>
-	<table id="pessoa-table">
-		<thead>
-			<tr>{ convertToHeader(props.src) }</tr>
-		</thead>
-		<tbody>{ props.src.map(PessoaBody) }</tbody>
-	</table>
-</>
+	if (isLoading) return <progress>carregando...</progress>;
 
-const PessoaHead = (campo: string, i: any) => <th key={i}>{campo}</th>
+	if (error) return <div>{error.message}</div>;
 
-const PessoaBody = (pessoa: Pessoa, i: number) => 
-	<tr key={i}>{Object.values(pessoa).map(PessoaCell)}</tr>
+	const onSet = (pessoa) => () => props.onEdit(pessoa);
 
-const PessoaCell = (value: any, i: number) => <td key={i}>{value}</td>
+	const onDelete = (id: any) => () => crud.delete(id);
+
+	const PessoaBody = (pessoa: Pessoa, i: number) => (
+		<tr key={i}>
+			<td>{pessoa.id}</td>
+			<td>{pessoa.nome}</td>
+			<td>{pessoa.cpf}</td>
+			<td>{pessoa.email}</td>
+			<td>{pessoa.nascimento}</td>
+			<td>{pessoa.nacionalidade}</td>
+			<td style={{ textAlign: "center" }}>
+				<Icon tooltip="editar" name="edit_note" onClick={onSet(pessoa)} />
+				<Icon tooltip="deletar" name="delete" onClick={onDelete(pessoa.id)} />
+			</td>
+		</tr>
+	);
+
+	return (
+		<table id="pessoa-table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nome</th>
+					<th>CPF</th>
+					<th>Email</th>
+					<th>Nascimento</th>
+					<td>Nação</td>
+					<th>Ação</th>
+				</tr>
+			</thead>
+			<tbody>{pessoas.map(PessoaBody)}</tbody>
+		</table>
+	);
+}

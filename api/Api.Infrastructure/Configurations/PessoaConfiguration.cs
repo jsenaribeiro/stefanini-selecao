@@ -17,7 +17,10 @@ public class PessoaConfiguration : AbstractConfiguration<Pessoa, Guid>
       etb.Property(x => x.CPF);
 
       etb.Property(u => u.Sexo)
-         .HasConversion<string>() 
+         .HasConversion<string>()
          .IsRequired(false);
+
+      etb.HasIndex(x => x.CPF)
+         .IsUnique();
    }
 }

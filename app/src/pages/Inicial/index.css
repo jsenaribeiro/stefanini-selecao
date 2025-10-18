@@ -1,0 +1,16 @@
+#inicial span.icon {
+	font-size: 90px !important;
+}
+
+#inicial .central {
+	display: grid;
+	justify-content: center;
+	grid-template-columns: 100px 150px;
+	border-top: solid 1px #333;
+	padding-top: 20px;
+	color: wheat;
+}
+
+#inicial .central label {
+	padding-top: 10px;
+}

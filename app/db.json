@@ -1,29 +1,31 @@
-[
+{
+  "pessoas": [
     {
       "id": "1",
-		"sexo": "M",
-		"cpf": "000.000.000-1",
-      "nome": "Alice Silva",
-      "email": "alice.silva@exemplo.com",
-      "nascimento": "00/00/0000",
+      "sexo": "M",
+      "cpf": "000.000.000-0",
+      "nome": "Ana Vieira",
+      "email": "ana.vieira@exemplo.com",
+      "nascimento": "01/01/2001",
       "nacionalidade": "Brasil"
     },
     {
       "id": "2",
-		"sexo": "M",
-		"cpf": "000.000.000-1",
+      "sexo": "M",
+      "cpf": "000.000.000-1",
       "nome": "Bruno Costa",
       "email": "bruno.costa@exemplo.com",
-      "nascimento": "00/00/0000",
+      "nascimento": "00/00/0002",
       "nacionalidade": "Brasil"
     },
     {
       "id": "3",
-		"sexo": "M",
-		"cpf": "000.000.000-1",
+      "sexo": "M",
+      "cpf": "000.000.000-3",
       "nome": "Carla Oliveira",
       "email": "carla.oliveira@exemplo.com",
-      "nascimento": "00/00/0000",
+      "nascimento": "00/00/0003",
       "nacionalidade": "Brasil"
     }
   ]
+}

@@ -7,6 +7,7 @@ using System.Linq.Dynamic.Core;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Data.SqlClient;
 
 namespace Api.Infrastructure.Repositories;
 
@@ -146,12 +147,23 @@ public abstract class AbstractRepository<E, I> : IRepository<E, I>
       catch (DbUpdateConcurrencyException ex)
       {
          _logger.LogError(ex, ex.Message);
+         
          throw new DomainException(500, "Conflito no banco de dados");
       }
       catch (DbUpdateException ex)
       {
          _logger.LogError(ex, ex.Message);
-         throw new Exception($"Erro ao atualizar {typeof(E)}", ex);
+
+         if (ex.InnerException is SqlException sqlException)
+         {
+            var codigoErroDb = sqlException.Number;
+            var errosDeDuplicidade = new[] { 2601, 2627 };
+
+            if (errosDeDuplicidade.Contains(codigoErroDb))
+               throw new DomainException(400, "Violação de campo único");
+         }
+         
+         throw;
       }
       catch (ArgumentNullException)
       {
