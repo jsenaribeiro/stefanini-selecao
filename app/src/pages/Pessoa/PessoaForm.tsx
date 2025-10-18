@@ -1,6 +1,6 @@
 import { usePessoa } from "../../hooks/usePessoa";
 import type { Pessoa } from "../../models/pessoa";
-import type { PageModel } from "./types";
+import type { PageModel } from "./PessoaShare";
 
 interface Props {
 	model?: PageModel;
@@ -9,12 +9,14 @@ interface Props {
 
 export function PessoaForm(props: Props) {
 	const { create, update } = usePessoa();
-	const pessoa = props.model?.item;
-	const { id, nome, cpf, sexo, email, nacionalidade } = pessoa || {};
+	const show = props.model?.show ?? "create";
+	const pessoa = (show == "update" ? props.model?.item : {}) as Pessoa;
+	const { id, nome, cpf, sexo, email, nacionalidade } = pessoa;
 
-	const dataInvalida = !pessoa?.nascimento;
 	const dataNascimento = Date.fromString(pessoa?.nascimento, "dd/MM/yyyy");
-	const data = dataInvalida ? "" : dataNascimento.toString("yyyy-MM-dd");
+	const data = show == "update" ? dataNascimento.toString("yyyy-MM-dd") : "";
+
+	// console.log("pessoa", show, pessoa);
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -23,30 +25,37 @@ export function PessoaForm(props: Props) {
 		const formData = new FormData(e.currentTarget);
 		const pessoa = Object.fromEntries(formData.entries()) as any as Pessoa;
 		const data = pessoa.nascimento as any;
-		const nascimento =
+
+		pessoa.id = (props.model?.show == "create" ? undefined : pessoa.id) as any;
+
+		pessoa.nascimento =
 			data instanceof Date
 				? (data.toString("dd/MM/yyyy") as any)
 				: Date.is(data, "yyyy-MM-dd")
 					? Date.fromToString(data, "yyyy-MM-dd", "dd/MM/yyyy")
 					: data;
 
-		const action = props.model?.item ? update : create;
+		const action = props.model?.show == "update" ? update : create;
 
-		pessoa.nascimento = nascimento;
+		// console.log(props.model?.show, pessoa);
 
 		action(pessoa);
+
+		if (props.model) props.model.item = undefined;
+
+		e.currentTarget.reset();
 		props.onHide();
 	}
 
 	return (
-		<dialog open>
+		<dialog open={!!props.model?.show}>
 			<h2>Cadastrar pessoa</h2>
 			<form onSubmit={onSubmit}>
 				<fieldset>
 					<input hidden name="id" defaultValue={id || ""} />
 					<section>
 						<label htmlFor="nome">Nome</label>
-						<input name="nome" defaultValue={nome} />
+						<input required name="nome" defaultValue={nome} />
 					</section>
 					<section>
 						<label htmlFor="cpf">CPF</label>
@@ -66,7 +75,7 @@ export function PessoaForm(props: Props) {
 					</section>
 					<section>
 						<label htmlFor="nacimento">Nascimento</label>
-						<input name="nascimento" type="date" defaultValue={data} />
+						<input required name="nascimento" type="date" defaultValue={data} />
 					</section>
 					<section>
 						<label htmlFor="nacionalidade">Nacionalidade</label>

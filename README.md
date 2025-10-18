@@ -1,19 +1,6 @@
 # README
 
-## Projeto
-
-### VsCode configurações
-
-- guerkin extensions: Cucumber (Gherkin) Full Support
-- nesting file: *.feature = \${capture}.fature.cs, \${capture}.steps.cs
-
-## Pendentes
-
-- atualizar UnitOfWork (transaction)
-- atualizar Repository
-# Projeto
-
-Projeto de cadastro de pessoas contendo
+## Arquitetura
 
 - documentação swagger
 - versionamento de api
@@ -21,22 +8,17 @@ Projeto de cadastro de pessoas contendo
 - banco de dados
 - cloud based
 
-Sobre o versionamento de api
-
-- v1: sem endereço
-- v2: com endereço obrigatório
-
-
-# API
-
-O projeto de webapi em .NET 8 C#
-
 ## Requisitos
 
 - **Consultar** com filtros o registro de pessoas
 - **Cadastrar** registro de pessoa
 - **Alterar** registro de pessoa
 - **Remover** registro de pessoa
+
+Sobre o versionamento de api
+
+- v1: sem endereço
+- v2: com endereço obrigatório
 
 ## Modelagens
 
@@ -62,5 +44,5 @@ Arquitetura BFF com microserviço em RESTful API usando conteinerização Docker
 
 | app | api | 
 |-|-|
-| dotnet 8, CQRS lógico, DDD light, RESTful API, Entity Framework Core, Sql Server, Lauers, DDD, BDD, Mediatr, Migrations, Docker | React 17+, react-query, inversifyJS, typescript, vite, swc, biome |
+| dotnet 8, CQRS lógico, DDD light, RESTful API, Entity Framework Core, Sql Server, Lauers, DDD, BDD, Mediatr, Migrations, Docker | React 17+, react-query, inversifyJS, typescript, vite, swc, biome, json-serve |
 

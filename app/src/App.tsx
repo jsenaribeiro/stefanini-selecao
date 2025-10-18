@@ -1,8 +1,8 @@
 import Pessoa from "./pages/Pessoa";
-import "./App.css";
 import { Link, Route, Routes } from "react-router-dom";
 import Inicial from "./pages/Inicial";
 import Sobre from "./pages/Sobre";
+import "./App.css";
 
 const App = () => (
 	<>

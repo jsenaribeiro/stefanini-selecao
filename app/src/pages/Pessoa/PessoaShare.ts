@@ -1,7 +1,9 @@
 import type { Pessoa } from "../../models/pessoa";
 
 export class PageModel {
-	public form: boolean = false;
+	public show: "create" | "update" | "" = "";
 
 	public item?: Pessoa = undefined;
+
+	public query?: Partial<Pessoa>;
 }
