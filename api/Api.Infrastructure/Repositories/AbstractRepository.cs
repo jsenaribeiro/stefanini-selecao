@@ -23,8 +23,6 @@ public abstract class AbstractRepository<E, I> : IRepository<E, I>
 
    protected readonly ILogger<IRepository<E, I>> _logger;
 
-   private (int Size, int Number) _page = (0, 0);
-
    private (string? Field, Ordering Order) _sort = (null, Ordering.ASC);
 
    private IQueryable<E> _query;
@@ -36,48 +34,60 @@ public abstract class AbstractRepository<E, I> : IRepository<E, I>
       _query = _contextSet;
    }
 
-   public IReadRepository<E, I> PageBy(int size, int number) =>
-      fluentOf(() => _page = (size, number));
-
    public IReadRepository<E, I> OrderBy(string? field, Ordering order) =>
       fluentOf(() => _sort = (field, order));
 
-   public IReadRepository<E, I> FilterBy(Expression<Func<E, bool>> predicate) =>
+   public IReadRepository<E, I> Where(Expression<Func<E, bool>> predicate) =>
       fluentOf(() => _query = _query.Where(predicate));
 
    public Task<E?> LoadAsync() => _query.FirstOrDefaultAsync();
 
    public Task<E?> LoadAsync(I id) => _contextSet
-      .AsNoTrackingWithIdentityResolution()
       .FirstOrDefaultAsync(x => x.Id.Equals(id));
-
-   public Task<E[]> ListAsync(Expression<Func<E, bool>> predicate) =>
-      _contextSet.Where(predicate).AsNoTracking().ToArrayAsync();
 
    public Task<bool> ExistsAsync() => _query.AnyAsync();
 
-   public Task<long> CountAsync() => _query.LongCountAsync();   
+   public Task<long> CountAsync() => _query.LongCountAsync();
 
-   public async Task<(E[] Items, int Total)> ListAsync()
+   public Task<E[]> ListAsync(bool isReadOnly)
    {
-      _query ??= _contextSet.AsNoTracking();
+      var query = isReadOnly ? _query : _query.AsNoTracking();
+      var result = query.ToArrayAsync();
 
-      var pageNumber = _page.Number == 0 ? 1 : _page.Number;
-      var pageSkip = (pageNumber - 1) * _page.Size;
+      _query = _contextSet;
+
+      return result;
+   }
+
+   public Task<T[]> ListAsync<T>(bool isReadOnly, Expression<Func<E, T>> selector)
+   {
+      var query = isReadOnly ? _query : _query.AsNoTracking();
+      var result = query.Select(selector).ToArrayAsync();
+
+      _query = _contextSet;
+
+      return result;
+   }
+
+   public async Task<(E[] Items, int Total)> ListAsync(int number, int length)
+   {
+      _query ??= _contextSet;
+
+      var pageNumber = number == 0 ? 1 : number;
+      var pageSkip = (pageNumber - 1) * length;
       var (field, order) = _sort;
-      
+
       var ordered = string.IsNullOrWhiteSpace(field) ? _query
          : order == Ordering.ASC ? _query.OrderBy(field)
          : _query.OrderBy($"{field} descending");
 
-      var paging =_page.Size > 0 && _page.Number > 0
-         ? ordered.Skip(pageSkip).Take(_page.Size)
+      var paging = length > 0 && number > 0
+         ? ordered.Skip(pageSkip).Take(length)
          : ordered;
 
       var items = await paging.ToArrayAsync();
       var total = await _query.CountAsync();
 
-      _page = (0, 0);
       _sort = (null, Ordering.ASC);
       _query = _contextSet;
 
@@ -108,10 +118,6 @@ public abstract class AbstractRepository<E, I> : IRepository<E, I>
       await ValidateUniqueAttributeAsync(entity);
 
       entity.Log = Audit.Atualizacao;
-
-      if (getTrackedOf(entity.Id) is E tracked)
-         _context.Entry(tracked).State = EntityState.Detached;
-
       _contextSet.Update(entity);
 
       await _context.SaveChangesAsync();
@@ -125,13 +131,13 @@ public abstract class AbstractRepository<E, I> : IRepository<E, I>
 
       try
       {
-         var tracked = getTrackedOf(entity.Id);
-         _contextSet.Remove(tracked ?? entity);
+         _contextSet.Remove(entity);
 
          await _context.SaveChangesAsync();
+
          return true;
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
          _logger.LogError(ex, ex.Message);
          return false;
@@ -147,7 +153,7 @@ public abstract class AbstractRepository<E, I> : IRepository<E, I>
       catch (DbUpdateConcurrencyException ex)
       {
          _logger.LogError(ex, ex.Message);
-         
+
          throw new DomainException(500, "Conflito no banco de dados");
       }
       catch (DbUpdateException ex)
@@ -162,7 +168,7 @@ public abstract class AbstractRepository<E, I> : IRepository<E, I>
             if (errosDeDuplicidade.Contains(codigoErroDb))
                throw new DomainException(400, "Violação de campo único");
          }
-         
+
          throw;
       }
       catch (ArgumentNullException)
@@ -209,10 +215,6 @@ public abstract class AbstractRepository<E, I> : IRepository<E, I>
          throw new InvalidException(field, error, value);
       }
    }
-
-   private E? getTrackedOf(I id) =>
-      _context.ChangeTracker.Entries<E>()
-         .FirstOrDefault(e => e.Entity.Id.Equals(id))?.Entity;
 
    private IReadRepository<E, I> fluentOf(Action action) { action(); return this; }
 }

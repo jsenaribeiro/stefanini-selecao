@@ -1,4 +1,6 @@
 export interface Result<T = any> {
+	ok: boolean;
+	size: number;
 	value: T;
 	status: number;
 	message: string | null;

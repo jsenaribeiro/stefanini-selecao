@@ -13,14 +13,7 @@ public interface IRepository<E, I>
       where E : Entity<I>
       where I : struct
 {
-   #region default implementation
-
-   Task<bool> ExistsAsync(I id) =>
-      FilterBy(x => x.Id.Equals(id))
-         .ExistsAsync();
-
-   Task<bool> ExistsAsync(Expression<Func<E, bool>> predicate) =>
-      FilterBy(predicate).ExistsAsync();
+   #region defaults
 
    async Task<bool> DeleteAsync(I id) =>
       await DeleteAsync(await LoadAsync(id));
@@ -29,7 +22,7 @@ public interface IRepository<E, I>
    {
       var returns = new List<bool>();
 
-      var (founds, total) = await FilterBy(predicate).ListAsync();
+      var founds = await Where(predicate).ListAsync(true);
 
       foreach (var entity in founds)
          returns.Add(await DeleteAsync(entity.Id));
@@ -51,12 +44,6 @@ public interface IWriteRepository<E, I> where E : Entity<I> where I : struct
 
 public interface IReadRepository<E, I> where E : Entity<I> where I : struct
 {
-   IReadRepository<E, I> PageBy(int size, int number);
-
-   IReadRepository<E, I> OrderBy(string? field, Ordering order);
-
-   IReadRepository<E, I> FilterBy(Expression<Func<E, bool>> predicate);
-
    Task<bool> ExistsAsync();
 
    Task<long> CountAsync();
@@ -65,5 +52,26 @@ public interface IReadRepository<E, I> where E : Entity<I> where I : struct
 
    Task<E?> LoadAsync();
 
-   Task<(E[] Items, int Total)> ListAsync();
+   Task<E[]> ListAsync(bool isReadOnly);
+
+   Task<T[]> ListAsync<T>(bool isReadOnly, Expression<Func<E, T>> selector);
+
+   Task<(E[] Items, int Total)> ListAsync(int number, int length);
+
+   IReadRepository<E, I> OrderBy(string? field, Ordering order);
+
+   IReadRepository<E, I> Where(Expression<Func<E, bool>> predicate);
+
+   #region defaults
+
+   Task<E[]> ListAsync() => ListAsync(false);
+
+   Task<T[]> ListAsync<T>(Expression<Func<E, T>> selector) => ListAsync(false, selector);
+
+   Task<bool> ExistsAsync(I id) => Where(x => x.Id.Equals(id)).ExistsAsync();
+
+   Task<bool> ExistsAsync(Expression<Func<E, bool>> predicate) =>
+      Where(predicate).ExistsAsync();
+
+   #endregion
 }

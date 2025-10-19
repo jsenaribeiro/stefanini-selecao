@@ -124,8 +124,8 @@ public class CadastrarPessoaSteps : AbstractPessoaSteps
          var nascimento = row["nascimento"].ToDateOnly("dd/MM/yyyy");
 
          var pessoa = unitOfWork.Pessoas
-            .FilterBy(x => x.Nascimento == nascimento)
-            .FilterBy(x => x.Nome == nome)
+            .Where(x => x.Nascimento == nascimento)
+            .Where(x => x.Nome == nome)
             .LoadAsync().Result;
 
          pessoa.ShouldNotBeNull();

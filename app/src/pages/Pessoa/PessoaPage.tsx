@@ -35,7 +35,7 @@ export function PessoaPage() {
 			<h1> Pessoas </h1>
 			<section id="pessoa">
 				<aside id="panel">
-					Digite para buscar <input value={filtro} onInput={onFiltrar} />
+					Busca por nome <input value={filtro} onInput={onFiltrar} />
 					<button>Filtrar</button>
 					<button onClick={() => onModal(undefined)}>
 						<Icon name="add_circle" />

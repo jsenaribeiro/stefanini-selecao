@@ -46,3 +46,9 @@ Arquitetura BFF com microserviço em RESTful API usando conteinerização Docker
 |-|-|
 | dotnet 8, CQRS lógico, DDD light, RESTful API, Entity Framework Core, Sql Server, Lauers, DDD, BDD, Mediatr, Migrations, Docker | React 17+, react-query, inversifyJS, typescript, vite, swc, biome, json-serve |
 
+## Pendente
+
+- integracao
+- cloud
+- filtrar
+- paginacao

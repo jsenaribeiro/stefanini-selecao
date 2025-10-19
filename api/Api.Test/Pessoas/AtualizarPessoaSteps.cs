@@ -109,6 +109,7 @@ public class AtualizarPessoaSteps : AbstractPessoaSteps
    {
       await unitOfWork.Pessoas.DeleteAsync(x => x.Nome == "Fulano");
       await unitOfWork.Pessoas.DeleteAsync(x => x.Nome == "Beltrano");
+      await unitOfWork.Pessoas.DeleteAsync(x => x.Nome == "Beltrana");
       await unitOfWork.Pessoas.DeleteAsync(x => x.Nome == "Sicrano");
    }
 }

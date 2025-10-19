@@ -6,7 +6,9 @@ import { RestApi } from "../commons/rest";
 type IResponse = AxiosResponse<any, any, any>;
 
 const getResult = (res: IResponse): Result => ({
-	value: res.status < 300 ? res.data : null,
+	ok: res.status < 300,
+	size: res.status < 300 ? res?.data?.total || 1 : 0,
+	value: res.status < 300 ? res.data?.items || res.data : null,
 	status: res.status,
 	message: res.status < 300 ? null : res.data?.message || res?.data,
 });

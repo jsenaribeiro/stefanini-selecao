@@ -25,11 +25,10 @@ public class PessoaHandler : AbstractHandler
 
       var nome = string.IsNullOrWhiteSpace(query.Nome) ? null : query.Nome.ToLower();
 
-      var (items, total) = await unitOfWork.Pessoas      
-         .PageBy(query.Page.Size, query.Page.Number)
+      var (items, total) = await unitOfWork.Pessoas
+         .Where(p => nome == null || p.Nome.ToLower().Contains(nome))
          .OrderBy(query.Sort.Field, query.Sort.Order)
-         .FilterBy(p => nome == null || p.Nome.ToLower().Contains(nome))
-         .ListAsync();
+         .ListAsync(query.Page.Number, query.Page.Length);
 
       return PessoaResult.From(total, items);
    }
@@ -72,7 +71,7 @@ public class PessoaHandler : AbstractHandler
       Invalid.ThrowIfInvalid(command, provider);
       Invalid.ThrowIfInvalid(pessoa, provider);
 
-      await unitOfWork.Pessoas.UpdateAsync(pessoa);      
+      await unitOfWork.Pessoas.UpdateAsync(pessoa);
 
       return new PessoaResult(pessoa);
    }

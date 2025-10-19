@@ -18,8 +18,6 @@ public class ListarPessoasSteps : AbstractSteps
 
    private readonly PessoaController _controller;
 
-   private readonly Sort _sort = new("nascimento", Ordering.ASC);
-
    private readonly ConsultarPessoasQuery _queryDefault;
 
    public ListarPessoasSteps(ScenarioContext sc)
