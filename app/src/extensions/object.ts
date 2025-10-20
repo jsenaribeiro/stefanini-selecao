@@ -10,7 +10,7 @@ declare global {
 	}
 }
 
-Object.merge = function (from, to, ignore = false) {
+Object.merge = (from, to, ignore = false) => {
 	if (!from) return to;
 	if (!to) return from;
 
@@ -34,10 +34,10 @@ Object.defineProperty(Object.prototype, "toJsonString", {
 });
 
 Object.defineProperty(Object.prototype, "toQueryString", {
+	enumerable: false,
 	value: function () {
 		return toQueryString(this);
 	},
-	enumerable: false,
 });
 
 function toQueryString(that) {
@@ -48,7 +48,12 @@ function toQueryString(that) {
 	const isNullOrEndefined = (_, value) => value !== undefined && value !== null;
 
 	const convertValueToString = (obj, [key, val]) => {
-		obj[key] = String(val);
+		if (typeof val != "object") obj[key] = String(val);
+
+		Object.entries(val).forEach(([k, v]) => {
+			obj[`${key}.${k}`] = v;
+		});
+
 		return obj;
 	};
 

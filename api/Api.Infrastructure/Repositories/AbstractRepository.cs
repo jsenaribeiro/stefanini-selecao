@@ -72,17 +72,17 @@ public abstract class AbstractRepository<E, I> : IRepository<E, I>
    public async Task<PageList<E>> ListAsync(int number, int length)
    {
       _query ??= _contextSet;
+      number = number == 0 ? 1 : number;
 
-      var pageNumber = number == 0 ? 1 : number;
-      var pageSkip = (pageNumber - 1) * length;
       var (field, order) = _sort;
+      var skip = (number - 1) * length;
 
       var ordered = string.IsNullOrWhiteSpace(field) ? _query
          : order == Ordering.ASC ? _query.OrderBy(field)
          : _query.OrderBy($"{field} descending");
 
-      var paging = length > 0 && number > 0
-         ? ordered.Skip(pageSkip).Take(length)
+      var paging = length > 0
+         ? ordered.Skip(skip).Take(length)
          : ordered;
 
       var items = await paging.ToArrayAsync();

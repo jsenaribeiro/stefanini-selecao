@@ -1,8 +1,9 @@
-import { Icon } from "../../components";
-import type { Pessoa } from "../../models/pessoa";
-import { usePessoa } from "../../hooks/usePessoa";
-import type { Paged } from "../../commons/types";
+import { css } from "@emotion/react";
 import { useState } from "react";
+import type { Paged, ValueEvent } from "../../commons/types";
+import { Icon } from "../../components";
+import { usePessoa } from "../../hooks/usePessoa";
+import type { Pessoa } from "../../models/pessoa";
 
 interface Props {
 	onEdit: (e: Pessoa) => void;
@@ -10,7 +11,8 @@ interface Props {
 
 export function PessoaTable(props: Props) {
 	const [pagina, setPagina] = useState(1);
-	const swr = usePessoa({ page: { length: 3, number: pagina } });
+	const [linhas, setLinhas] = useState(10);
+	const swr = usePessoa({ page: { length: linhas, number: pagina } });
 	const pessoas = swr.value;
 
 	if (swr.error) return <div>{swr.error.message}</div>;
@@ -22,17 +24,17 @@ export function PessoaTable(props: Props) {
 		.map((n) => [pessoas, n])
 		.map((x) => x as [Paged<Pessoa>, number]);
 
-	function onPaginar(n: number) {
-		// TODO: fazer paginação
-		setPagina(n);
-	}
-
 	const convertDataNascimento = (p) =>
 		Date.fromToString(p.nascimento, "yyyy-MM-dd", "dd/MM/yyyy");
 
+	function onSetPageSize(e) {
+		const value = parseInt(e.target.value) || 10;
+		setLinhas(value);
+	}
+
 	const PageNumber = ([p, n]: [Paged<Pessoa>, number]) => (
-		<span key={n} className="p-1">
-			{n != p.number && <a onClick={() => onPaginar(n)}>{n}</a>}
+		<span key={n}>
+			{n != p.number && <a onClick={() => setPagina(n)}>{n}</a>}
 			{n == p.number && <span className="page-selected">{n}</span>}
 		</span>
 	);
@@ -76,12 +78,52 @@ export function PessoaTable(props: Props) {
 				</thead>
 				<tbody>{pessoas?.records.map(PessoaBody)}</tbody>
 			</table>
-			<section className="grid grid-cols-[1fr_1fr]">
-				<div>{paginas.map(PageNumber)}</div>
-				<div style={{ justifySelf: "end" }}>
-					{pessoas?.sum} total de registros
+			<section css={pageStyle} cols="auto 1fr 1fr">
+				<div cols="auto auto">
+					<label></label>
+					<select onChange={onSetPageSize} value={linhas}>
+						<option value="2">2</option>
+						<option value="10">10</option>
+						<option value="25">25</option>
+						<option value="50">50</option>
+						<option value="75">75</option>
+						<option value="100">100</option>
+					</select>
 				</div>
+				<div className="page">{paginas.map(PageNumber)}</div>
+				<div className="page counter">{pessoas?.sum} total de registros</div>
 			</section>
 		</>
 	);
 }
+
+const pageStyle = css`	
+	div.page.counter {
+		text-align: right;
+		justify-self: end;
+	}
+
+	div.page {
+		margin-left: 15px;
+	}
+
+	div.page > span {
+		font-weight: bolder;
+		margin-top: 5px;
+	}
+
+	div.page > span > a,
+	div.page > span > a:hover,
+	div.page > span > span {
+		display: inline-block;
+		padding: 0px 10px !important;
+		border: solid 1px #444;
+		line-height: 35px;
+	}
+
+	div.page > span > span {
+		color: var(--inverse);
+		background: var(--primary);
+		font-weight: bolder;
+	}
+`;

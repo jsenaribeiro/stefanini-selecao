@@ -13,6 +13,12 @@ using System.Text.Json;
 
 public static class AddExtensions
 {
+#if DEBUG
+   const bool IS_DEBUG = true;
+#else
+   const bool IS_DEBUG = false;
+#endif
+
    public static IServiceCollection AddControllers(this IServiceCollection services)
    {
       void configureControllers(MvcOptions options) =>
@@ -84,12 +90,8 @@ public static class AddExtensions
 
       var connection = configuration.GetConnectionString("DefaultConnection");
 
-#if RELEASE
-         services.AddDbContext<SqlContext>(opt => opt.UseSqlServer(connection));
-#else
-      if (test) services.AddDbContext<SqlContext>(opt => opt.UseInMemoryDatabase("db"));
-      else services.AddDbContext<SqlContext>(opt => opt.UseSqlServer(connection));
-#endif
+      if (!IS_DEBUG || !test) services.AddDbContext<SqlContext>(opt => opt.UseSqlServer(connection));
+      else services.AddDbContext<SqlContext>(opt => opt.UseInMemoryDatabase("db"));
 
       return services;
    }

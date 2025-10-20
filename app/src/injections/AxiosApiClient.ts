@@ -13,6 +13,7 @@ export class AxiosApiClient<E, I> extends RestApi<E, I> {
 
 	override async search(args: Object) {
 		const query = args ? args.toQueryString() : "";
+		console.log("query", query);
 		const result = await this.axios.get(query).then((x) => x.data);
 		return result;
 	}

@@ -1,0 +1,30 @@
+.right {
+	text-align: right;
+}
+
+.default {
+	background: var(--default);
+}
+
+.primary {
+	background: var(--primary);
+}
+
+.flex {
+	display: flex;
+	flex-direction: column;
+}
+
+.left {
+	text-align: left;
+}
+
+.right {
+	text-align: right;
+	float: right;
+}
+
+[cols] {
+	display: grid;
+	grid-template-columns: var(--cols, "1fr 1fr");
+}

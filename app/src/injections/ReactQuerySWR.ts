@@ -1,11 +1,11 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type {
 	MutationFunction,
 	UseMutationResult,
 	UseQueryResult,
 } from "@tanstack/react-query";
-import type { primitive, Paged } from "../commons/types";
-import { SWR, type EventSWR } from "../commons/swr";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { type EventSWR, SWR } from "../commons/swr";
+import type { Paged, primitive } from "../commons/types";
 
 type Fn<A, R> = MutationFunction<R, A>;
 
@@ -29,7 +29,6 @@ export class ReactQuerySWR<T, I> extends SWR<T, I> {
 	override build(query) {
 		if (query && !this.query) this.query = query;
 		else if (query) Object.merge(query, this.query);
-
 		if (!this.api) throw "ReactQuerySWR: restApi está nulo";
 
 		this.queryResult = useQuery<Paged<T>>({

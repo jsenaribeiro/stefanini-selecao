@@ -5,13 +5,13 @@ services:
       dockerfile: Dockerfile
     ports: ["3000:80"]
     # profiles: ["all"]
-    container_name: app
+    container_name: frontend
 
   webapi:
     ports: [5000:80]
     # profiles: ["all"]
     networks: [network]
-    container_name: webapi
+    container_name: backend
     build:
       context: ./api
       dockerfile: Dockerfile
@@ -24,7 +24,7 @@ services:
   sqlserver:
     image: mcr.microsoft.com/azure-sql-edge
     volumes: [db:/var/opt/mssql]
-    container_name: sqlserver
+    container_name: database
     networks: [network]
     ports: [1433:1433]
     healthcheck:
