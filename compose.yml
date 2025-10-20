@@ -17,9 +17,26 @@ services:
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=cadastro_db;User=sa;Password=PassW0rd@123;TrustServerCertificate=True;
+      - ConnectionStrings__SqlServer=Server=sqlserver,1433;Database=cadastro_db;User=sa;Password=PassW0rd@123;TrustServerCertificate=True;
+      - ConnectionStrings__H2=-Host=localhost;Port=1521;Database=testdb;Username=sa;Password=123
     depends_on:
       sqlserver: { condition: service_healthy }
+
+  # TODO: migrar para h2
+  # h2:
+  #   image: oscarfonts/h2
+  #   container_name: h2
+  #   ports: [8082:8082, 1521:1521]
+  #   environment:
+  #     - H2_OPTIONS=-ifNotExists -tcp -tcpAllowOthers -web -webAllowOthers -user sa -password 123
+  #   command: >
+  #     java -jar h2*.jar
+  #     -tcp -tcpAllowOthers -ifNotExists
+  #     -web -webAllowOthers
+  #     -tcpPort 1521
+  #     -baseDir /opt/h2-data
+  #   volumes: [h2data:/opt/h2-data]
+  #   restart: unless-stopped
 
   sqlserver:
     image: mcr.microsoft.com/azure-sql-edge
@@ -46,3 +63,4 @@ networks:
 
 volumes:
   db: { driver: local }
+  h2: { driver: local }

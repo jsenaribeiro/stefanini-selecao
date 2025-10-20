@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-public class SqlContext : DbContext
+public class H2Context : DbContext
 {
    public DbSet<Pessoa> Pessoas { get; set; }
 
-   public SqlContext(DbContextOptions<SqlContext> dco, ILogger<SqlContext> logger) : base(dco)
+   public H2Context(DbContextOptions<H2Context> dco, ILogger<H2Context> logger) : base(dco)
    {
-      logger.LogInformation("SqlContext");
+      logger.LogInformation("H2Context");
 
       if (Database.IsInMemory()) Database.EnsureCreated();
 
@@ -37,9 +37,9 @@ public class SqlContext : DbContext
 
          logger.LogInformation("ConnectionString: " + connectionStringLog);
 
-         var optionsBuilder = new DbContextOptionsBuilder<SqlContext>();
+         var optionsBuilder = new DbContextOptionsBuilder<H2Context>();
 
-         optionsBuilder.UseSqlServer(connectionString, options =>
+         optionsBuilder.UseMy(connectionString, options =>
          {
             options.EnableRetryOnFailure(
                maxRetryCount: 10,

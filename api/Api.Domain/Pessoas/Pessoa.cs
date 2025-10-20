@@ -7,7 +7,7 @@ public class Pessoa : Entity<Guid>
       Nome = nome;
       Nascimento = nascimento;
    }
-   
+
    public Pessoa(string nome, string nascimento)
    {
       var invalids = new List<Invalid>();
@@ -42,4 +42,6 @@ public class Pessoa : Entity<Guid>
    public DateOnly Nascimento { get; set; }
 
    public string? Nacionalidade { get; set; }
+
+   public Endereco? Endereco { get; set; }
 }

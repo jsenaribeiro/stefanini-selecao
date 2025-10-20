@@ -22,5 +22,13 @@ public class PessoaConfiguration : AbstractConfiguration<Pessoa, Guid>
 
       etb.HasIndex(x => x.CPF)
          .IsUnique();
+
+      etb.OwnsOne(x => x.Endereco, x =>
+      {
+         x.Property(p => p.Numero);
+         x.Property(p => p.Bairro);
+         x.Property(p => p.Pais);
+         x.Property(p => p.Rua);
+      });
    }
 }

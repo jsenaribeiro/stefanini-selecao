@@ -1,4 +1,7 @@
 using System.Globalization;
+using Asp.Versioning.ApiExplorer;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.OpenApi.Models;
 
 public static class UseExtensions
 {
@@ -8,7 +11,17 @@ public static class UseExtensions
       {
          app.UseDeveloperExceptionPage();
          app.UseSwagger();
-         app.UseSwaggerUI();
+         app.UseSwaggerUI(options =>
+         {
+            // TODO: seletor de versoes no swagger
+            // var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
+            // foreach (var description in provider.ApiVersionDescriptions)
+            // {
+            //    var swaggerURL = $"/swagger/{description.GroupName}/swagger.json";
+            //    options.SwaggerEndpoint(swaggerURL, description.GroupName.ToUpperInvariant());
+            // }
+         });
       }
       else
       {

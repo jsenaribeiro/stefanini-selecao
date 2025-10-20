@@ -10,6 +10,7 @@ namespace Api.Service.Handlers;
 public class PessoaHandler : AbstractHandler
    , IRequestHandler<ConsultarPessoasQuery, PessoaListResult>
    , IRequestHandler<CadastrarPessoaCommand, PessoaResult>
+   , IRequestHandler<CadastrarPessoaCommandV2, PessoaResult>
    , IRequestHandler<AlterarPessoaCommand, PessoaResult>
    , IRequestHandler<RemoverPessoaCommand, bool>
 {
@@ -87,5 +88,29 @@ public class PessoaHandler : AbstractHandler
       Invalid.ThrowIfInvalid(command, provider);
 
       return true;
+   }
+
+   public async Task<PessoaResult> Handle(CadastrarPessoaCommandV2 command, CancellationToken cancellationToken)
+   {
+      ArgumentNullException.ThrowIfNull(command, nameof(ConsultarPessoasQuery));
+
+      if (command.Endereco is null)
+         throw new DomainException(400, "Endereço é obrigatório");
+
+      var pessoa = new Pessoa(command.Nome, command.Nascimento)
+      {
+         CPF = command.CPF,
+         Sexo = command.Sexo,
+         Email = command.Email,
+         Nacionalidade = command.Nacionalidade,
+         Endereco = command.Endereco
+      };
+
+      Invalid.ThrowIfInvalid(command, provider);
+      Invalid.ThrowIfInvalid(pessoa, provider);
+
+      pessoa = await unitOfWork.Pessoas.CreateAsync(pessoa);
+
+      return new PessoaResult(pessoa);
    }
 }

@@ -8,11 +8,11 @@ namespace Api.Service.Controllers;
 using AsyncResult = Task<IActionResult>;
 
 [ApiController]
-[ApiVersion("1.0")]
+[ApiVersion("2.0")]
 [Route("api/[controller]s")]
-public class PessoaController : AbstractController<Pessoa>
+public class PessoaControllerV2 : AbstractController<Pessoa>
 {
-   public PessoaController(IServiceProvider provider) : base(provider) { }
+   public PessoaControllerV2(IServiceProvider provider) : base(provider) { }
 
    /// <summary>
    /// Consultar pessoas
@@ -25,7 +25,7 @@ public class PessoaController : AbstractController<Pessoa>
    /// </summary>
    /// <returns>Pessoa cadastrar com Id preenchido</returns>
    [HttpPost]
-   public AsyncResult Post([FromBody] CadastrarPessoaCommand command) =>
+   public AsyncResult Post([FromBody] CadastrarPessoaCommandV2 command) =>
       SendAsync(command, true);
 
    /// <summary>
