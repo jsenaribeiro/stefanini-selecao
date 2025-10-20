@@ -36,7 +36,7 @@ public record PessoaListResult : PageListResult<PessoaResult>
 
    public PessoaListResult(PageList<Pessoa> pessoas, Page pagina) : this(0, 0, 0, 0, [])
    {
-      var quantidadePaginas = pessoas.Total / pagina.Length;
+      var quantidadePaginas = (pessoas.Total / pagina.Length) + 1;
       var registros = pessoas.Items.Select(p => new PessoaResult(p)).ToArray();
 
       sum = pessoas.Total;

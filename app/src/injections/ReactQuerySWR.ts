@@ -24,7 +24,7 @@ export class ReactQuerySWR<T, I> extends SWR<T, I> {
 
 	override build(query) {
 		if (query && !this.query) this.query = query;
-		else if (query) Object.merge(query, this.query);
+		else if (query) Object.merge(this.query, query, true);
 		if (!this.api) throw "ReactQuerySWR: restApi está nulo";
 
 		this.queryResult = useQuery<Paged<T>>({
@@ -63,12 +63,10 @@ export class ReactQuerySWR<T, I> extends SWR<T, I> {
 	}
 
 	override load(query?: any) {
-		if (query) this.query = query;
-
 		this.onPending();
-		const queryClient = useQueryClient();
 
-		console.log("load", query);
+		if (query) this.query = query;
+		const queryClient = useQueryClient();
 		return queryClient.fetchQuery<any>(this.queryfied as any);
 	}
 

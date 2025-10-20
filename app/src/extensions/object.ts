@@ -5,20 +5,21 @@ declare global {
 	}
 
 	interface ObjectConstructor {
-		merge(from: object, to: object): object;
-		merge(from: object, to: object, ignoreNull: boolean): object;
+		merge(receptor: object, donator: object): void;
+		merge(receptor: object, donator: object, ignoreNull: boolean): void;
 	}
 }
 
-Object.merge = (from, to, ignore = false) => {
-	if (!from) return to;
-	if (!to) return from;
+Object.merge = function(receptor, donator, allowFalsy = false) {
+  Object.keys(donator).forEach(function(field) {
+    const value = donator[field];
+	 const falsies = ["", null, undefined]
+	 const isFalsy = falsies.some(x => x === value)
 
-	return Object.entries(from)
-		.filter(([_, val]) => !ignore || val !== null)
-		.filter(([_, val]) => !ignore || val !== undefined)
-		.reduce((obj, [key, val]) => (obj[key] = val ? obj : obj), {});
-};
+    if (allowFalsy || isFalsy == false) 
+      receptor[field] = value;
+  });
+}
 
 // OBSERVACAO: nunca use o Object.prototype = function !!!
 // usar o defineProperty ao invés do Object.prototype mais comum

@@ -3,10 +3,8 @@ import { Link, Route, Routes } from "react-router-dom";
 import Inicial from "./pages/Inicial";
 import Pessoa from "./pages/Pessoa";
 import Sobre from "./pages/Sobre";
-import "./App.css";
 
 function App() {
-	console.log(cssApp);
 	return (
 		<main id="app">
 			<aside>

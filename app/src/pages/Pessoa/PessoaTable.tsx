@@ -1,34 +1,31 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
 import { Icon } from "../../components";
-import { usePessoa } from "../../hooks/usePessoa";
 import type { Pessoa } from "../../models/pessoa";
+import { PESSOAS_DEFAULT, usePessoa } from "../../hooks/usePessoa";
 
 interface Props {
 	onEdit: (e: Pessoa) => void;
 }
 
+const dataFormat = (p: Pessoa) => Date.fromToString(p.nascimento, "yyyy-MM-dd", "dd/MM/yyyy");
+
 export function PessoaTable(props: Props) {
 	const [pagina, setPagina] = useState(1);
 	const [linhas, setLinhas] = useState(10);
 	const swr = usePessoa({ page: { length: linhas, number: pagina } });
-	const pessoas = swr.value;
+	const pessoas = swr.value || PESSOAS_DEFAULT;
 
 	if (swr.error) return <div>{swr.error.message}</div>;
 	if (swr.await) return <div>carregando...</div>;
 
 	function onSetPageSize(e) {
 		const value = parseInt(e.target.value, 10) || 10;
+		console.log('page size ', value)
 		setLinhas(value);
 	}
 
-	const populando = (pessoas?.records || []).map((pessoa, i) => ({ props, pessoa, swr, i }));
-
-	const paginacao = Array.range(1, pessoas?.pages ?? 1).map((now) => ({
-		page: pessoas?.number ?? 1,
-		apply: setPagina,
-		now,
-	}));
+	console.log(pessoas)
 
 	return (
 		<>
@@ -44,7 +41,24 @@ export function PessoaTable(props: Props) {
 						<th>Ação</th>
 					</tr>
 				</thead>
-				<tbody>{populando.map(PessoaBody)}</tbody>
+				<tbody>
+					{
+						pessoas.records.map((pessoa, i) => (
+							<tr key={i}>
+								<td>{pessoa.id?.slice(0, 7)}</td>
+								<td>{pessoa.nome}</td>
+								<td>{pessoa.cpf}</td>
+								<td>{pessoa.email}</td>
+								<td>{dataFormat(pessoa)}</td>
+								<td>{pessoa.nacionalidade}</td>
+								<td style={{ textAlign: "center" }}>
+									<Icon tooltip="editar" name="edit_note" onClick={() => props.onEdit(pessoa)} />
+									<Icon tooltip="deletar" name="delete" onClick={() => swr.drop(pessoa.id)} />
+								</td>
+							</tr>
+						))
+					}
+				</tbody>
 			</table>
 			<section css={pageStyle} cols="auto 1fr 1fr">
 				<select onChange={onSetPageSize} value={linhas}>
@@ -55,40 +69,21 @@ export function PessoaTable(props: Props) {
 					<option value="75">75</option>
 					<option value="100">100</option>
 				</select>
-				<div className="page">{paginacao.map(PageNumber)}</div>
+				<div className="page">
+					{
+						Array.range(1, pessoas?.pages ?? 1).map((page) => <span key={page}>
+							{page === pessoas?.number && <span>{page}</span>}
+							{page !== pessoas?.number && (
+								<a role="none" onClick={() => setPagina(page)}>
+									{page}
+								</a>
+							)}
+						</span>)
+					}
+				</div>
 				<div className="page counter">{pessoas?.sum} total de registros</div>
 			</section>
 		</>
-	);
-}
-
-const PageNumber = ({ apply, page, now }: { apply: Function; page: number; now: number }) => (
-	<span key={page}>
-		{page === now && <span>{page}</span>}
-		{page !== now && (
-			<a role="none" onClick={() => apply(page)}>
-				{page}
-			</a>
-		)}
-	</span>
-);
-
-function PessoaBody({ props, pessoa, swr, i }) {
-	const convertDataNascimento = (p: Pessoa) => Date.fromToString(p.nascimento, "yyyy-MM-dd", "dd/MM/yyyy");
-
-	return (
-		<tr key={i}>
-			<td>{pessoa.id?.slice(0, 7)}</td>
-			<td>{pessoa.nome}</td>
-			<td>{pessoa.cpf}</td>
-			<td>{pessoa.email}</td>
-			<td>{convertDataNascimento(pessoa)}</td>
-			<td>{pessoa.nacionalidade}</td>
-			<td style={{ textAlign: "center" }}>
-				<Icon tooltip="editar" name="edit_note" onClick={() => props.onEdit(pessoa)} />
-				<Icon tooltip="deletar" name="delete" onClick={() => swr.drop(pessoa.id)} />
-			</td>
-		</tr>
 	);
 }
 
