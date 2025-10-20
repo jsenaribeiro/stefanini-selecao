@@ -2,10 +2,8 @@ namespace Api.Service.Controllers;
 
 using MediatR;
 using Api.Domain;
-using Api.Infrastructure.Values;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Authentication;
-using Microsoft.SqlServer.Server;
 using Api.Service.Results;
 using System.Text.Json;
 

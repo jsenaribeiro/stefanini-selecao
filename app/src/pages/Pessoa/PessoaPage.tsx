@@ -3,19 +3,21 @@ import { PessoaTable } from "./PessoaTable";
 import type { Pessoa } from "../../models/pessoa";
 import { usePessoa } from "../../hooks/usePessoa";
 import { useProxy } from "../../hooks/useProxy";
-import { Icon } from "../../components";
+import { Icon, useLoading, useToast } from "../../components";
+import { useRef, useState } from "react";
 import { PageModel } from "./PessoaShare";
-import type { ValueEvent } from "../../commons/types";
-import { useState } from "react";
 import "./index.css";
 
 export function PessoaPage() {
+	const setToast = useToast();
+	const [_, setLoading] = useLoading();
 	const [filtro, setFiltro] = useState("");
+	const inputRef = useRef<HTMLInputElement>(null);
 	const model = useProxy(true, { ...new PageModel() });
-	const { isLoading, error } = usePessoa(model.query);
+	const swr = usePessoa({ nome: filtro });
 
-	if (isLoading) return <progress />;
-	if (error) return <div>{error.message}</div>;
+	// if (swr.await) setLoading(true);
+	// if (swr.error) return <div>{swr.error.message}</div>;
 
 	const onClose = () => (model.show = "");
 
@@ -24,19 +26,32 @@ export function PessoaPage() {
 		model.item = p;
 	}
 
-	function onFiltrar(e) {
-		const event = e as ValueEvent;
-		const value = event.target.value;
-		setFiltro(value);
+	function onFiltrar() {
+		const value = inputRef.current?.value;
+		setFiltro(value || "");
 	}
+
+	onFiltrar.bind(PessoaPage);
+
+	swr.on("pending", () => setLoading(true));
+
+	swr.on("success", function () {
+		setLoading(false);
+		setToast("success", "Opeação realizada com sucesso!");
+	});
+
+	swr.on("failure", function (error) {
+		setToast("failure", error.message);
+	});
 
 	return (
 		<>
 			<h1> Pessoas </h1>
 			<section id="pessoa">
 				<aside id="panel">
-					Busca por nome <input value={filtro} onInput={onFiltrar} />
-					<button>Filtrar</button>
+					Busca por nome
+					<input ref={inputRef} />
+					<button onClick={() => onFiltrar()}>Filtrar</button>
 					<button onClick={() => onModal(undefined)}>
 						<Icon name="add_circle" />
 						Incluir

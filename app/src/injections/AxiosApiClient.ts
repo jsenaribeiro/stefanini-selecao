@@ -1,38 +1,36 @@
-import axios, { type AxiosInstance, type AxiosResponse } from "axios";
-import { injectable, unmanaged } from "inversify";
-import type { Result } from "../commons/api";
+import axios, { type AxiosInstance } from "axios";
+import { injectable } from "inversify";
 import { RestApi } from "../commons/rest";
-
-type IResponse = AxiosResponse<any, any, any>;
-
-const getResult = (res: IResponse): Result => ({
-	ok: res.status < 300,
-	size: res.status < 300 ? res?.data?.total || 1 : 0,
-	value: res.status < 300 ? res.data?.items || res.data : null,
-	status: res.status,
-	message: res.status < 300 ? null : res.data?.message || res?.data,
-});
 
 @injectable()
 export class AxiosApiClient<E, I> extends RestApi<E, I> {
-	private readonly axios: AxiosInstance;
+	private axios!: AxiosInstance;
 
-	constructor(baseURL: string) {
-		super();
-		this.axios = axios.create({ baseURL });
+	override build() {
+		this.axios = axios.create({ baseURL: this.route });
+		return this;
 	}
 
-	override search = (args?: any) =>
-		this.axios.get(args.toString("query")).then(getResult);
+	override async search(args: Object) {
+		const query = args ? args.toQueryString() : "";
+		const result = await this.axios.get(query).then((x) => x.data);
+		return result;
+	}
 
-	override create = (route: string, entity: E) =>
-		this.axios.post(route, entity).then(getResult);
+	override create = (entity: E) =>
+		this.axios.post(this.route, entity).then((x) => x.data);
 
-	override update = (route: string, entity: E & { id: I }) =>
-		this.axios.put(`${route}/${entity.id}`, entity).then(getResult);
+	override update = (entity: E & { id: I }) =>
+		this.axios.put(`${this.route}/${entity.id}`, entity).then((x) => x.data);
 
-	override delete = (route: string, id: I) =>
-		route.endsWith((id as any)?.toString())
-			? this.axios.delete(route).then(getResult)
-			: this.axios.delete(`${route}/${id}`).then(getResult);
+	override delete = (id: I) => {
+		try {
+			return this.route.endsWith((id?.toString() ?? "")?.toString())
+				? this.axios.delete(this.route)
+				: this.axios.delete(`${this.route}/${id}`).then((x) => x.data);
+		} catch (ex) {
+			console.log("errou aqui");
+			throw ex;
+		}
+	};
 }

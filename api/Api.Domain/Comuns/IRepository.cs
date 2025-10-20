@@ -56,7 +56,7 @@ public interface IReadRepository<E, I> where E : Entity<I> where I : struct
 
    Task<T[]> ListAsync<T>(bool isReadOnly, Expression<Func<E, T>> selector);
 
-   Task<(E[] Items, int Total)> ListAsync(int number, int length);
+   Task<PageList<E>> ListAsync(int number, int length);
 
    IReadRepository<E, I> OrderBy(string? field, Ordering order);
 

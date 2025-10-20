@@ -8,7 +8,7 @@ namespace Api.Service.Controllers;
 using AsyncResult = Task<IActionResult>;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]s")]
 public class PessoaController : AbstractController<Pessoa>
 {
    public PessoaController(IServiceProvider provider) : base(provider) { }
@@ -24,20 +24,21 @@ public class PessoaController : AbstractController<Pessoa>
    /// </summary>
    /// <returns>Pessoa cadastrar com Id preenchido</returns>
    [HttpPost]
-   public AsyncResult Post([FromBody] CadastrarPessoaCommand command) => SendAsync(command, true);
+   public AsyncResult Post([FromBody] CadastrarPessoaCommand command) =>
+      SendAsync(command, true);
 
    /// <summary>
    /// Alterar pessoa
    /// </summary>
    /// <returns>Pessoa cadastrar com Id preenchido</returns>
-   [HttpPut("/{id}")]
+   [HttpPut("{id}")]
    public AsyncResult Put(Guid id, [FromBody] AlterarPessoaCommand command) =>
       SendAsync(command with { Id = id });
 
    /// <summary>
    /// Excluir uma pessoa cadastrada pelo seu id
    /// </summary>
-   [HttpDelete("/{id}")]
-   public AsyncResult Delete(Guid id, [FromBody] RemoverPessoaCommand command) =>
-      SendAsync(command with { Id = id });
+   [HttpDelete("{id}")]
+   public AsyncResult Delete(Guid id) =>
+      SendAsync(new RemoverPessoaCommand(id));
 }

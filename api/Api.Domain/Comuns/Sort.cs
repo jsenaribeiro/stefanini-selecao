@@ -1,6 +1,4 @@
-using Api.Domain;
-
-namespace Api.Infrastructure.Values;
+namespace Api.Domain;
 
 public record Sort(string? Field, Ordering Order = Ordering.ASC)
 {

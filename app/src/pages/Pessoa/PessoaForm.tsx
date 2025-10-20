@@ -8,38 +8,34 @@ interface Props {
 }
 
 export function PessoaForm(props: Props) {
-	const { create, update } = usePessoa();
+	const pessoarSWR = usePessoa();
 	const show = props.model?.show ?? "create";
 	const pessoa = (show == "update" ? props.model?.item : {}) as Pessoa;
 	const { id, nome, cpf, sexo, email, nacionalidade } = pessoa;
-
 	const dataNascimento = Date.fromString(pessoa?.nascimento, "dd/MM/yyyy");
 	const data = show == "update" ? dataNascimento.toString("yyyy-MM-dd") : "";
-
-	// console.log("pessoa", show, pessoa);
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		e.stopPropagation();
 
+		const isoDateFormat = "yyyy-MM-dd";
+		const brasilDateFormat = "yyyy-MM-dd";
+		const isUpdate = props.model?.show == "update";
 		const formData = new FormData(e.currentTarget);
 		const pessoa = Object.fromEntries(formData.entries()) as any as Pessoa;
 		const data = pessoa.nascimento as any;
 
-		pessoa.id = (props.model?.show == "create" ? undefined : pessoa.id) as any;
+		pessoa.id = isUpdate ? pessoa.id : undefined;
 
 		pessoa.nascimento =
 			data instanceof Date
-				? (data.toString("dd/MM/yyyy") as any)
-				: Date.is(data, "yyyy-MM-dd")
-					? Date.fromToString(data, "yyyy-MM-dd", "dd/MM/yyyy")
+				? (data.toString(isoDateFormat) as any)
+				: Date.is(data, isoDateFormat)
+					? Date.fromToString(data, brasilDateFormat, isoDateFormat)
 					: data;
 
-		const action = props.model?.show == "update" ? update : create;
-
-		// console.log(props.model?.show, pessoa);
-
-		action(pessoa);
+		isUpdate ? pessoarSWR.save(pessoa, pessoa.id) : pessoarSWR.save(pessoa);
 
 		if (props.model) props.model.item = undefined;
 

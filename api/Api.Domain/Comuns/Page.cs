@@ -1,4 +1,4 @@
-namespace Api.Infrastructure.Values;
+namespace Api.Domain;
 
 public record Page(int Length, int Number)
 {

@@ -1,23 +1,21 @@
 using MediatR;
 using Api.Domain;
 using Api.Domain.Pessoas;
-using Api.Infrastructure.Values;
 using Api.Service.Queries;
 using Api.Service.Commands;
 using Api.Service.Results;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Service.Handlers;
 
 public class PessoaHandler : AbstractHandler
-   , IRequestHandler<ConsultarPessoasQuery, PageList<PessoaResult>>
+   , IRequestHandler<ConsultarPessoasQuery, PessoaListResult>
    , IRequestHandler<CadastrarPessoaCommand, PessoaResult>
    , IRequestHandler<AlterarPessoaCommand, PessoaResult>
    , IRequestHandler<RemoverPessoaCommand, bool>
 {
    public PessoaHandler(IServiceProvider provider) : base(provider) { }
 
-   public async Task<PageList<PessoaResult>> Handle(ConsultarPessoasQuery query, CancellationToken cancel)
+   public async Task<PessoaListResult> Handle(ConsultarPessoasQuery query, CancellationToken cancel)
    {
       if (query is null) throw new ArgumentNullException(nameof(ConsultarPessoasQuery));
 
@@ -25,12 +23,12 @@ public class PessoaHandler : AbstractHandler
 
       var nome = string.IsNullOrWhiteSpace(query.Nome) ? null : query.Nome.ToLower();
 
-      var (items, total) = await unitOfWork.Pessoas
+      var pagedList = await unitOfWork.Pessoas
          .Where(p => nome == null || p.Nome.ToLower().Contains(nome))
          .OrderBy(query.Sort.Field, query.Sort.Order)
          .ListAsync(query.Page.Number, query.Page.Length);
 
-      return PessoaResult.From(total, items);
+      return new PessoaListResult(pagedList, query.Page);
    }
 
    public async Task<PessoaResult> Handle(CadastrarPessoaCommand command, CancellationToken cancel)

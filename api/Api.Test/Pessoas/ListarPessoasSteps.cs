@@ -1,5 +1,4 @@
 using Api.Domain.Pessoas;
-using Api.Infrastructure.Values;
 using Api.Service.Controllers;
 using TechTalk.SpecFlow;
 using Shouldly;

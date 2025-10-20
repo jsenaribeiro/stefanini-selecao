@@ -14,12 +14,6 @@
 		"ignoreUnknown": true
 	},
 
-	"lint": {
-		"complexity": {
-			"useArrowFunction": false
-		}
-	},
-
 	"linter": {
 		"enabled": true,
 		"rules": {
@@ -37,6 +31,10 @@
 			},
 			"correctness": {
 				"useUniqueElementIds": "off"
+			},
+			"complexity": {
+				"useArrowFunction": false,
+				"noBannedTypes": false
 			}
 		}
 	},
@@ -47,7 +45,8 @@
 	},
 	"javascript": {
 		"formatter": {
-			"quoteStyle": "double"
+			"quoteStyle": "double",
+			"bracketSameLine": true
 		}
 	},
 	"assist": {

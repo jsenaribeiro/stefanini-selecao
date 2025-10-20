@@ -69,7 +69,7 @@ public abstract class AbstractRepository<E, I> : IRepository<E, I>
       return result;
    }
 
-   public async Task<(E[] Items, int Total)> ListAsync(int number, int length)
+   public async Task<PageList<E>> ListAsync(int number, int length)
    {
       _query ??= _contextSet;
 

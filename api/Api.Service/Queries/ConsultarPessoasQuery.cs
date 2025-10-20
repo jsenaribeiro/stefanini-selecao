@@ -1,11 +1,11 @@
-using Api.Domain.Pessoas;
-using Api.Infrastructure.Values;
-using Api.Service.Results;
 using MediatR;
+using Api.Service.Results;
+using Api.Domain;
+using Api.Domain.Pessoas;
 
 namespace Api.Service.Queries;
 
-public record ConsultarPessoasQuery : IRequest<PageList<PessoaResult>>
+public record ConsultarPessoasQuery : IRequest<PessoaListResult>
 {
    public string? Nome { get; set; }
 

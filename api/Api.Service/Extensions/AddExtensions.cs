@@ -8,6 +8,8 @@ using Api.Service.Handlers;
 using System.Diagnostics;
 using Api.Service.Middlers;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 public static class AddExtensions
 {
@@ -16,7 +18,20 @@ public static class AddExtensions
       void configureControllers(MvcOptions options) =>
          options.Filters.Add<JsonExceptionFilter>();
 
-      services.AddControllers(configureControllers);
+      void jsonConfiguration(JsonOptions options)
+      {
+         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+         options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+      }
+
+      services.AddControllers(configureControllers)
+              .AddJsonOptions(jsonConfiguration);
+
+      services.Configure<RouteOptions>(options =>
+      {
+         options.LowercaseUrls = true;
+         options.LowercaseQueryStrings = true;
+      });
 
       return services;
    }

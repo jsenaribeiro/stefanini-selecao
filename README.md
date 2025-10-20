@@ -48,7 +48,23 @@ Arquitetura BFF com microserviço em RESTful API usando conteinerização Docker
 
 ## Pendente
 
-- integracao
-- cloud
-- filtrar
-- paginacao
+- api-app: cloud
+- api-app: paginacao
+- api: teste de cobertura
+- api: analise estática
+
+
+## testes
+
+* POST http://localhost:8080/api/pessoas
+
+```json
+{
+  "sexo": "M",
+  "cpf": "868.833.803-53",
+  "nome": "Jonathan SR",
+  "email": "jsenaribeiro@gmail.com",
+  "nascimento": "2025-10-19",
+  "nacionalidade": "Brasil"
+}
+```

@@ -1,13 +1,19 @@
-version: "3.9"
-
 services:
+  webapp:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports: ["3000:80"]
+    # profiles: ["all"]
+    container_name: app
+
   webapi:
-    ports: [8080:80]
-    profiles: ["all"]
+    ports: [5000:80]
+    # profiles: ["all"]
     networks: [network]
     container_name: webapi
     build:
-      context: api/.
+      context: ./api
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development

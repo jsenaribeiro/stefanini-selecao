@@ -10,7 +10,6 @@ public record AlterarPessoaCommand : IRequest<PessoaResult>
 
    public Guid Id { get; set; }
 
-   [JsonEnum<Sexo>]
    public Sexo? Sexo { get; set; }
 
    public string? CPF { get; set; }
@@ -19,7 +18,6 @@ public record AlterarPessoaCommand : IRequest<PessoaResult>
 
    public string? Email { get; set; }
 
-   [JsonDateOnly]
    public DateOnly? Nascimento { get; set; }
 
    public string? Nacionalidade { get; set; }

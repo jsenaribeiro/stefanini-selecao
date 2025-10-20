@@ -1,5 +1,6 @@
+using Api.Domain;
 using Api.Domain.Pessoas;
-using Api.Infrastructure.Values;
+using Api.Service.Queries;
 
 namespace Api.Service.Results;
 
@@ -12,7 +13,7 @@ public record PessoaResult
       Sexo = pessoa.Sexo?.ToString()[0] ?? ' ';
       Nome = pessoa.Nome;
       Email = pessoa.Email;
-      Nascimento = pessoa.Nascimento.ToString("dd/MM/yyyy");
+      Nascimento = pessoa.Nascimento.ToString("yyyy-MM-dd");
       Nacionalidade = pessoa.Nacionalidade;
    }
 
@@ -26,7 +27,19 @@ public record PessoaResult
 
    public static PessoaResult[] From(params Pessoa[] pessoas) =>
       pessoas.Select(p => new PessoaResult(p)).ToArray();
+}
 
-   public static PageList<PessoaResult> From(int total, params Pessoa[] pessoas) =>
-      new PageList<PessoaResult>(From(pessoas), total);
+public record PessoaListResult : PageListResult<PessoaResult>
+{
+   public PessoaListResult(int sum, int size, int pages, int number, PessoaResult[] records)
+      : base(sum, size, pages, number, records) { }
+
+   public PessoaListResult(PageList<Pessoa> pessoas, Page pagina) : this(0, 0, 0, 0, [])
+   {
+      sum = pessoas.Total;
+      size = pagina.Length;
+      pages = pessoas.Total / pagina.Number;
+      number = pagina.Number;
+      records = pessoas.Items.Select(p => new PessoaResult(p)).ToArray();
+   }
 }

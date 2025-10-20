@@ -4,6 +4,4 @@ export class PageModel {
 	public show: "create" | "update" | "" = "";
 
 	public item?: Pessoa = undefined;
-
-	public query?: Partial<Pessoa>;
 }

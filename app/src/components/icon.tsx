@@ -1,7 +1,7 @@
-import "./icon.css";
-
 interface Props {
 	name: string;
+	size?: string;
+	style?: any;
 	tooltip?: string;
 	outlined?: boolean;
 	onClick?: () => void;
@@ -14,7 +14,12 @@ export function Icon(props: Props) {
 	const css = `icon material-icons${outlined} ${hover}`;
 
 	return (
-		<span title={props.tooltip} onClick={props.onClick} className={css}>
+		<span
+			style={{ ...props.style, fontSize: props.size }}
+			title={props.tooltip}
+			onClick={props.onClick}
+			className={css}
+		>
 			{icon}
 		</span>
 	);
