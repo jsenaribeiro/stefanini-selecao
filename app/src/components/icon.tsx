@@ -15,11 +15,11 @@ export function Icon(props: Props) {
 
 	return (
 		<span
+			role="none"
 			style={{ ...props.style, fontSize: props.size }}
 			title={props.tooltip}
 			onClick={props.onClick}
-			className={css}
-		>
+			className={css}>
 			{icon}
 		</span>
 	);

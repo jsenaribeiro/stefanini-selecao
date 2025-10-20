@@ -20,21 +20,25 @@
 			"recommended": true,
 			"a11y": {
 				"useButtonType": "off",
+				"useValidAnchor": "off",
 				"useKeyWithClickEvents": "off"
+			},
+			"style":{
+				"noNonNullAssertion": "off"
 			},
 			"nursery": {
 				"noJsxLiterals": "off"
 			},
-			"suspicio us": {
+			"suspicious": {
 				"noExplicitAny": "off",
-				"noAsignInExpression": "off"
+				"noAssignInExpressions": "off"
 			},
 			"correctness": {
 				"useUniqueElementIds": "off"
 			},
 			"complexity": {
-				"useArrowFunction": false,
-				"noBannedTypes": false
+				"useArrowFunction": "off",
+				"noBannedTypes": "off"
 			}
 		}
 	},

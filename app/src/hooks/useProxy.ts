@@ -29,8 +29,7 @@ export function useProxy<T>(...params: any[]) {
 			},
 			get(target, prop: string) {
 				const value = target[prop];
-				if (deep && value && typeof value === "object")
-					return createProxy(value);
+				if (deep && value && typeof value === "object") return createProxy(value);
 				else return value;
 			},
 		});

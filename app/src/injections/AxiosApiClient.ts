@@ -18,8 +18,7 @@ export class AxiosApiClient<E, I> extends RestApi<E, I> {
 		return result;
 	}
 
-	override create = (entity: E) =>
-		this.axios.post(this.route, entity).then((x) => x.data);
+	override create = (entity: E) => this.axios.post(this.route, entity).then((x) => x.data);
 
 	override update = (entity: E & { id: I }) =>
 		this.axios.put(`${this.route}/${entity.id}`, entity).then((x) => x.data);

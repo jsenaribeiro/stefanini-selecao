@@ -1,8 +1,8 @@
-import { ioc } from "../injections";
 import { pessoaApi } from "../apis/pessoaApi";
 import { SWR } from "../commons/swr";
-import type { Pessoa } from "../models";
 import type { Paged } from "../commons/types";
+import { ioc } from "../injections";
+import type { Pessoa } from "../models";
 
 export function usePessoa(query?: object): SWR<Pessoa> {
 	return ioc

@@ -44,8 +44,8 @@ export abstract class SWR<E, I = primitive> {
 	public on(type: "success", call: (value: any) => void);
 	public on(type: "failure", call: (error: Error) => void);
 	public on(type: EventSWR, call: Function) {
-		if (type == "success") this.onSuccess = call as any;
-		if (type == "failure") this.onFailure = call as any;
-		if (type == "pending") this.onPending = call as any;
+		if (type === "success") this.onSuccess = call as any;
+		if (type === "failure") this.onFailure = call as any;
+		if (type === "pending") this.onPending = call as any;
 	}
 }

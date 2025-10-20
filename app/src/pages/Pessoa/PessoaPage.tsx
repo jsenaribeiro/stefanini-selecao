@@ -34,7 +34,7 @@ export function PessoaPage() {
 	}
 
 	function onInput() {
-		const equals = inputRef.current?.value == filtro;
+		const equals = inputRef.current?.value === filtro;
 		if (!equals && isDisabled) setDisabled(false);
 		console.log({ equals, isDisabled });
 	}

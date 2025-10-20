@@ -10,10 +10,10 @@ interface Props {
 export function PessoaForm(props: Props) {
 	const pessoarSWR = usePessoa();
 	const show = props.model?.show ?? "create";
-	const pessoa = (show == "update" ? props.model?.item : {}) as Pessoa;
+	const pessoa = (show === "update" ? props.model?.item : {}) as Pessoa;
 	const { id, nome, cpf, sexo, email, nacionalidade } = pessoa;
 	const dataNascimento = Date.fromString(pessoa?.nascimento, "dd/MM/yyyy");
-	const data = show == "update" ? dataNascimento.toString("yyyy-MM-dd") : "";
+	const data = show === "update" ? dataNascimento.toString("yyyy-MM-dd") : "";
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -21,7 +21,7 @@ export function PessoaForm(props: Props) {
 
 		const isoDateFormat = "yyyy-MM-dd";
 		const brasilDateFormat = "yyyy-MM-dd";
-		const isUpdate = props.model?.show == "update";
+		const isUpdate = props.model?.show === "update";
 		const formData = new FormData(e.currentTarget);
 		const pessoa = Object.fromEntries(formData.entries()) as any as Pessoa;
 		const data = pessoa.nascimento as any;

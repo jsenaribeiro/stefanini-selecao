@@ -6,7 +6,7 @@ export default function Home() {
 			<h1>Inicial</h1>
 			<div className="central">
 				<span className="material-icons icon">emoji_objects</span>
-				<label>Tela inicial do projeto de seleção da Stefanini.</label>
+				<p>Tela inicial do projeto de seleção da Stefanini.</p>
 			</div>
 		</div>
 	);

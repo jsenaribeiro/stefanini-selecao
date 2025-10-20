@@ -2,8 +2,6 @@ declare global {
 	interface ArrayConstructor {
 		range(min: number, max: number): number[];
 	}
-
-	interface Array<T> {}
 }
 
 Array.range = function (min, max) {

@@ -1,8 +1,4 @@
-import type {
-	MutationFunction,
-	UseMutationResult,
-	UseQueryResult,
-} from "@tanstack/react-query";
+import type { MutationFunction, UseMutationResult, UseQueryResult } from "@tanstack/react-query";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { type EventSWR, SWR } from "../commons/swr";
 import type { Paged, primitive } from "../commons/types";
@@ -37,7 +33,7 @@ export class ReactQuerySWR<T, I> extends SWR<T, I> {
 		});
 
 		const callback = (type: EventSWR, valueOrError: any) =>
-			type == "failure" && type != undefined
+			type === "failure" && type !== undefined
 				? this.onFailure(valueOrError)
 				: this.onSuccess(valueOrError);
 
@@ -102,12 +98,12 @@ function mutateFactory<A, R>(
 	const params = { queryKey };
 
 	function onError(error) {
-		call && call("failure", error);
+		call?.apply(null, ["failure", error]);
 	}
 
 	function onSuccess(data) {
 		client.invalidateQueries(params);
-		call && call("success", data);
+		call?.apply(null, ["success", data]);
 	}
 
 	return useMutation({ mutationFn, onSuccess, onError });

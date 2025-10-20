@@ -1,11 +1,4 @@
-export type primitive =
-	| string
-	| number
-	| boolean
-	| bigint
-	| symbol
-	| null
-	| undefined;
+export type primitive = string | number | boolean | bigint | symbol | null | undefined;
 
 export type record<T = primitive> = Record<string, T>;
 

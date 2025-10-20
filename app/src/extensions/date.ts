@@ -37,7 +37,7 @@ Date.fromString = function (value?: string, format?: string): Date {
 
 	const d = new Date(map.yyyy, map.MM - 1, map.dd);
 
-	if (isNaN(d.getTime())) return dateDefault;
+	if (Number.isNaN(d.getTime())) return dateDefault;
 
 	return d;
 };
@@ -79,11 +79,7 @@ Date.is = function (value, format) {
 
 	const date = new Date(year, month, day);
 
-	return (
-		date.getFullYear() === year &&
-		date.getMonth() === month &&
-		date.getDate() === day
-	);
+	return date.getFullYear() === year && date.getMonth() === month && date.getDate() === day;
 };
 
 Date.fromToString = function (value?, from?, to?) {

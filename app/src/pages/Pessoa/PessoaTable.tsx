@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import { useState } from "react";
-import type { Paged, ValueEvent } from "../../commons/types";
 import { Icon } from "../../components";
 import { usePessoa } from "../../hooks/usePessoa";
 import type { Pessoa } from "../../models/pessoa";
@@ -18,49 +17,18 @@ export function PessoaTable(props: Props) {
 	if (swr.error) return <div>{swr.error.message}</div>;
 	if (swr.await) return <div>carregando...</div>;
 
-	const [sum, size] = [pessoas?.sum || 0, pessoas?.size || 1];
-
-	const paginas = Array.range(1, (sum / size || 1) + 1)
-		.map((n) => [pessoas, n])
-		.map((x) => x as [Paged<Pessoa>, number]);
-
-	const convertDataNascimento = (p) =>
-		Date.fromToString(p.nascimento, "yyyy-MM-dd", "dd/MM/yyyy");
-
 	function onSetPageSize(e) {
-		const value = parseInt(e.target.value) || 10;
+		const value = parseInt(e.target.value, 10) || 10;
 		setLinhas(value);
 	}
 
-	const PageNumber = ([p, n]: [Paged<Pessoa>, number]) => (
-		<span key={n}>
-			{n != p.number && <a onClick={() => setPagina(n)}>{n}</a>}
-			{n == p.number && <span className="page-selected">{n}</span>}
-		</span>
-	);
+	const populando = (pessoas?.records || []).map((pessoa, i) => ({ props, pessoa, swr, i }));
 
-	const PessoaBody = (pessoa: Pessoa, i: number) => (
-		<tr key={i}>
-			<td>{pessoa.id?.slice(0, 7)}</td>
-			<td>{pessoa.nome}</td>
-			<td>{pessoa.cpf}</td>
-			<td>{pessoa.email}</td>
-			<td>{convertDataNascimento(pessoa)}</td>
-			<td>{pessoa.nacionalidade}</td>
-			<td style={{ textAlign: "center" }}>
-				<Icon
-					tooltip="editar"
-					name="edit_note"
-					onClick={() => props.onEdit(pessoa)}
-				/>
-				<Icon
-					tooltip="deletar"
-					name="delete"
-					onClick={() => swr.drop(pessoa.id)}
-				/>
-			</td>
-		</tr>
-	);
+	const paginacao = Array.range(1, pessoas?.pages ?? 1).map((now) => ({
+		page: pessoas?.number ?? 1,
+		apply: setPagina,
+		now,
+	}));
 
 	return (
 		<>
@@ -76,24 +44,51 @@ export function PessoaTable(props: Props) {
 						<th>Ação</th>
 					</tr>
 				</thead>
-				<tbody>{pessoas?.records.map(PessoaBody)}</tbody>
+				<tbody>{populando.map(PessoaBody)}</tbody>
 			</table>
 			<section css={pageStyle} cols="auto 1fr 1fr">
-				<div cols="auto auto">
-					<label></label>
-					<select onChange={onSetPageSize} value={linhas}>
-						<option value="2">2</option>
-						<option value="10">10</option>
-						<option value="25">25</option>
-						<option value="50">50</option>
-						<option value="75">75</option>
-						<option value="100">100</option>
-					</select>
-				</div>
-				<div className="page">{paginas.map(PageNumber)}</div>
+				<select onChange={onSetPageSize} value={linhas}>
+					<option value="2">2</option>
+					<option value="10">10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+					<option value="75">75</option>
+					<option value="100">100</option>
+				</select>
+				<div className="page">{paginacao.map(PageNumber)}</div>
 				<div className="page counter">{pessoas?.sum} total de registros</div>
 			</section>
 		</>
+	);
+}
+
+const PageNumber = ({ apply, page, now }: { apply: Function; page: number; now: number }) => (
+	<span key={page}>
+		{page === now && <span>{page}</span>}
+		{page !== now && (
+			<a role="none" onClick={() => apply(page)}>
+				{page}
+			</a>
+		)}
+	</span>
+);
+
+function PessoaBody({ props, pessoa, swr, i }) {
+	const convertDataNascimento = (p: Pessoa) => Date.fromToString(p.nascimento, "yyyy-MM-dd", "dd/MM/yyyy");
+
+	return (
+		<tr key={i}>
+			<td>{pessoa.id?.slice(0, 7)}</td>
+			<td>{pessoa.nome}</td>
+			<td>{pessoa.cpf}</td>
+			<td>{pessoa.email}</td>
+			<td>{convertDataNascimento(pessoa)}</td>
+			<td>{pessoa.nacionalidade}</td>
+			<td style={{ textAlign: "center" }}>
+				<Icon tooltip="editar" name="edit_note" onClick={() => props.onEdit(pessoa)} />
+				<Icon tooltip="deletar" name="delete" onClick={() => swr.drop(pessoa.id)} />
+			</td>
+		</tr>
 	);
 }
 

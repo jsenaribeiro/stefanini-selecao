@@ -14,12 +14,10 @@ Object.merge = (from, to, ignore = false) => {
 	if (!from) return to;
 	if (!to) return from;
 
-	Object.entries(from)
+	return Object.entries(from)
 		.filter(([_, val]) => !ignore || val !== null)
 		.filter(([_, val]) => !ignore || val !== undefined)
-		.forEach(([key, val]) => (to[key] = val));
-
-	return to;
+		.reduce((obj, [key, val]) => (obj[key] = val ? obj : obj), {});
 };
 
 // OBSERVACAO: nunca use o Object.prototype = function !!!
@@ -48,7 +46,7 @@ function toQueryString(that) {
 	const isNullOrEndefined = (_, value) => value !== undefined && value !== null;
 
 	const convertValueToString = (obj, [key, val]) => {
-		if (typeof val != "object") obj[key] = String(val);
+		if (typeof val !== "object") obj[key] = String(val);
 
 		Object.entries(val).forEach(([k, v]) => {
 			obj[`${key}.${k}`] = v;
@@ -57,9 +55,7 @@ function toQueryString(that) {
 		return obj;
 	};
 
-	const instance = Object.entries(that)
-		.filter(isNullOrEndefined)
-		.reduce(convertValueToString, initial);
+	const instance = Object.entries(that).filter(isNullOrEndefined).reduce(convertValueToString, initial);
 
 	return `?${new URLSearchParams(instance).toString()}`;
 }

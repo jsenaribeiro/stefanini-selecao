@@ -1,10 +1,4 @@
-import {
-	createContext,
-	useCallback,
-	useContext,
-	useEffect,
-	useState,
-} from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { Icon } from "./icon";
 
 type ToastType = "success" | "warning" | "failure" | "";
@@ -37,7 +31,7 @@ export function Toast(props: Props) {
 		return () => clearTimeout(timer);
 	}
 
-	useEffect(effect, [props.duration, props.onClose]);
+	useEffect(effect, []);
 
 	const iconMap = {
 		success: "check_circle",
@@ -88,7 +82,7 @@ export function Toast(props: Props) {
 	return (
 		<div style={toastStyle}>
 			<Icon size="25px" name={iconMap[props.type]} style={iconStyle} />
-			<label style={labelStyle}>{props.message}</label>
+			<section style={labelStyle}>{props.message}</section>
 		</div>
 	);
 }
@@ -99,11 +93,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
 	const [delay, setDelay] = useState(DELAY_DEFAULT);
 	const [type, setType] = useState<ToastType>("success");
 
-	function callback(
-		toastType: ToastType = "success",
-		text: string,
-		time = DELAY_DEFAULT,
-	) {
+	function callback(toastType: ToastType = "success", text: string, time = DELAY_DEFAULT) {
 		setShow(true);
 		setDelay(time);
 		setMessage(text);
@@ -117,13 +107,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
 		<ToastContext.Provider value={{ setToast }}>
 			{children}
 			{show && (
-				<Toast
-					show={show}
-					type={type}
-					duration={delay}
-					message={message}
-					onClose={() => setShow(false)}
-				/>
+				<Toast show={show} type={type} duration={delay} message={message} onClose={() => setShow(false)} />
 			)}
 		</ToastContext.Provider>
 	);

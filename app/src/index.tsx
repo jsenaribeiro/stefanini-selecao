@@ -11,9 +11,9 @@ import "./index.d.ts";
 import "./extensions";
 
 const queryClient = new QueryClient();
-const rootHTML = document.getElementById("root");
+const rootHTML = document.getElementById("root") ?? document.createElement("fallback");
 
-ReactDOM.createRoot(rootHTML!).render(
+ReactDOM.createRoot(rootHTML).render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<QueryClientProvider client={queryClient}>
