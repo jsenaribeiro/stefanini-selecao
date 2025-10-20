@@ -28,3 +28,13 @@
 	display: grid;
 	grid-template-columns: var(--cols, "1fr 1fr");
 }
+
+.hover {
+	opacity: 75%;
+}
+
+.hover:hover {
+	cursor: pointer;
+	filter: brightness(2);
+	opacity: 100%;
+}

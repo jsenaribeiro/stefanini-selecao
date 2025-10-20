@@ -21,11 +21,8 @@ export function PessoaTable(props: Props) {
 
 	function onSetPageSize(e) {
 		const value = parseInt(e.target.value, 10) || 10;
-		console.log('page size ', value)
 		setLinhas(value);
 	}
-
-	console.log(pessoas)
 
 	return (
 		<>
