@@ -56,7 +56,7 @@ Arquitetura BFF com microserviço em RESTful API usando conteinerização Docker
 
 ## testes
 
-* POST http://localhost:8080/api/pessoas
+* POST http://localhost:5000/api/pessoas
 
 ```json
 {

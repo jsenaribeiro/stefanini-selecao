@@ -4,10 +4,10 @@ WORKDIR /src/Api.Service
 RUN dotnet publish -c Release -o /app /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS execution
-ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_URLS=http://+:80
 WORKDIR /app
-EXPOSE 5000
-EXPOSE 5001
+EXPOSE 80
+EXPOSE 443
 WORKDIR /app
 COPY --from=compilation /app .
 ENTRYPOINT dotnet Api.Service.dll
